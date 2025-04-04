@@ -21,8 +21,7 @@ const CapacityTrend = ({ data, excludeFirstSprint = false }: CapacityTrendProps)
     .sort((a, b) => a.sprintNumber - b.sprintNumber);
 
   return (
-    <div className="mt-24">
-      <h3 className="text-lg font-semibold text-dashboard-blue-dark mb-6 pl-2">Capacity Trend</h3>
+    <div>
       <div className="w-full border-t border-border pt-4">
         <p className="text-sm text-muted-foreground italic py-4 text-center">
           Chart visualization has been removed.
