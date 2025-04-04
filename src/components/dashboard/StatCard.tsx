@@ -7,6 +7,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { InfoIcon } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface StatCardProps {
   title: string;
@@ -18,6 +24,7 @@ interface StatCardProps {
     good: number;
     medium: number;
   };
+  tooltip?: string;
 }
 
 const StatCard = ({
@@ -27,6 +34,7 @@ const StatCard = ({
   className,
   isPercentage = false,
   colorThreshold,
+  tooltip,
 }: StatCardProps) => {
   // Get color based on percentage value
   const getColorClass = () => {
@@ -56,7 +64,19 @@ const StatCard = ({
   return (
     <Card className={cn("overflow-hidden", className)}>
       <CardHeader className="p-4 bg-gray-50">
-        <CardTitle className="text-sm font-medium text-gray-500">{title}</CardTitle>
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-sm font-medium text-gray-500">{title}</CardTitle>
+          {tooltip && (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <InfoIcon className="w-4 h-4 text-gray-400 cursor-help hover:text-gray-600" />
+              </TooltipTrigger>
+              <TooltipContent className="max-w-xs text-xs">
+                {tooltip}
+              </TooltipContent>
+            </Tooltip>
+          )}
+        </div>
       </CardHeader>
       <CardContent className="p-4">
         <div className="flex items-center gap-2">

@@ -41,39 +41,46 @@ const TaskOverview = ({ data }: TaskOverviewProps) => {
         <StatCard
           title="Start Date"
           value={formatDate(startDate)}
+          tooltip="The official start date of the sprint."
         />
         
         <StatCard
           title="End Date"
           value={formatDate(endDate)}
+          tooltip="The official end date of the sprint."
         />
         
         <StatCard
           title="Sprint Length"
           value={sprintLengthInDays}
           description="days"
+          tooltip="Total calendar days between the start and end dates of the sprint."
         />
         
         <StatCard
           title="Planned Tasks"
           value={plannedTasks}
+          tooltip="Number of tasks committed to during sprint planning."
         />
         
         <StatCard
           title="Unplanned Tasks"
           value={unplannedTasks}
+          tooltip="Additional tasks that were added after sprint planning began."
         />
         
         <StatCard
           title="Delivered Tasks"
           value={deliveredTasks}
           description="Dev & QA"
+          tooltip="Tasks that were fully completed (developed and passed QA) during the sprint."
         />
         
         <StatCard
           title="Leftover Tasks"
           value={leftoverTasks}
           description="Analysis & WIP"
+          tooltip="Tasks that were started but not completed by the end of the sprint."
         />
         
         <StatCard
@@ -82,6 +89,7 @@ const TaskOverview = ({ data }: TaskOverviewProps) => {
           isPercentage={true}
           description="delivered vs. planned"
           colorThreshold={{ good: 90, medium: 80 }}
+          tooltip="Percentage of planned tasks that were fully delivered, indicating team reliability in meeting commitments."
         />
       </div>
     </div>

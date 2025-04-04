@@ -32,36 +32,42 @@ const CapacityOverview = ({ data, allData = [] }: CapacityOverviewProps) => {
         <StatCard 
           title="Working Days Available" 
           value={workingDaysAvailable} 
+          tooltip="Total number of working days in the sprint period, excluding weekends and holidays."
         />
         
         <StatCard 
           title="Available Capacity" 
           value={availableCapacity} 
           description="man-day"
+          tooltip="Total capacity of the team measured in man-days (working days × number of team members)."
         />
         
         <StatCard 
           title="Planned Holiday" 
           value={plannedHoliday} 
           description="man-day"
+          tooltip="Pre-planned time off for team members during the sprint period (vacations, training, etc.)."
         />
         
         <StatCard 
           title="Planned Capacity" 
           value={plannedCapacity} 
           description="man-day, excluding planned holiday"
+          tooltip="Net capacity after subtracting planned holidays from available capacity."
         />
         
         <StatCard 
           title="Unplanned Holiday" 
           value={unplannedHoliday} 
           description="man-day"
+          tooltip="Unexpected absences during the sprint (sick leaves, emergencies, etc.)."
         />
         
         <StatCard 
           title="Delivered Capacity" 
           value={deliveredCapacity} 
           description="man-day, excluding unplanned leave"
+          tooltip="Actual working capacity delivered after subtracting both planned and unplanned holidays."
         />
         
         <StatCard 
@@ -71,6 +77,7 @@ const CapacityOverview = ({ data, allData = [] }: CapacityOverviewProps) => {
           description="delivered vs. planned" 
           colorThreshold={{ good: 95, medium: 85 }}
           className="sm:col-span-2"
+          tooltip="Percentage of planned capacity that was actually delivered. Higher percentages indicate better utilization of planned resources."
         />
       </div>
       
