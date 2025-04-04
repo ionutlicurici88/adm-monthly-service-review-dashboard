@@ -42,7 +42,7 @@ const CapacityTrend = ({ data, excludeFirstSprint = false }: CapacityTrendProps)
   return (
     <div className="mt-4 space-y-2">
       <h3 className="text-lg font-semibold text-dashboard-blue-dark">Capacity Trend</h3>
-      <div className="h-64 w-full">
+      <div className="h-60 w-full">
         <ChartContainer
           config={{
             "Available Capacity": {
@@ -62,14 +62,22 @@ const CapacityTrend = ({ data, excludeFirstSprint = false }: CapacityTrendProps)
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={chartData}
-              margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
-              barSize={20}
+              margin={{ top: 5, right: 30, left: 10, bottom: 20 }}
+              barSize={18}
             >
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" scale="point" padding={{ left: 10, right: 10 }} />
-              <YAxis />
+              <XAxis 
+                dataKey="name" 
+                scale="point" 
+                padding={{ left: 15, right: 15 }} 
+                tick={{ fontSize: 11 }}
+              />
+              <YAxis tick={{ fontSize: 11 }} />
               <Tooltip content={<ChartTooltipContent />} />
-              <Legend wrapperStyle={{ fontSize: '10px' }} />
+              <Legend 
+                wrapperStyle={{ fontSize: '10px', paddingTop: '10px' }} 
+                iconSize={8}
+              />
               <Bar dataKey="Available Capacity" fill="#10B981" /> {/* Green */}
               <Bar dataKey="Planned Capacity" fill="#93C5FD" /> {/* Light blue */}
               <Bar dataKey="Delivered Capacity" fill="#1E40AF" /> {/* Dark blue */}
