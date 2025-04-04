@@ -105,4 +105,3 @@ const TaskOverview = ({ data }: TaskOverviewProps) => {
 };
 
 export default TaskOverview;
-
