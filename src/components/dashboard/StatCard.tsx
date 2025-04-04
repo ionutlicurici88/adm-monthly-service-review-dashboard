@@ -1,4 +1,3 @@
-
 import React from "react";
 import { cn } from "@/lib/utils";
 import {
@@ -75,7 +74,7 @@ const StatCard = ({
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <AlertCircle className="h-3.5 w-3.5 text-gray-400 cursor-help" />
+                <AlertCircle className="h-3.5 w-3.5 text-gray-400" />
               </TooltipTrigger>
               <TooltipContent className="max-w-xs text-xs">
                 {tooltip.replace(/\?$/, '')}
