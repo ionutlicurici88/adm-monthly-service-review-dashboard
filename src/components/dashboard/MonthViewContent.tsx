@@ -4,6 +4,7 @@ import { monthCapacityOverviewData, MonthCapacityOverview as MonthCapacityOvervi
 import TaskOverview from "./TaskOverview";
 import StoryPointsOverview from "./StoryPointsOverview";
 import MonthCapacityOverviewComponent from "./MonthCapacityOverview";
+import MonthCapacityTrend from "./MonthCapacityTrend";
 
 interface MonthViewContentProps {
   currentOverview: OverviewType;
@@ -23,8 +24,18 @@ const MonthViewContent = ({
   switch (currentOverview) {
     case "capacity":
       return (
-        <div className="p-6 bg-white rounded-lg shadow-sm min-h-[300px] flex flex-col items-center w-full">
-          <MonthCapacityOverviewComponent data={getMonthCapacityData()} />
+        <div className="flex flex-col w-full gap-6">
+          <div className="p-6 bg-white rounded-lg shadow-sm min-h-[300px] flex flex-col items-center w-full">
+            <MonthCapacityOverviewComponent data={getMonthCapacityData()} />
+          </div>
+          
+          {/* Add the capacity trend chart */}
+          <div className="p-6 bg-white rounded-lg shadow-sm min-h-[300px] flex flex-col items-center w-full">
+            <MonthCapacityTrend 
+              data={monthCapacityOverviewData}
+              excludeS1Data={selectedMonthId === "total"}
+            />
+          </div>
         </div>
       );
     case "task":
@@ -50,8 +61,18 @@ const MonthViewContent = ({
       );
     default:
       return (
-        <div className="p-6 bg-white rounded-lg shadow-sm min-h-[300px] flex flex-col items-center w-full">
-          <MonthCapacityOverviewComponent data={getMonthCapacityData()} />
+        <div className="flex flex-col w-full gap-6">
+          <div className="p-6 bg-white rounded-lg shadow-sm min-h-[300px] flex flex-col items-center w-full">
+            <MonthCapacityOverviewComponent data={getMonthCapacityData()} />
+          </div>
+          
+          {/* Add the capacity trend chart */}
+          <div className="p-6 bg-white rounded-lg shadow-sm min-h-[300px] flex flex-col items-center w-full">
+            <MonthCapacityTrend 
+              data={monthCapacityOverviewData}
+              excludeS1Data={selectedMonthId === "total"}
+            />
+          </div>
         </div>
       );
   }
