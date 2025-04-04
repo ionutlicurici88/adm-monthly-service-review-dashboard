@@ -43,6 +43,7 @@ const StoryPointsOverview = ({ data }: StoryPointsOverviewProps) => {
           value={estimatedSTP}
           description="during planning"
           tooltip="Story points estimated and committed to during sprint planning."
+          compact
         />
         
         <StatCard
@@ -50,6 +51,7 @@ const StoryPointsOverview = ({ data }: StoryPointsOverviewProps) => {
           value={extraSTP}
           description="unplanned tasks"
           tooltip="Story points added after sprint planning through unplanned tasks."
+          compact
         />
         
         <StatCard
@@ -57,6 +59,7 @@ const StoryPointsOverview = ({ data }: StoryPointsOverviewProps) => {
           value={deliveredSTP}
           description="Dev & QA"
           tooltip="Story points for tasks that were fully completed (developed and passed QA)."
+          compact
         />
         
         <StatCard
@@ -64,6 +67,7 @@ const StoryPointsOverview = ({ data }: StoryPointsOverviewProps) => {
           value={leftoverSTP}
           description="Analysis & WIP"
           tooltip="Story points for tasks that were started but not completed by the end of the sprint."
+          compact
         />
         
         <StatCard
@@ -72,6 +76,7 @@ const StoryPointsOverview = ({ data }: StoryPointsOverviewProps) => {
           isPercentage={true}
           colorThreshold={{ good: 90, medium: 80 }}
           tooltip="Percentage of estimated story points that were delivered, indicating the team's velocity."
+          compact
         />
         
         <StatCard
@@ -79,6 +84,7 @@ const StoryPointsOverview = ({ data }: StoryPointsOverviewProps) => {
           value={velocityVsTarget}
           colorThreshold={{ good: 1, medium: 0.9 }}
           tooltip="Ratio of actual velocity against target velocity. Values above 1 indicate exceeding targets."
+          compact
         />
       </div>
     </div>
