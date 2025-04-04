@@ -120,9 +120,11 @@ const Dashboard = () => {
                />;
       case "story":
         const storyPointsSpecificData = storyPointsOverviewData.filter(item => item.sprintNumber > 0);
+        // Pass excludeFirstSprint flag based on selectedSprintId
         return <StoryPointsOverview 
                 data={getStoryPointsData()} 
                 allData={storyPointsSpecificData}
+                excludeFirstSprint={selectedSprintId === -1}
                />;
       default:
         return <CapacityOverview 

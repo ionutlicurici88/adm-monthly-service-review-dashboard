@@ -6,9 +6,10 @@ import StoryPointsTrend from "./StoryPointsTrend";
 interface StoryPointsOverviewProps {
   data: StoryPointsOverviewType;
   allData?: StoryPointsOverviewType[];
+  excludeFirstSprint?: boolean;
 }
 
-const StoryPointsOverview = ({ data, allData = [] }: StoryPointsOverviewProps) => {
+const StoryPointsOverview = ({ data, allData = [], excludeFirstSprint = false }: StoryPointsOverviewProps) => {
   const {
     sprintNumber,
     startDate,
@@ -93,7 +94,7 @@ const StoryPointsOverview = ({ data, allData = [] }: StoryPointsOverviewProps) =
       </div>
 
       {showChart && (
-        <StoryPointsTrend data={allData} />
+        <StoryPointsTrend data={allData} excludeFirstSprint={excludeFirstSprint} />
       )}
     </div>
   );
