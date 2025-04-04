@@ -1,3 +1,4 @@
+
 import { CapacityOverview as CapacityOverviewType } from "@/types/dashboard";
 import StatCard from "./StatCard";
 import CapacityTrend from "./CapacityTrend";
@@ -29,12 +30,12 @@ const CapacityOverview = ({ data, allData = [] }: CapacityOverviewProps) => {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 w-full">
       <h2 className="text-xl font-semibold text-dashboard-blue-dark">
         {sprintTitle} - Capacity Overview
       </h2>
       
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard 
           title="Working Days Available" 
           value={workingDaysAvailable} 
@@ -88,7 +89,6 @@ const CapacityOverview = ({ data, allData = [] }: CapacityOverviewProps) => {
           isPercentage={true}
           description="delivered vs. planned" 
           colorThreshold={{ good: 95, medium: 85 }}
-          className="sm:col-span-1"
           tooltip="Percentage of planned capacity that was actually delivered. Higher percentages indicate better utilization of planned resources."
           compact
         />
