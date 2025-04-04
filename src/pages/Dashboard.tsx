@@ -119,7 +119,11 @@ const Dashboard = () => {
                 allData={taskSpecificData}
                />;
       case "story":
-        return <StoryPointsOverview data={getStoryPointsData()} />;
+        const storyPointsSpecificData = storyPointsOverviewData.filter(item => item.sprintNumber > 0);
+        return <StoryPointsOverview 
+                data={getStoryPointsData()} 
+                allData={storyPointsSpecificData}
+               />;
       default:
         return <CapacityOverview 
                 data={getCapacityData()} 

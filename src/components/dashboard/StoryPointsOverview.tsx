@@ -1,12 +1,14 @@
 
 import { StoryPointsOverview as StoryPointsOverviewType } from "@/types/dashboard";
 import StatCard from "./StatCard";
+import StoryPointsTrend from "./StoryPointsTrend";
 
 interface StoryPointsOverviewProps {
   data: StoryPointsOverviewType;
+  allData?: StoryPointsOverviewType[];
 }
 
-const StoryPointsOverview = ({ data }: StoryPointsOverviewProps) => {
+const StoryPointsOverview = ({ data, allData = [] }: StoryPointsOverviewProps) => {
   const {
     sprintNumber,
     startDate,
@@ -30,6 +32,8 @@ const StoryPointsOverview = ({ data }: StoryPointsOverviewProps) => {
       day: "numeric",
     });
   };
+
+  const showChart = allData.length > 0;
 
   return (
     <div className="space-y-6 w-full">
@@ -87,9 +91,12 @@ const StoryPointsOverview = ({ data }: StoryPointsOverviewProps) => {
           compact
         />
       </div>
+
+      {showChart && (
+        <StoryPointsTrend data={allData} />
+      )}
     </div>
   );
 };
 
 export default StoryPointsOverview;
-
