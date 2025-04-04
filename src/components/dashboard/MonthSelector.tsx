@@ -12,8 +12,8 @@ import { Month } from "@/types/dashboard";
 
 interface MonthSelectorProps {
   months: Month[];
-  selectedMonthId: number;
-  onMonthChange: (monthId: number) => void;
+  selectedMonthId: string;
+  onMonthChange: (monthId: string) => void;
 }
 
 const MonthSelector = ({
@@ -23,8 +23,8 @@ const MonthSelector = ({
 }: MonthSelectorProps) => {
   return (
     <Select
-      value={selectedMonthId.toString()}
-      onValueChange={(value) => onMonthChange(parseInt(value))}
+      value={selectedMonthId}
+      onValueChange={(value) => onMonthChange(value)}
     >
       <SelectTrigger className="w-[240px]">
         <SelectValue placeholder="Select Month" />
@@ -32,10 +32,10 @@ const MonthSelector = ({
       <SelectContent>
         <SelectGroup>
           <SelectLabel>Months</SelectLabel>
-          <SelectItem value="0">All Months</SelectItem>
-          <SelectItem value="-1">All Months (excludes Sprint 1)</SelectItem>
+          <SelectItem value="grand_total">All Months (Grand Total)</SelectItem>
+          <SelectItem value="total">All Months (Excluding Sprint 1)</SelectItem>
           {months.map((month) => (
-            <SelectItem key={month.id} value={month.id.toString()}>
+            <SelectItem key={month.id} value={month.id}>
               {month.name}
             </SelectItem>
           ))}

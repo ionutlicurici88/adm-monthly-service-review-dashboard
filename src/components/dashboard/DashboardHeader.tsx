@@ -11,9 +11,9 @@ interface DashboardHeaderProps {
   sprints: Sprint[];
   months: Month[];
   selectedSprintId: number;
-  selectedMonthId: number;
+  selectedMonthId: string;
   onSprintChange: (sprintId: number) => void;
-  onMonthChange: (monthId: number) => void;
+  onMonthChange: (monthId: string) => void;
 }
 
 const DashboardHeader = ({

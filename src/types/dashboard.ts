@@ -12,7 +12,7 @@ export interface Sprint {
 }
 
 export interface Month {
-  id: number;
+  id: string;
   name: string;
 }
 
@@ -21,6 +21,19 @@ export interface CapacityOverview {
   sprintNumber: number;
   workingDaysAvailable: number;
   availableCapacity: number;
+  plannedHoliday: number;
+  plannedCapacity: number;
+  unplannedHoliday: number;
+  deliveredCapacity: number;
+  capacityPercentage: number;
+}
+
+export interface MonthCapacityOverview {
+  monthId: string;
+  monthName: string;
+  workingDaysAvailable: number;
+  availableCapacity: number;
+  contractedCapacity: number;
   plannedHoliday: number;
   plannedCapacity: number;
   unplannedHoliday: number;

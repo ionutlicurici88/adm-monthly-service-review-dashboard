@@ -16,3 +16,9 @@ export {
   getAllSprintsStoryPointsOverview,
   getAllSprintsExcludeFirstStoryPointsOverview
 } from './story-points-data';
+export {
+  monthCapacityOverviewData,
+  getAllMonthsCapacityOverview,
+  getGrandTotalCapacityOverview,
+  getMonthsExcludingS1CapacityOverview
+} from './month-capacity-data';

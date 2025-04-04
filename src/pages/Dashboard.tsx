@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { OverviewType, ViewType } from "@/types/dashboard";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
@@ -6,6 +5,7 @@ import OverviewTabs from "@/components/dashboard/OverviewTabs";
 import CapacityOverview from "@/components/dashboard/CapacityOverview";
 import TaskOverview from "@/components/dashboard/TaskOverview";
 import StoryPointsOverview from "@/components/dashboard/StoryPointsOverview";
+import MonthCapacityOverview from "@/components/dashboard/MonthCapacityOverview";
 import {
   sprints,
   capacityOverviewData,
@@ -17,18 +17,21 @@ import {
   getAllSprintsExcludeFirstTaskOverview,
   getAllSprintsStoryPointsOverview,
   getAllSprintsExcludeFirstStoryPointsOverview,
+  monthCapacityOverviewData,
+  getAllMonthsCapacityOverview,
+  getGrandTotalCapacityOverview
 } from "@/data";
 
 const months = [
-  { id: 1, name: "February" },
-  { id: 2, name: "March" },
+  { id: "feb", name: "February" },
+  { id: "mar", name: "March" },
 ];
 
 const Dashboard = () => {
   const [currentView, setCurrentView] = useState<ViewType>("month"); // Default to month view
   const [currentOverview, setCurrentOverview] = useState<OverviewType>("capacity");
   const [selectedSprintId, setSelectedSprintId] = useState<number>(0);
-  const [selectedMonthId, setSelectedMonthId] = useState<number>(0);
+  const [selectedMonthId, setSelectedMonthId] = useState<string>("grand_total");
 
   const handleViewChange = (view: ViewType) => {
     setCurrentView(view);
@@ -42,7 +45,7 @@ const Dashboard = () => {
     setSelectedSprintId(sprintId);
   };
 
-  const handleMonthChange = (monthId: number) => {
+  const handleMonthChange = (monthId: string) => {
     setSelectedMonthId(monthId);
   };
 
@@ -85,13 +88,25 @@ const Dashboard = () => {
     );
   };
 
-  // Placeholder month data - will be replaced with actual data later
-  const getMonthData = () => {
-    return {
-      capacityData: getAllSprintsCapacityOverview(), // Temporarily using sprint data
-      taskData: getAllSprintsTaskOverview(),
-      storyPointsData: getAllSprintsStoryPointsOverview()
-    };
+  const getMonthCapacityData = () => {
+    if (selectedMonthId === "grand_total") {
+      return getGrandTotalCapacityOverview();
+    }
+    if (selectedMonthId === "total") {
+      return getAllMonthsCapacityOverview();
+    }
+    return (
+      monthCapacityOverviewData.find((item) => item.monthId === selectedMonthId) ||
+      getGrandTotalCapacityOverview()
+    );
+  };
+
+  const getMonthTaskData = () => {
+    return getAllSprintsTaskOverview(); // Temporarily using sprint data
+  };
+
+  const getMonthStoryPointsData = () => {
+    return getAllSprintsStoryPointsOverview(); // Temporarily using sprint data
   };
 
   const renderMonthViewContent = () => {
@@ -99,11 +114,7 @@ const Dashboard = () => {
       case "capacity":
         return (
           <div className="p-6 bg-white rounded-lg shadow-sm min-h-[300px] flex flex-col items-center w-full">
-            <h2 className="text-xl font-semibold text-dashboard-blue-dark mb-4">Monthly Capacity Overview</h2>
-            <CapacityOverview 
-              data={getMonthData().capacityData} 
-              allData={capacityOverviewData.filter(item => item.sprintNumber > 0)}
-            />
+            <MonthCapacityOverview data={getMonthCapacityData()} />
           </div>
         );
       case "task":
@@ -111,7 +122,7 @@ const Dashboard = () => {
           <div className="p-6 bg-white rounded-lg shadow-sm min-h-[300px] flex flex-col items-center w-full">
             <h2 className="text-xl font-semibold text-dashboard-blue-dark mb-4">Monthly Task Overview</h2>
             <TaskOverview 
-              data={getMonthData().taskData}
+              data={getMonthTaskData()}
               allData={taskOverviewData.filter(item => item.sprintNumber > 0)}
             />
           </div>
@@ -121,20 +132,16 @@ const Dashboard = () => {
           <div className="p-6 bg-white rounded-lg shadow-sm min-h-[300px] flex flex-col items-center w-full">
             <h2 className="text-xl font-semibold text-dashboard-blue-dark mb-4">Monthly Story Points Overview</h2>
             <StoryPointsOverview 
-              data={getMonthData().storyPointsData}
+              data={getMonthStoryPointsData()}
               allData={storyPointsOverviewData.filter(item => item.sprintNumber > 0)}
-              excludeFirstSprint={selectedMonthId === -1}
+              excludeFirstSprint={selectedMonthId === "total"}
             />
           </div>
         );
       default:
         return (
           <div className="p-6 bg-white rounded-lg shadow-sm min-h-[300px] flex flex-col items-center w-full">
-            <h2 className="text-xl font-semibold text-dashboard-blue-dark mb-4">Monthly Capacity Overview</h2>
-            <CapacityOverview 
-              data={getMonthData().capacityData}
-              allData={capacityOverviewData.filter(item => item.sprintNumber > 0)}
-            />
+            <MonthCapacityOverview data={getMonthCapacityData()} />
           </div>
         );
     }
