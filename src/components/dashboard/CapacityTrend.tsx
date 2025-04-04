@@ -45,7 +45,7 @@ const CapacityTrend = ({ data, excludeFirstSprint = false }: CapacityTrendProps)
 
   return (
     <div className="w-full px-4 pt-6">
-      <h3 className="text-lg font-medium mb-4">Capacity Trend Across Sprints</h3>
+      <h3 className="text-lg font-medium mb-4 text-center text-dashboard-blue-dark">Capacity Trend Across Sprints</h3>
       <div className="w-full h-[500px]">
         <ChartContainer config={chartConfig} className="h-full w-full">
           <ResponsiveContainer width="100%" height="100%">
