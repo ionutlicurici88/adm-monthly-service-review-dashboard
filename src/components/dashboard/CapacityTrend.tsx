@@ -23,9 +23,9 @@ const CapacityTrend = ({ data }: CapacityTrendProps) => {
     .sort((a, b) => a.sprintNumber - b.sprintNumber) // Sort by sprint number
     .map((item) => ({
       name: `Sprint ${item.sprintNumber}`,
+      "Available Capacity": item.availableCapacity,
       "Planned Capacity": item.plannedCapacity,
       "Delivered Capacity": item.deliveredCapacity,
-      "Capacity %": item.capacityPercentage,
     }));
 
   return (
@@ -34,17 +34,17 @@ const CapacityTrend = ({ data }: CapacityTrendProps) => {
       <div className="h-80 w-full">
         <ChartContainer
           config={{
+            "Available Capacity": {
+              label: "Available Capacity",
+              color: "#10B981", // Green
+            },
             "Planned Capacity": {
               label: "Planned Capacity",
-              color: "#1E40AF",
+              color: "#93C5FD", // Light blue
             },
             "Delivered Capacity": {
               label: "Delivered Capacity",
-              color: "#047857",
-            },
-            "Capacity %": {
-              label: "Capacity %",
-              color: "#F59E0B",
+              color: "#1E40AF", // Dark blue
             },
           }}
         >
@@ -55,18 +55,12 @@ const CapacityTrend = ({ data }: CapacityTrendProps) => {
             >
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
-              <YAxis yAxisId="left" orientation="left" />
-              <YAxis 
-                yAxisId="right" 
-                orientation="right" 
-                domain={[0, 120]} 
-                unit="%" 
-              />
+              <YAxis />
               <Tooltip content={<ChartTooltipContent />} />
               <Legend />
-              <Bar yAxisId="left" dataKey="Planned Capacity" fill="#1E40AF" />
-              <Bar yAxisId="left" dataKey="Delivered Capacity" fill="#047857" />
-              <Bar yAxisId="right" dataKey="Capacity %" fill="#F59E0B" />
+              <Bar dataKey="Available Capacity" fill="#10B981" /> {/* Green */}
+              <Bar dataKey="Planned Capacity" fill="#93C5FD" /> {/* Light blue */}
+              <Bar dataKey="Delivered Capacity" fill="#1E40AF" /> {/* Dark blue */}
             </BarChart>
           </ResponsiveContainer>
         </ChartContainer>
