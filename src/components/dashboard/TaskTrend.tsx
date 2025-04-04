@@ -1,7 +1,7 @@
 
 import { TaskOverview } from "@/types/dashboard";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from "recharts";
 
 interface TaskTrendProps {
   data: TaskOverview[];
@@ -23,18 +23,19 @@ const TaskTrend = ({ data, excludeFirstSprint = false }: TaskTrendProps) => {
     .sort((a, b) => a.sprintNumber - b.sprintNumber)
     .map(sprint => ({
       name: `Sprint ${sprint.sprintNumber}`,
-      planned: sprint.plannedTasks,
-      unplanned: sprint.unplannedTasks,
+      plannedTasks: sprint.plannedTasks,
+      unplannedTasks: sprint.unplannedTasks,
+      totalTasks: sprint.plannedTasks + sprint.unplannedTasks,
       delivered: sprint.deliveredTasks,
       leftover: sprint.leftoverTasks
     }));
 
   const chartConfig = {
-    planned: {
+    plannedTasks: {
       label: "Planned Tasks",
       color: "#60a5fa", // blue-400
     },
-    unplanned: {
+    unplannedTasks: {
       label: "Unplanned Tasks",
       color: "#f97316", // orange-500
     },
@@ -45,7 +46,90 @@ const TaskTrend = ({ data, excludeFirstSprint = false }: TaskTrendProps) => {
     leftover: {
       label: "Leftover Tasks",
       color: "#f43f5e", // rose-500
+    },
+    totalTasks: {
+      label: "Total Tasks",
+      color: "#60a5fa", // Same as planned for legend
     }
+  };
+
+  // Custom tooltip to show both planned and unplanned within the single bar
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      const sprintData = filteredData.find(item => item.name === label);
+      if (!sprintData) return null;
+      
+      return (
+        <div className="bg-white p-3 border border-gray-200 rounded shadow-lg">
+          <p className="font-semibold">{label}</p>
+          <div className="flex items-center mt-2">
+            <div 
+              className="w-3 h-3 mr-2" 
+              style={{ backgroundColor: chartConfig.plannedTasks.color }}
+            ></div>
+            <p>Planned: {sprintData.plannedTasks}</p>
+          </div>
+          <div className="flex items-center mt-1">
+            <div 
+              className="w-3 h-3 mr-2" 
+              style={{ backgroundColor: chartConfig.unplannedTasks.color }}
+            ></div>
+            <p>Unplanned: {sprintData.unplannedTasks}</p>
+          </div>
+          <div className="flex items-center mt-1">
+            <div 
+              className="w-3 h-3 mr-2" 
+              style={{ backgroundColor: chartConfig.delivered.color }}
+            ></div>
+            <p>Delivered: {sprintData.delivered}</p>
+          </div>
+          <div className="flex items-center mt-1">
+            <div 
+              className="w-3 h-3 mr-2" 
+              style={{ backgroundColor: chartConfig.leftover.color }}
+            ></div>
+            <p>Leftover: {sprintData.leftover}</p>
+          </div>
+        </div>
+      );
+    }
+    return null;
+  };
+
+  // Custom legend to show both planned and unplanned parts of the total bar
+  const CustomLegendContent = (props: any) => {
+    const { payload } = props;
+    
+    // Add our custom legend items for planned and unplanned
+    const customItems = [
+      { value: 'Planned Tasks', color: chartConfig.plannedTasks.color, type: 'rect' },
+      { value: 'Unplanned Tasks', color: chartConfig.unplannedTasks.color, type: 'rect' }
+    ];
+    
+    // Filter out the totalTasks item from the original payload
+    const filteredPayload = payload.filter((entry: any) => entry.value !== 'Total Tasks');
+    
+    // Combine custom items with filtered original items
+    const combinedItems = [...customItems, ...filteredPayload];
+    
+    return (
+      <ul className="flex flex-wrap justify-center gap-6 text-xs">
+        {combinedItems.map((entry: any, index: number) => (
+          <li key={`item-${index}`} className="flex items-center">
+            <svg width="14" height="14" className="mr-1">
+              <rect
+                width="14"
+                height="14"
+                fill={entry.color}
+                rx="2"
+                ry="2"
+              />
+            </svg>
+            <span className="text-gray-700">{entry.value}</span>
+          </li>
+        ))}
+      </ul>
+    );
   };
 
   return (
@@ -58,16 +142,38 @@ const TaskTrend = ({ data, excludeFirstSprint = false }: TaskTrendProps) => {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
               <YAxis />
-              <ChartTooltip
-                content={
-                  <ChartTooltipContent />
-                }
-              />
-              <Legend />
-              <Bar dataKey="planned" fill="var(--color-planned)" name="Planned Tasks" />
-              <Bar dataKey="unplanned" fill="var(--color-unplanned)" name="Unplanned Tasks" />
-              <Bar dataKey="delivered" fill="var(--color-delivered)" name="Delivered Tasks" />
-              <Bar dataKey="leftover" fill="var(--color-leftover)" name="Leftover Tasks" />
+              <Tooltip content={CustomTooltip} />
+              <Legend content={CustomLegendContent} />
+              
+              {/* Stacked bar for planned and unplanned tasks */}
+              <Bar dataKey="totalTasks" name="Total Tasks">
+                {filteredData.map((entry, index) => (
+                  <Cell 
+                    key={`cell-${index}`}
+                    fill={`url(#splitColor-${index})`}
+                  />
+                ))}
+              </Bar>
+
+              {/* Separate bars for delivered and leftover */}
+              <Bar dataKey="delivered" fill={chartConfig.delivered.color} name="Delivered Tasks" />
+              <Bar dataKey="leftover" fill={chartConfig.leftover.color} name="Leftover Tasks" />
+              
+              {/* Define gradient patterns for each bar */}
+              <defs>
+                {filteredData.map((entry, index) => {
+                  // Calculate the ratio for the gradient split
+                  const plannedRatio = entry.plannedTasks / entry.totalTasks;
+                  return (
+                    <linearGradient id={`splitColor-${index}`} key={`gradient-${index}`} x1="0" y1="0" x2="0" y2="1">
+                      <stop offset={0} stopColor={chartConfig.plannedTasks.color} />
+                      <stop offset={plannedRatio} stopColor={chartConfig.plannedTasks.color} />
+                      <stop offset={plannedRatio} stopColor={chartConfig.unplannedTasks.color} />
+                      <stop offset={1} stopColor={chartConfig.unplannedTasks.color} />
+                    </linearGradient>
+                  );
+                })}
+              </defs>
             </BarChart>
           </ResponsiveContainer>
         </ChartContainer>
