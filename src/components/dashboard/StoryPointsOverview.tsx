@@ -57,7 +57,7 @@ const StoryPointsOverview = ({ data }: StoryPointsOverviewProps) => {
         <StatCard
           title="Delivered STP"
           value={deliveredSTP}
-          description="Dev & QA"
+          description="DEV & QA"
           tooltip="Story points for tasks that were fully completed (developed and passed QA)."
           compact
         />
@@ -92,3 +92,4 @@ const StoryPointsOverview = ({ data }: StoryPointsOverviewProps) => {
 };
 
 export default StoryPointsOverview;
+

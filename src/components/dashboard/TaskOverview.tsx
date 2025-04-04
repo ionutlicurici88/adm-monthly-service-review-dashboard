@@ -77,7 +77,7 @@ const TaskOverview = ({ data }: TaskOverviewProps) => {
         <StatCard
           title="Delivered Tasks"
           value={deliveredTasks}
-          description="Dev & QA"
+          description="DEV & QA"
           tooltip="Tasks that were fully completed (developed and passed QA) during the sprint."
           compact
         />
@@ -105,3 +105,4 @@ const TaskOverview = ({ data }: TaskOverviewProps) => {
 };
 
 export default TaskOverview;
+
