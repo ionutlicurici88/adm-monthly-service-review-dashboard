@@ -44,24 +44,26 @@ const CapacityTrend = ({ data, excludeFirstSprint = false }: CapacityTrendProps)
   };
 
   return (
-    <div className="w-full pt-6">
+    <div className="w-full px-4 pt-6">
       <h3 className="text-lg font-medium mb-4">Capacity Trend Across Sprints</h3>
-      <div className="w-full h-[400px]">
-        <ChartContainer config={chartConfig} className="h-full">
-          <BarChart data={filteredData} margin={{ top: 20, right: 30, left: 20, bottom: 30 }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <ChartTooltip
-              content={
-                <ChartTooltipContent />
-              }
-            />
-            <Legend />
-            <Bar dataKey="available" fill="var(--color-available)" name="Available Capacity" />
-            <Bar dataKey="planned" fill="var(--color-planned)" name="Planned Capacity" />
-            <Bar dataKey="delivered" fill="var(--color-delivered)" name="Delivered Capacity" />
-          </BarChart>
+      <div className="w-full h-[500px]">
+        <ChartContainer config={chartConfig} className="h-full w-full">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={filteredData} margin={{ top: 20, right: 30, left: 20, bottom: 30 }}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <ChartTooltip
+                content={
+                  <ChartTooltipContent />
+                }
+              />
+              <Legend />
+              <Bar dataKey="available" fill="var(--color-available)" name="Available Capacity" />
+              <Bar dataKey="planned" fill="var(--color-planned)" name="Planned Capacity" />
+              <Bar dataKey="delivered" fill="var(--color-delivered)" name="Delivered Capacity" />
+            </BarChart>
+          </ResponsiveContainer>
         </ChartContainer>
       </div>
     </div>
