@@ -3,8 +3,8 @@ import {
   Select,
   SelectContent,
   SelectGroup,
-  SelectItem,
   SelectLabel,
+  SelectItem,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -33,7 +33,7 @@ const SprintSelector = ({
         <SelectGroup>
           <SelectLabel>Sprints</SelectLabel>
           <SelectItem value="0">All Sprints</SelectItem>
-          <SelectItem value="-1">All Sprints -1</SelectItem>
+          <SelectItem value="-1">All Sprints (excludes Sprint 1)</SelectItem>
           {sprints.map((sprint) => (
             <SelectItem key={sprint.id} value={sprint.id.toString()}>
               Sprint {sprint.number}

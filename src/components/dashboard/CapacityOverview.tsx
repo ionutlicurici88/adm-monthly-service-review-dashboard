@@ -24,7 +24,7 @@ const CapacityOverview = ({ data, allData = [] }: CapacityOverviewProps) => {
   if (sprintNumber === 0) {
     sprintTitle = "All Sprints";
   } else if (sprintNumber === -1) {
-    sprintTitle = "All Sprints -1";
+    sprintTitle = "All Sprints (excludes Sprint 1)";
   } else {
     sprintTitle = `Sprint ${sprintNumber}`;
   }
