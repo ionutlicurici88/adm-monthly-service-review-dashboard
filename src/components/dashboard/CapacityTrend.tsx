@@ -59,8 +59,7 @@ const CapacityTrend = ({ data, excludeFirstSprint = false }: CapacityTrendProps)
             },
           }}
         >
-          {/* ResponsiveContainer is the single child of ChartContainer */}
-          <ResponsiveContainer width="100%" height={180}> {/* Reduced height from 250 to 180 */}
+          <ResponsiveContainer width="100%" height={180}>
             <BarChart
               data={chartData}
               margin={{ top: 5, right: 30, left: 40, bottom: 20 }}
