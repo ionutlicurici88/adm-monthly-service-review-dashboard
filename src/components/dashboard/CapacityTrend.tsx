@@ -62,22 +62,23 @@ const CapacityTrend = ({ data, excludeFirstSprint = false }: CapacityTrendProps)
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={chartData}
-              margin={{ top: 5, right: 30, left: 30, bottom: 20 }}
-              barSize={18}
+              margin={{ top: 5, right: 30, left: 40, bottom: 20 }}
+              barSize={20}
               barGap={0}
+              barCategoryGap={40}
             >
-              <CartesianGrid vertical={false} />
+              <CartesianGrid vertical={false} horizontal={true} strokeOpacity={0.5} />
               <XAxis 
                 dataKey="name" 
                 scale="point" 
-                padding={{ left: 10, right: 10 }} 
-                tick={{ fontSize: 11 }}
+                padding={{ left: 50, right: 50 }} 
+                tick={{ fontSize: 12 }}
               />
               <YAxis 
                 tick={{ fontSize: 11 }} 
-                width={30}
-                axisLine={true}
-                tickLine={true}
+                width={35}
+                axisLine={false}
+                tickLine={false}
               />
               <Tooltip content={<ChartTooltipContent />} />
               <Legend 
