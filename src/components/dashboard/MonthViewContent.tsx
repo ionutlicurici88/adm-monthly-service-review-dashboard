@@ -21,6 +21,10 @@ const MonthViewContent = ({
   getMonthTaskData,
   getMonthStoryPointsData,
 }: MonthViewContentProps) => {
+  // Determine if we should show the capacity trend chart
+  // Hide chart for feb and mar selections
+  const shouldShowCapacityTrend = !['feb', 'mar'].includes(selectedMonthId);
+
   switch (currentOverview) {
     case "capacity":
       return (
@@ -29,13 +33,15 @@ const MonthViewContent = ({
             <MonthCapacityOverviewComponent data={getMonthCapacityData()} />
           </div>
           
-          {/* Add the capacity trend chart */}
-          <div className="p-6 bg-white rounded-lg shadow-sm min-h-[300px] flex flex-col items-center w-full">
-            <MonthCapacityTrend 
-              data={monthCapacityOverviewData}
-              excludeS1Data={selectedMonthId === "total"}
-            />
-          </div>
+          {/* Only show capacity trend chart for allowed months */}
+          {shouldShowCapacityTrend && (
+            <div className="p-6 bg-white rounded-lg shadow-sm min-h-[300px] flex flex-col items-center w-full">
+              <MonthCapacityTrend 
+                data={monthCapacityOverviewData}
+                excludeS1Data={selectedMonthId === "total"}
+              />
+            </div>
+          )}
         </div>
       );
     case "task":
@@ -66,13 +72,15 @@ const MonthViewContent = ({
             <MonthCapacityOverviewComponent data={getMonthCapacityData()} />
           </div>
           
-          {/* Add the capacity trend chart */}
-          <div className="p-6 bg-white rounded-lg shadow-sm min-h-[300px] flex flex-col items-center w-full">
-            <MonthCapacityTrend 
-              data={monthCapacityOverviewData}
-              excludeS1Data={selectedMonthId === "total"}
-            />
-          </div>
+          {/* Only show capacity trend chart for allowed months */}
+          {shouldShowCapacityTrend && (
+            <div className="p-6 bg-white rounded-lg shadow-sm min-h-[300px] flex flex-col items-center w-full">
+              <MonthCapacityTrend 
+                data={monthCapacityOverviewData}
+                excludeS1Data={selectedMonthId === "total"}
+              />
+            </div>
+          )}
         </div>
       );
   }
