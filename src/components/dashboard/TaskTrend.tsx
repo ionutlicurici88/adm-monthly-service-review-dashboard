@@ -148,9 +148,18 @@ const TaskTrend = ({ data, excludeFirstSprint = false }: TaskTrendProps) => {
                 ))}
               </Bar>
 
-              {/* Reordered the bars: leftover now rendered before delivered so it appears on top */}
-              <Bar dataKey="leftover" fill={chartConfig.leftover.color} name="Leftover Tasks" />
-              <Bar dataKey="delivered" fill={chartConfig.delivered.color} name="Delivered Tasks" />
+              <Bar 
+                dataKey="delivered" 
+                fill={chartConfig.delivered.color} 
+                name="Delivered Tasks" 
+                stackId="tasks"
+              />
+              <Bar 
+                dataKey="leftover" 
+                fill={chartConfig.leftover.color} 
+                name="Leftover Tasks" 
+                stackId="tasks"
+              />
               
               <defs>
                 {filteredData.map((entry, index) => {
@@ -174,3 +183,4 @@ const TaskTrend = ({ data, excludeFirstSprint = false }: TaskTrendProps) => {
 };
 
 export default TaskTrend;
+
