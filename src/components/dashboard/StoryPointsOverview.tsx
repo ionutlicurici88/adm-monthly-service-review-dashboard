@@ -1,3 +1,4 @@
+
 import { StoryPointsOverview as StoryPointsOverviewType } from "@/types/dashboard";
 import StatCard from "./StatCard";
 import StoryPointsTrend from "./StoryPointsTrend";
@@ -89,7 +90,7 @@ const StoryPointsOverview = ({ data, allData = [], excludeFirstSprint = false }:
           value={velocityVsTargetPercentage}
           isPercentage={true}
           colorThreshold={{ good: 100, medium: 90 }}
-          tooltip="Percentage of target velocity achieved. Values above 100% indicate exceeding targets."
+          tooltip="Percentage of target velocity achieved. Higher percentages indicate better target velocity achieved."
           compact
         />
       </div>
