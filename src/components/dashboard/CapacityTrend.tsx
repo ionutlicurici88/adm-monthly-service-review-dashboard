@@ -63,19 +63,21 @@ const CapacityTrend = ({ data, excludeFirstSprint = false }: CapacityTrendProps)
             <BarChart
               data={chartData}
               margin={{ top: 5, right: 30, left: 30, bottom: 20 }}
-              barSize={16}
-              barGap={2}
+              barSize={18}
+              barGap={0}
             >
-              <CartesianGrid strokeDasharray="3 3" />
+              <CartesianGrid vertical={false} />
               <XAxis 
                 dataKey="name" 
                 scale="point" 
-                padding={{ left: 20, right: 20 }} 
+                padding={{ left: 10, right: 10 }} 
                 tick={{ fontSize: 11 }}
               />
               <YAxis 
                 tick={{ fontSize: 11 }} 
                 width={30}
+                axisLine={true}
+                tickLine={true}
               />
               <Tooltip content={<ChartTooltipContent />} />
               <Legend 
