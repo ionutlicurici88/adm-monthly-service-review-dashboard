@@ -83,9 +83,11 @@ const StatCard = ({
       <CardContent className="p-4">
         <div className="flex items-center gap-2">
           {isPercentage && typeof value === "number" && (
-            <div className={cn("w-3 h-3 rounded-full", getCircleColor())}></div>
+            <div className={cn("w-4 h-4 rounded-full", getCircleColor())}></div>
           )}
-          <div className={cn("text-2xl font-semibold", getColorClass())}>
+          <div className={cn("text-2xl font-semibold", 
+            isPercentage ? getCircleColor().replace('bg-', 'text-') : getColorClass()
+          )}>
             {displayValue}
           </div>
         </div>
@@ -96,4 +98,3 @@ const StatCard = ({
 };
 
 export default StatCard;
-
