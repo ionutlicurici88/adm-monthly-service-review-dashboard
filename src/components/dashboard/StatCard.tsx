@@ -77,7 +77,7 @@ const StatCard = ({
                 <HelpCircle className="h-3.5 w-3.5 text-gray-400 cursor-help" />
               </TooltipTrigger>
               <TooltipContent className="max-w-xs text-xs">
-                {tooltip.replace('?', '')}
+                {tooltip}
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
