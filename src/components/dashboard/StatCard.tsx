@@ -10,8 +10,10 @@ import {
 import {
   Tooltip,
   TooltipContent,
+  TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { HelpCircle } from "lucide-react";
 
 interface StatCardProps {
   title: string;
@@ -70,22 +72,23 @@ const StatCard = ({
         <div className="flex items-center justify-between">
           <CardTitle className={cn("text-gray-500", compact ? "text-xs" : "text-sm", "font-medium")}>{title}</CardTitle>
           {tooltip && (
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <span className="cursor-default">
-                </span>
-              </TooltipTrigger>
-              <TooltipContent className="max-w-xs text-xs">
-                {tooltip}
-              </TooltipContent>
-            </Tooltip>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <HelpCircle className="h-3.5 w-3.5 text-gray-400 cursor-help" />
+                </TooltipTrigger>
+                <TooltipContent className="max-w-xs text-xs">
+                  {tooltip}
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           )}
         </div>
       </CardHeader>
       <CardContent className={cn(compact ? "p-2" : "p-4")}>
         <div className="flex items-center gap-2">
           {isPercentage && typeof value === "number" && (
-            <div className={cn("rounded-full", circleColorClass, compact ? "w-5 h-5" : "w-4 h-4")}></div>
+            <div className={cn("rounded-full", circleColorClass, compact ? "w-3 h-3" : "w-4 h-4")}></div>
           )}
           <div className={cn(compact ? "text-xl" : "text-2xl", "font-semibold", textColorClass)}>
             {displayValue}
