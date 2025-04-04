@@ -1,4 +1,3 @@
-
 import { TaskOverview } from "@/types/dashboard";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from "recharts";
@@ -9,7 +8,6 @@ interface TaskTrendProps {
 }
 
 const TaskTrend = ({ data, excludeFirstSprint = false }: TaskTrendProps) => {
-  // Filter out "All Sprints" aggregated data and optionally exclude Sprint 1
   const filteredData = data
     .filter(item => {
       const isRegularSprint = item.sprintNumber > 0;
@@ -33,11 +31,11 @@ const TaskTrend = ({ data, excludeFirstSprint = false }: TaskTrendProps) => {
   const chartConfig = {
     plannedTasks: {
       label: "Planned Tasks",
-      color: "#60a5fa", // blue-400
+      color: "#60a5fa", // blue-400 on bottom
     },
     unplannedTasks: {
       label: "Unplanned Tasks",
-      color: "#f97316", // orange-500
+      color: "#f97316", // orange-500 on top
     },
     delivered: {
       label: "Delivered Tasks",
@@ -53,7 +51,6 @@ const TaskTrend = ({ data, excludeFirstSprint = false }: TaskTrendProps) => {
     }
   };
 
-  // Custom tooltip to show both planned and unplanned within the single bar
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       const sprintData = filteredData.find(item => item.name === label);
@@ -96,20 +93,16 @@ const TaskTrend = ({ data, excludeFirstSprint = false }: TaskTrendProps) => {
     return null;
   };
 
-  // Custom legend to show both planned and unplanned parts of the total bar
   const CustomLegendContent = (props: any) => {
     const { payload } = props;
     
-    // Add our custom legend items for planned and unplanned
     const customItems = [
       { value: 'Planned Tasks', color: chartConfig.plannedTasks.color, type: 'rect' },
       { value: 'Unplanned Tasks', color: chartConfig.unplannedTasks.color, type: 'rect' }
     ];
     
-    // Filter out the totalTasks item from the original payload
     const filteredPayload = payload.filter((entry: any) => entry.value !== 'Total Tasks');
     
-    // Combine custom items with filtered original items
     const combinedItems = [...customItems, ...filteredPayload];
     
     return (
@@ -145,7 +138,6 @@ const TaskTrend = ({ data, excludeFirstSprint = false }: TaskTrendProps) => {
               <Tooltip content={CustomTooltip} />
               <Legend content={CustomLegendContent} />
               
-              {/* Stacked bar for planned and unplanned tasks */}
               <Bar dataKey="totalTasks" name="Total Tasks">
                 {filteredData.map((entry, index) => (
                   <Cell 
@@ -155,14 +147,11 @@ const TaskTrend = ({ data, excludeFirstSprint = false }: TaskTrendProps) => {
                 ))}
               </Bar>
 
-              {/* Separate bars for delivered and leftover */}
               <Bar dataKey="delivered" fill={chartConfig.delivered.color} name="Delivered Tasks" />
               <Bar dataKey="leftover" fill={chartConfig.leftover.color} name="Leftover Tasks" />
               
-              {/* Define gradient patterns for each bar */}
               <defs>
                 {filteredData.map((entry, index) => {
-                  // Calculate the ratio for the gradient split
                   const plannedRatio = entry.plannedTasks / entry.totalTasks;
                   return (
                     <linearGradient id={`splitColor-${index}`} key={`gradient-${index}`} x1="0" y1="0" x2="0" y2="1">
