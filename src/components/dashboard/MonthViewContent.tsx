@@ -1,14 +1,14 @@
 
-import { MonthCapacityOverview } from "@/data";
 import { OverviewType } from "@/types/dashboard";
+import { monthCapacityOverviewData, MonthCapacityOverview as MonthCapacityOverviewType } from "@/data";
 import TaskOverview from "./TaskOverview";
 import StoryPointsOverview from "./StoryPointsOverview";
-import MonthCapacityOverview from "./MonthCapacityOverview";
+import MonthCapacityOverviewComponent from "./MonthCapacityOverview";
 
 interface MonthViewContentProps {
   currentOverview: OverviewType;
   selectedMonthId: string;
-  getMonthCapacityData: () => MonthCapacityOverview;
+  getMonthCapacityData: () => MonthCapacityOverviewType;
   getMonthTaskData: () => any;
   getMonthStoryPointsData: () => any;
 }
@@ -24,7 +24,7 @@ const MonthViewContent = ({
     case "capacity":
       return (
         <div className="p-6 bg-white rounded-lg shadow-sm min-h-[300px] flex flex-col items-center w-full">
-          <MonthCapacityOverview data={getMonthCapacityData()} />
+          <MonthCapacityOverviewComponent data={getMonthCapacityData()} />
         </div>
       );
     case "task":
@@ -51,7 +51,7 @@ const MonthViewContent = ({
     default:
       return (
         <div className="p-6 bg-white rounded-lg shadow-sm min-h-[300px] flex flex-col items-center w-full">
-          <MonthCapacityOverview data={getMonthCapacityData()} />
+          <MonthCapacityOverviewComponent data={getMonthCapacityData()} />
         </div>
       );
   }

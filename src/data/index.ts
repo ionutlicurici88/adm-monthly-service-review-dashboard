@@ -22,3 +22,4 @@ export {
   getGrandTotalCapacityOverview,
   getMonthsExcludingS1CapacityOverview
 } from './month-capacity-data';
+export type { MonthCapacityOverview } from '@/types/dashboard';
