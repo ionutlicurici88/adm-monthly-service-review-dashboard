@@ -13,7 +13,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { HelpCircle } from "lucide-react";
+import { AlertCircle } from "lucide-react";
 
 interface StatCardProps {
   title: string;
@@ -26,7 +26,7 @@ interface StatCardProps {
     medium: number;
   };
   tooltip: string;
-  compact?: boolean; // Add this back to the interface
+  compact?: boolean;
 }
 
 const StatCard = ({
@@ -37,7 +37,7 @@ const StatCard = ({
   isPercentage = false,
   colorThreshold,
   tooltip,
-  compact = false, // Restore the parameter with a default value
+  compact = false,
 }: StatCardProps) => {
   // Get color based on percentage value
   const getColorClass = () => {
@@ -74,7 +74,7 @@ const StatCard = ({
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <HelpCircle className="h-3.5 w-3.5 text-gray-400 cursor-help" />
+                <AlertCircle className="h-3.5 w-3.5 text-gray-400 cursor-help" />
               </TooltipTrigger>
               <TooltipContent className="max-w-xs text-xs">
                 {tooltip}
