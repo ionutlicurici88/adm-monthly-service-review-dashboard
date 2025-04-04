@@ -69,7 +69,7 @@ const StatCard = ({
           {tooltip && (
             <Tooltip>
               <TooltipTrigger asChild>
-                <span className="cursor-help text-gray-400 hover:text-gray-600">
+                <span className="text-gray-400 hover:text-gray-600">
                   <InfoIcon className="w-4 h-4" />
                 </span>
               </TooltipTrigger>
@@ -96,3 +96,4 @@ const StatCard = ({
 };
 
 export default StatCard;
+
