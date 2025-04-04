@@ -42,7 +42,7 @@ const CapacityTrend = ({ data, excludeFirstSprint = false }: CapacityTrendProps)
   return (
     <div className="mt-4 space-y-2">
       <h3 className="text-lg font-semibold text-dashboard-blue-dark">Capacity Trend</h3>
-      <div className="h-60 w-full">
+      <div className="h-48 w-full"> {/* Reduced height from h-60 to h-48 */}
         <ChartContainer
           config={{
             "Available Capacity": {
@@ -65,7 +65,7 @@ const CapacityTrend = ({ data, excludeFirstSprint = false }: CapacityTrendProps)
               margin={{ top: 5, right: 30, left: 40, bottom: 20 }}
               barSize={20}
               barGap={0}
-              barCategoryGap={40}
+              barCategoryGap={30} // Slightly reduced from 40
             >
               <CartesianGrid vertical={false} horizontal={true} strokeOpacity={0.5} />
               <XAxis 
