@@ -40,9 +40,9 @@ const CapacityTrend = ({ data, excludeFirstSprint = false }: CapacityTrendProps)
     }));
 
   return (
-    <div className="mt-4 space-y-2">
-      <h3 className="text-lg font-semibold text-dashboard-blue-dark">Capacity Trend</h3>
-      <div className="h-60 w-full">
+    <div>
+      <h3 className="text-lg font-semibold text-dashboard-blue-dark mb-2">Capacity Trend</h3>
+      <div className="w-full border-t border-border pt-4"> {/* Added border and padding */}
         <ChartContainer
           config={{
             "Available Capacity": {
@@ -59,7 +59,7 @@ const CapacityTrend = ({ data, excludeFirstSprint = false }: CapacityTrendProps)
             },
           }}
         >
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width="100%" height={250}> {/* Explicit height */}
             <BarChart
               data={chartData}
               margin={{ top: 5, right: 30, left: 40, bottom: 20 }}
