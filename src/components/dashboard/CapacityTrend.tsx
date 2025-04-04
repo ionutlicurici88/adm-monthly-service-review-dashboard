@@ -40,7 +40,7 @@ const CapacityTrend = ({ data, excludeFirstSprint = false }: CapacityTrendProps)
     }));
 
   return (
-    <div className="mt-8"> {/* Increased top margin */}
+    <div className="mt-12"> {/* Increased top margin to push title lower */}
       <h3 className="text-lg font-semibold text-dashboard-blue-dark mb-6 pl-2">Capacity Trend</h3>
       <div className="w-full border-t border-border pt-4"> {/* Added border and padding */}
         <ChartContainer
@@ -59,7 +59,7 @@ const CapacityTrend = ({ data, excludeFirstSprint = false }: CapacityTrendProps)
             },
           }}
         >
-          <ResponsiveContainer width="100%" height={250}>
+          <ResponsiveContainer width="100%" height={180}> {/* Reduced height from 250 to 180 */}
             <BarChart
               data={chartData}
               margin={{ top: 5, right: 30, left: 40, bottom: 20 }}
