@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { OverviewType, ViewType } from "@/types/dashboard";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
@@ -14,7 +15,7 @@ import {
   getAllSprintsExcludeFirstCapacityOverview,
   getAllSprintsTaskOverview,
   getAllSprintsStoryPointsOverview,
-} from "@/data/mock-data";
+} from "@/data";
 
 const months = [
   { id: 1, name: "February" },

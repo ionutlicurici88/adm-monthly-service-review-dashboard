@@ -1,0 +1,13 @@
+
+import { Sprint } from "@/types/dashboard";
+
+// Mock Sprints
+export const sprints: Sprint[] = [
+  { id: 1, number: 1, startDate: "2025-01-01", endDate: "2025-01-14", lengthInDays: 10 },
+  { id: 2, number: 2, startDate: "2025-01-15", endDate: "2025-01-28", lengthInDays: 10 },
+  { id: 3, number: 3, startDate: "2025-01-29", endDate: "2025-02-11", lengthInDays: 10 },
+  { id: 4, number: 4, startDate: "2025-02-12", endDate: "2025-02-25", lengthInDays: 10 },
+  { id: 5, number: 5, startDate: "2025-03-01", endDate: "2025-03-14", lengthInDays: 10 },
+  { id: 6, number: 6, startDate: "2025-03-15", endDate: "2025-03-28", lengthInDays: 10 },
+  { id: 7, number: 7, startDate: "2025-03-29", endDate: "2025-04-11", lengthInDays: 10 },
+];
