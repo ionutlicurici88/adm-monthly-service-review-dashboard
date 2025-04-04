@@ -120,3 +120,38 @@ export const getAllSprintsStoryPointsOverview = (): StoryPointsOverview => {
     velocityVsTarget: parseFloat(avgVelocityVsTarget.toFixed(2)),
   };
 };
+
+// Helper function to get aggregated data excluding Sprint 1
+export const getAllSprintsExcludeFirstStoryPointsOverview = (): StoryPointsOverview => {
+  // Filter out Sprint 1
+  const dataExcludingFirstSprint = storyPointsOverviewData.filter(sprint => sprint.sprintNumber > 1);
+  
+  const firstSprint = dataExcludingFirstSprint[0]; // Sprint 2 is now the first
+  const lastSprint = dataExcludingFirstSprint[dataExcludingFirstSprint.length - 1];
+  
+  const totalEstimatedSTP = dataExcludingFirstSprint.reduce((sum, item) => sum + item.estimatedSTP, 0);
+  const totalExtraSTP = dataExcludingFirstSprint.reduce((sum, item) => sum + item.extraSTP, 0);
+  const totalDeliveredSTP = dataExcludingFirstSprint.reduce((sum, item) => sum + item.deliveredSTP, 0);
+  const totalLeftoverSTP = dataExcludingFirstSprint.reduce((sum, item) => sum + item.leftoverSTP, 0);
+  
+  // Calculate aggregate velocity percentage
+  const avgVelocityPercentage = totalEstimatedSTP > 0
+    ? Math.round((totalDeliveredSTP / totalEstimatedSTP) * 100)
+    : 0;
+
+  // Calculate average velocity vs target excluding Sprint 1
+  const avgVelocityVsTarget = dataExcludingFirstSprint.reduce((sum, item) => sum + item.velocityVsTarget, 0) / dataExcludingFirstSprint.length;
+
+  return {
+    sprintId: -1, // -1 represents all sprints excluding the first
+    sprintNumber: 0, // Still use 0 to represent aggregate view
+    startDate: firstSprint.startDate,
+    endDate: lastSprint.endDate,
+    estimatedSTP: totalEstimatedSTP,
+    extraSTP: totalExtraSTP,
+    deliveredSTP: totalDeliveredSTP,
+    leftoverSTP: totalLeftoverSTP,
+    sprintVelocityPercentage: avgVelocityPercentage,
+    velocityVsTarget: parseFloat(avgVelocityVsTarget.toFixed(2)),
+  };
+};

@@ -13,5 +13,6 @@ export {
 } from './task-data';
 export { 
   storyPointsOverviewData, 
-  getAllSprintsStoryPointsOverview 
+  getAllSprintsStoryPointsOverview,
+  getAllSprintsExcludeFirstStoryPointsOverview
 } from './story-points-data';

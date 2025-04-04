@@ -16,6 +16,7 @@ import {
   getAllSprintsTaskOverview,
   getAllSprintsExcludeFirstTaskOverview,
   getAllSprintsStoryPointsOverview,
+  getAllSprintsExcludeFirstStoryPointsOverview,
 } from "@/data";
 
 const months = [
@@ -74,6 +75,9 @@ const Dashboard = () => {
   const getStoryPointsData = () => {
     if (selectedSprintId === 0) {
       return getAllSprintsStoryPointsOverview();
+    }
+    if (selectedSprintId === -1) {
+      return getAllSprintsExcludeFirstStoryPointsOverview();
     }
     return (
       storyPointsOverviewData.find((item) => item.sprintId === selectedSprintId) ||
