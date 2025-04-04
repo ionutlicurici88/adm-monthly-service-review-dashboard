@@ -69,7 +69,9 @@ const StatCard = ({
           {tooltip && (
             <Tooltip>
               <TooltipTrigger asChild>
-                <InfoIcon className="w-4 h-4 text-gray-400 cursor-help hover:text-gray-600" />
+                <span className="cursor-help text-gray-400 hover:text-gray-600">
+                  <InfoIcon className="w-4 h-4" />
+                </span>
               </TooltipTrigger>
               <TooltipContent className="max-w-xs text-xs">
                 {tooltip}
