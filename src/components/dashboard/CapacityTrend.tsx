@@ -40,8 +40,8 @@ const CapacityTrend = ({ data, excludeFirstSprint = false }: CapacityTrendProps)
     }));
 
   return (
-    <div className="mt-6"> {/* Increased top margin */}
-      <h3 className="text-lg font-semibold text-dashboard-blue-dark mb-4 pl-2">Capacity Trend</h3>
+    <div className="mt-8"> {/* Increased top margin */}
+      <h3 className="text-lg font-semibold text-dashboard-blue-dark mb-6 pl-2">Capacity Trend</h3>
       <div className="w-full border-t border-border pt-4"> {/* Added border and padding */}
         <ChartContainer
           config={{
