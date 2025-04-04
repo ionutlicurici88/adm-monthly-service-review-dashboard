@@ -90,7 +90,10 @@ const CapacityOverview = ({ data, allData = [] }: CapacityOverviewProps) => {
       
       {/* Only show trend chart if this is the "All Sprints" or "All Sprints -1" view and we have data */}
       {(sprintNumber === 0 || sprintNumber === -1) && allData.length > 0 && (
-        <CapacityTrend data={allData} />
+        <CapacityTrend 
+          data={allData} 
+          excludeFirstSprint={sprintNumber === -1}
+        />
       )}
     </div>
   );

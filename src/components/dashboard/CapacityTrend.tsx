@@ -14,12 +14,23 @@ import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
 
 interface CapacityTrendProps {
   data: CapacityOverview[];
+  excludeFirstSprint?: boolean;
 }
 
-const CapacityTrend = ({ data }: CapacityTrendProps) => {
+const CapacityTrend = ({ data, excludeFirstSprint = false }: CapacityTrendProps) => {
   // Prepare data for the chart
   const chartData = data
-    .filter(item => item.sprintNumber > 0) // Filter out "All Sprints" aggregated data
+    .filter(item => {
+      // Filter out "All Sprints" aggregated data
+      const isRegularSprint = item.sprintNumber > 0;
+      
+      // Also filter out Sprint 1 when excludeFirstSprint is true
+      if (excludeFirstSprint && item.sprintNumber === 1) {
+        return false;
+      }
+      
+      return isRegularSprint;
+    })
     .sort((a, b) => a.sprintNumber - b.sprintNumber) // Sort by sprint number
     .map((item) => ({
       name: `Sprint ${item.sprintNumber}`,
