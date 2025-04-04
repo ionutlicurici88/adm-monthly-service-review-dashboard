@@ -22,7 +22,7 @@ const CapacityTrend = ({ data, excludeFirstSprint = false }: CapacityTrendProps)
 
   return (
     <div>
-      <div className="w-full border-t border-border pt-4">
+      <div className="w-full pt-4">
       </div>
     </div>
   );
