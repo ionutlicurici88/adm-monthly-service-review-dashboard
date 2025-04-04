@@ -1,12 +1,14 @@
 
 import { TaskOverview as TaskOverviewType } from "@/types/dashboard";
 import StatCard from "./StatCard";
+import TaskTrend from "./TaskTrend";
 
 interface TaskOverviewProps {
   data: TaskOverviewType;
+  allData?: TaskOverviewType[]; // Added to pass all data for the trend chart
 }
 
-const TaskOverview = ({ data }: TaskOverviewProps) => {
+const TaskOverview = ({ data, allData = [] }: TaskOverviewProps) => {
   const {
     sprintNumber,
     startDate,
@@ -19,7 +21,14 @@ const TaskOverview = ({ data }: TaskOverviewProps) => {
     completionPercentage,
   } = data;
 
-  const sprintTitle = sprintNumber === 0 ? "All Sprints" : `Sprint ${sprintNumber}`;
+  let sprintTitle;
+  if (sprintNumber === 0) {
+    sprintTitle = "All Sprints";
+  } else if (sprintNumber === -1) {
+    sprintTitle = "All Sprints (excludes Sprint 1)";
+  } else {
+    sprintTitle = `Sprint ${sprintNumber}`;
+  }
   
   // Format dates for display
   const formatDate = (dateString: string) => {
@@ -100,6 +109,14 @@ const TaskOverview = ({ data }: TaskOverviewProps) => {
           compact
         />
       </div>
+
+      {/* Only show trend chart if this is the "All Sprints" or "All Sprints -1" view and we have data */}
+      {(sprintNumber === 0 || sprintNumber === -1) && allData.length > 0 && (
+        <TaskTrend 
+          data={allData} 
+          excludeFirstSprint={sprintNumber === -1}
+        />
+      )}
     </div>
   );
 };

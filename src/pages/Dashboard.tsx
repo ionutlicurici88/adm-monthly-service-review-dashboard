@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { OverviewType, ViewType } from "@/types/dashboard";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
@@ -112,7 +113,11 @@ const Dashboard = () => {
                 allData={sprintSpecificData} 
                />;
       case "task":
-        return <TaskOverview data={getTaskData()} />;
+        const taskSpecificData = taskOverviewData.filter(item => item.sprintNumber > 0);
+        return <TaskOverview 
+                data={getTaskData()} 
+                allData={taskSpecificData}
+               />;
       case "story":
         return <StoryPointsOverview data={getStoryPointsData()} />;
       default:
