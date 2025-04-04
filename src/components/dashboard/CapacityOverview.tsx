@@ -1,12 +1,14 @@
 
 import { CapacityOverview as CapacityOverviewType } from "@/types/dashboard";
 import StatCard from "./StatCard";
+import CapacityTrend from "./CapacityTrend";
 
 interface CapacityOverviewProps {
   data: CapacityOverviewType;
+  allData?: CapacityOverviewType[]; // Added to pass all data for the trend chart
 }
 
-const CapacityOverview = ({ data }: CapacityOverviewProps) => {
+const CapacityOverview = ({ data, allData = [] }: CapacityOverviewProps) => {
   const {
     sprintNumber,
     workingDaysAvailable,
@@ -71,6 +73,11 @@ const CapacityOverview = ({ data }: CapacityOverviewProps) => {
           className="sm:col-span-2"
         />
       </div>
+      
+      {/* Only show trend chart if this is the "All Sprints" view and we have data */}
+      {sprintNumber === 0 && allData.length > 0 && (
+        <CapacityTrend data={allData} />
+      )}
     </div>
   );
 };

@@ -85,13 +85,19 @@ const Dashboard = () => {
   const renderSprintViewContent = () => {
     switch (currentOverview) {
       case "capacity":
-        return <CapacityOverview data={getCapacityData()} />;
+        return <CapacityOverview 
+                data={getCapacityData()} 
+                allData={capacityOverviewData} 
+               />;
       case "task":
         return <TaskOverview data={getTaskData()} />;
       case "story":
         return <StoryPointsOverview data={getStoryPointsData()} />;
       default:
-        return <CapacityOverview data={getCapacityData()} />;
+        return <CapacityOverview 
+                data={getCapacityData()} 
+                allData={capacityOverviewData} 
+               />;
     }
   };
 
