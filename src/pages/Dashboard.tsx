@@ -121,7 +121,7 @@ const Dashboard = () => {
             currentOverview={currentOverview}
             onOverviewChange={handleOverviewChange}
           />
-          <div className="p-6 bg-white border rounded-lg shadow-sm">
+          <div className="p-6 bg-white border rounded-lg shadow-sm min-h-[400px]">
             {renderSprintViewContent()}
           </div>
         </>
