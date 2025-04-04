@@ -24,6 +24,7 @@ interface StatCardProps {
     medium: number;
   };
   tooltip?: string;
+  compact?: boolean;
 }
 
 const StatCard = ({
@@ -34,6 +35,7 @@ const StatCard = ({
   isPercentage = false,
   colorThreshold,
   tooltip,
+  compact = false,
 }: StatCardProps) => {
   // Get color based on percentage value
   const getColorClass = () => {
@@ -59,12 +61,14 @@ const StatCard = ({
   };
 
   const displayValue = isPercentage && typeof value === "number" ? `${value}%` : value;
+  const circleColorClass = getCircleColor();
+  const textColorClass = circleColorClass ? circleColorClass.replace('bg-', 'text-') : getColorClass();
 
   return (
     <Card className={cn("overflow-hidden", className)}>
-      <CardHeader className="p-4 bg-gray-50">
+      <CardHeader className={cn("bg-gray-50", compact ? "p-2" : "p-4")}>
         <div className="flex items-center justify-between">
-          <CardTitle className="text-sm font-medium text-gray-500">{title}</CardTitle>
+          <CardTitle className={cn("text-gray-500", compact ? "text-xs" : "text-sm", "font-medium")}>{title}</CardTitle>
           {tooltip && (
             <Tooltip>
               <TooltipTrigger asChild>
@@ -78,18 +82,16 @@ const StatCard = ({
           )}
         </div>
       </CardHeader>
-      <CardContent className="p-4">
+      <CardContent className={cn(compact ? "p-2" : "p-4")}>
         <div className="flex items-center gap-2">
           {isPercentage && typeof value === "number" && (
-            <div className={cn("w-4 h-4 rounded-full", getCircleColor())}></div>
+            <div className={cn("rounded-full", circleColorClass, compact ? "w-5 h-5" : "w-4 h-4")}></div>
           )}
-          <div className={cn("text-2xl font-semibold", 
-            isPercentage ? getCircleColor().replace('bg-', 'text-') : getColorClass()
-          )}>
+          <div className={cn(compact ? "text-xl" : "text-2xl", "font-semibold", textColorClass)}>
             {displayValue}
           </div>
         </div>
-        {description && <CardDescription className="mt-1 text-xs">{description}</CardDescription>}
+        {description && <CardDescription className={cn("mt-1", compact ? "text-[10px]" : "text-xs")}>{description}</CardDescription>}
       </CardContent>
     </Card>
   );

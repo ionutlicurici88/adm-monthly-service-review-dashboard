@@ -33,16 +33,16 @@ const CapacityTrend = ({ data, excludeFirstSprint = false }: CapacityTrendProps)
     })
     .sort((a, b) => a.sprintNumber - b.sprintNumber) // Sort by sprint number
     .map((item) => ({
-      name: `Sprint ${item.sprintNumber}`,
+      name: `S${item.sprintNumber}`, // Shorter sprint name
       "Available Capacity": item.availableCapacity,
       "Planned Capacity": item.plannedCapacity,
       "Delivered Capacity": item.deliveredCapacity,
     }));
 
   return (
-    <div className="mt-8 space-y-4">
+    <div className="mt-4 space-y-2">
       <h3 className="text-lg font-semibold text-dashboard-blue-dark">Capacity Trend</h3>
-      <div className="h-80 w-full">
+      <div className="h-64 w-full">
         <ChartContainer
           config={{
             "Available Capacity": {
@@ -62,13 +62,14 @@ const CapacityTrend = ({ data, excludeFirstSprint = false }: CapacityTrendProps)
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={chartData}
-              margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+              margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
+              barSize={20}
             >
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
+              <XAxis dataKey="name" scale="point" padding={{ left: 10, right: 10 }} />
               <YAxis />
               <Tooltip content={<ChartTooltipContent />} />
-              <Legend />
+              <Legend wrapperStyle={{ fontSize: '10px' }} />
               <Bar dataKey="Available Capacity" fill="#10B981" /> {/* Green */}
               <Bar dataKey="Planned Capacity" fill="#93C5FD" /> {/* Light blue */}
               <Bar dataKey="Delivered Capacity" fill="#1E40AF" /> {/* Dark blue */}

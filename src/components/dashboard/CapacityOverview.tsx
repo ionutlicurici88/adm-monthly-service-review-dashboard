@@ -30,16 +30,17 @@ const CapacityOverview = ({ data, allData = [] }: CapacityOverviewProps) => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <h2 className="text-xl font-semibold text-dashboard-blue-dark">
         {sprintTitle} - Capacity Overview
       </h2>
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
         <StatCard 
           title="Working Days Available" 
           value={workingDaysAvailable} 
           tooltip="Total number of working days in the sprint period, excluding weekends and holidays."
+          compact
         />
         
         <StatCard 
@@ -47,6 +48,7 @@ const CapacityOverview = ({ data, allData = [] }: CapacityOverviewProps) => {
           value={availableCapacity} 
           description="man-day"
           tooltip="Total capacity of the team measured in man-days (working days × number of team members)."
+          compact
         />
         
         <StatCard 
@@ -54,6 +56,7 @@ const CapacityOverview = ({ data, allData = [] }: CapacityOverviewProps) => {
           value={plannedHoliday} 
           description="man-day"
           tooltip="Pre-planned time off for team members during the sprint period (vacations, training, etc.)."
+          compact
         />
         
         <StatCard 
@@ -61,6 +64,7 @@ const CapacityOverview = ({ data, allData = [] }: CapacityOverviewProps) => {
           value={plannedCapacity} 
           description="man-day, excluding planned holiday"
           tooltip="Net capacity after subtracting planned holidays from available capacity."
+          compact
         />
         
         <StatCard 
@@ -68,6 +72,7 @@ const CapacityOverview = ({ data, allData = [] }: CapacityOverviewProps) => {
           value={unplannedHoliday} 
           description="man-day"
           tooltip="Unexpected absences during the sprint (sick leaves, emergencies, etc.)."
+          compact
         />
         
         <StatCard 
@@ -75,6 +80,7 @@ const CapacityOverview = ({ data, allData = [] }: CapacityOverviewProps) => {
           value={deliveredCapacity} 
           description="man-day, excluding unplanned leave"
           tooltip="Actual working capacity delivered after subtracting both planned and unplanned holidays."
+          compact
         />
         
         <StatCard 
@@ -83,8 +89,9 @@ const CapacityOverview = ({ data, allData = [] }: CapacityOverviewProps) => {
           isPercentage={true}
           description="delivered vs. planned" 
           colorThreshold={{ good: 95, medium: 85 }}
-          className="sm:col-span-2"
+          className="sm:col-span-1"
           tooltip="Percentage of planned capacity that was actually delivered. Higher percentages indicate better utilization of planned resources."
+          compact
         />
       </div>
       
