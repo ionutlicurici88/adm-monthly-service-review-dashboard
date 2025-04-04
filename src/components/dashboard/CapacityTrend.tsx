@@ -23,9 +23,6 @@ const CapacityTrend = ({ data, excludeFirstSprint = false }: CapacityTrendProps)
   return (
     <div>
       <div className="w-full border-t border-border pt-4">
-        <p className="text-sm text-muted-foreground italic py-4 text-center">
-          Chart visualization has been removed.
-        </p>
       </div>
     </div>
   );
