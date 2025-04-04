@@ -120,3 +120,37 @@ export const getAllSprintsTaskOverview = (): TaskOverview => {
     completionPercentage: avgCompletionPercentage,
   };
 };
+
+// Helper function to get aggregated data for all sprints excluding Sprint 1
+export const getAllSprintsExcludeFirstTaskOverview = (): TaskOverview => {
+  const dataExcludingSprint1 = taskOverviewData.filter(item => item.sprintNumber !== 1);
+  
+  const firstSprint = dataExcludingSprint1[0];
+  const lastSprint = dataExcludingSprint1[dataExcludingSprint1.length - 1];
+  
+  const totalPlannedTasks = dataExcludingSprint1.reduce((sum, item) => sum + item.plannedTasks, 0);
+  const totalUnplannedTasks = dataExcludingSprint1.reduce((sum, item) => sum + item.unplannedTasks, 0);
+  const totalDeliveredTasks = dataExcludingSprint1.reduce((sum, item) => sum + item.deliveredTasks, 0);
+  const totalLeftoverTasks = dataExcludingSprint1.reduce((sum, item) => sum + item.leftoverTasks, 0);
+  
+  // Calculate aggregate completion percentage
+  const avgCompletionPercentage = totalPlannedTasks > 0
+    ? Math.round((totalDeliveredTasks / totalPlannedTasks) * 100)
+    : 0;
+
+  // Calculate total sprint length in days excluding sprint 1
+  const totalSprintLength = dataExcludingSprint1.reduce((sum, item) => sum + item.sprintLengthInDays, 0);
+
+  return {
+    sprintId: -1, // -1 represents all sprints except sprint 1
+    sprintNumber: -1,
+    startDate: firstSprint.startDate,
+    endDate: lastSprint.endDate,
+    sprintLengthInDays: totalSprintLength,
+    plannedTasks: totalPlannedTasks,
+    unplannedTasks: totalUnplannedTasks,
+    deliveredTasks: totalDeliveredTasks,
+    leftoverTasks: totalLeftoverTasks,
+    completionPercentage: avgCompletionPercentage,
+  };
+};

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { OverviewType, ViewType } from "@/types/dashboard";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
@@ -14,6 +13,7 @@ import {
   getAllSprintsCapacityOverview,
   getAllSprintsExcludeFirstCapacityOverview,
   getAllSprintsTaskOverview,
+  getAllSprintsExcludeFirstTaskOverview,
   getAllSprintsStoryPointsOverview,
 } from "@/data";
 
@@ -23,33 +23,27 @@ const months = [
 ];
 
 const Dashboard = () => {
-  // State for current view, overview type, and selected sprint
   const [currentView, setCurrentView] = useState<ViewType>("sprint");
   const [currentOverview, setCurrentOverview] = useState<OverviewType>("capacity");
-  const [selectedSprintId, setSelectedSprintId] = useState<number>(0); // 0 for all sprints
-  const [selectedMonthId, setSelectedMonthId] = useState<number>(0); // 0 for all months
+  const [selectedSprintId, setSelectedSprintId] = useState<number>(0);
+  const [selectedMonthId, setSelectedMonthId] = useState<number>(0);
 
-  // Handle view change
   const handleViewChange = (view: ViewType) => {
     setCurrentView(view);
   };
 
-  // Handle overview change
   const handleOverviewChange = (overview: OverviewType) => {
     setCurrentOverview(overview);
   };
 
-  // Handle sprint change
   const handleSprintChange = (sprintId: number) => {
     setSelectedSprintId(sprintId);
   };
 
-  // Handle month change
   const handleMonthChange = (monthId: number) => {
     setSelectedMonthId(monthId);
   };
 
-  // Get the appropriate data based on selected sprint
   const getCapacityData = () => {
     if (selectedSprintId === 0) {
       return getAllSprintsCapacityOverview();
@@ -67,6 +61,9 @@ const Dashboard = () => {
     if (selectedSprintId === 0) {
       return getAllSprintsTaskOverview();
     }
+    if (selectedSprintId === -1) {
+      return getAllSprintsExcludeFirstTaskOverview();
+    }
     return (
       taskOverviewData.find((item) => item.sprintId === selectedSprintId) ||
       getAllSprintsTaskOverview()
@@ -83,7 +80,6 @@ const Dashboard = () => {
     );
   };
 
-  // Content for the month view
   const renderMonthViewContent = () => {
     return (
       <div className="p-6 bg-white border rounded-lg shadow-sm min-h-[300px] flex flex-col items-center justify-center w-full">
@@ -107,11 +103,9 @@ const Dashboard = () => {
     );
   };
 
-  // Content for the sprint view based on the current overview type
   const renderSprintViewContent = () => {
     switch (currentOverview) {
       case "capacity":
-        // Pass individual sprint data to the component
         const sprintSpecificData = capacityOverviewData.filter(item => item.sprintNumber > 0);
         return <CapacityOverview 
                 data={getCapacityData()} 

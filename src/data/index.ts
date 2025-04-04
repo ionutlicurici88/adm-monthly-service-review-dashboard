@@ -8,7 +8,8 @@ export {
 } from './capacity-data';
 export { 
   taskOverviewData, 
-  getAllSprintsTaskOverview 
+  getAllSprintsTaskOverview,
+  getAllSprintsExcludeFirstTaskOverview
 } from './task-data';
 export { 
   storyPointsOverviewData, 
