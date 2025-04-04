@@ -1,6 +1,6 @@
 
 // Dashboard Types
-export type ViewType = 'sprint' | 'release';
+export type ViewType = 'sprint' | 'month';
 export type OverviewType = 'capacity' | 'task' | 'story';
 
 export interface Sprint {
@@ -9,6 +9,11 @@ export interface Sprint {
   startDate: string;
   endDate: string;
   lengthInDays: number;
+}
+
+export interface Month {
+  id: number;
+  name: string;
 }
 
 export interface CapacityOverview {

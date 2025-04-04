@@ -22,14 +22,14 @@ const ViewToggle = ({ currentView, onViewChange }: ViewToggleProps) => {
         Sprint View
       </Button>
       <Button
-        variant={currentView === "release" ? "default" : "outline"}
+        variant={currentView === "month" ? "default" : "outline"}
         className={cn(
           "px-4 py-2 font-medium",
-          currentView === "release" && "bg-dashboard-blue"
+          currentView === "month" && "bg-dashboard-blue"
         )}
-        onClick={() => onViewChange("release")}
+        onClick={() => onViewChange("month")}
       >
-        Release View
+        Month View
       </Button>
     </div>
   );

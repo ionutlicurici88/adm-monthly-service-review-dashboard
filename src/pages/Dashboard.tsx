@@ -16,11 +16,17 @@ import {
   getAllSprintsStoryPointsOverview,
 } from "@/data/mock-data";
 
+const months = [
+  { id: 1, name: "February" },
+  { id: 2, name: "March" },
+];
+
 const Dashboard = () => {
   // State for current view, overview type, and selected sprint
   const [currentView, setCurrentView] = useState<ViewType>("sprint");
   const [currentOverview, setCurrentOverview] = useState<OverviewType>("capacity");
   const [selectedSprintId, setSelectedSprintId] = useState<number>(0); // 0 for all sprints
+  const [selectedMonthId, setSelectedMonthId] = useState<number>(0); // 0 for all months
 
   // Handle view change
   const handleViewChange = (view: ViewType) => {
@@ -35,6 +41,11 @@ const Dashboard = () => {
   // Handle sprint change
   const handleSprintChange = (sprintId: number) => {
     setSelectedSprintId(sprintId);
+  };
+
+  // Handle month change
+  const handleMonthChange = (monthId: number) => {
+    setSelectedMonthId(monthId);
   };
 
   // Get the appropriate data based on selected sprint
@@ -71,15 +82,26 @@ const Dashboard = () => {
     );
   };
 
-  // Content for the release view
-  const renderReleaseViewContent = () => {
+  // Content for the month view
+  const renderMonthViewContent = () => {
     return (
       <div className="p-6 bg-white border rounded-lg shadow-sm min-h-[300px] flex flex-col items-center justify-center w-full">
-        <h2 className="text-xl font-semibold text-dashboard-blue-dark">Release View</h2>
-        <p className="mt-4 text-gray-600">
-          The Release View functionality is coming soon. This view will provide insights
-          across multiple sprints grouped by release.
-        </p>
+        <h2 className="text-xl font-semibold text-dashboard-blue-dark">Month View</h2>
+        {selectedMonthId === 0 && (
+          <p className="mt-4 text-gray-600">
+            Viewing data for all months. This view provides insights across multiple sprints grouped by month.
+          </p>
+        )}
+        {selectedMonthId === -1 && (
+          <p className="mt-4 text-gray-600">
+            Viewing data for all months, excluding Sprint 1. This helps to see trends after the initial sprint.
+          </p>
+        )}
+        {selectedMonthId > 0 && (
+          <p className="mt-4 text-gray-600">
+            Viewing data for {months.find(m => m.id === selectedMonthId)?.name}. This shows all metrics for the selected month.
+          </p>
+        )}
       </div>
     );
   };
@@ -112,8 +134,11 @@ const Dashboard = () => {
         currentView={currentView}
         onViewChange={handleViewChange}
         sprints={sprints}
+        months={months}
         selectedSprintId={selectedSprintId}
+        selectedMonthId={selectedMonthId}
         onSprintChange={handleSprintChange}
+        onMonthChange={handleMonthChange}
       />
 
       {currentView === "sprint" && (
@@ -128,7 +153,7 @@ const Dashboard = () => {
         </>
       )}
 
-      {currentView === "release" && renderReleaseViewContent()}
+      {currentView === "month" && renderMonthViewContent()}
     </div>
   );
 };

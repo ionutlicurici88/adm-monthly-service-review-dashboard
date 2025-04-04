@@ -1,23 +1,30 @@
 
 import { ViewType } from "@/types/dashboard";
 import SprintSelector from "./SprintSelector";
+import MonthSelector from "./MonthSelector";
 import ViewToggle from "./ViewToggle";
-import { Sprint } from "@/types/dashboard";
+import { Sprint, Month } from "@/types/dashboard";
 
 interface DashboardHeaderProps {
   currentView: ViewType;
   onViewChange: (view: ViewType) => void;
   sprints: Sprint[];
+  months: Month[];
   selectedSprintId: number;
+  selectedMonthId: number;
   onSprintChange: (sprintId: number) => void;
+  onMonthChange: (monthId: number) => void;
 }
 
 const DashboardHeader = ({
   currentView,
   onViewChange,
   sprints,
+  months,
   selectedSprintId,
+  selectedMonthId,
   onSprintChange,
+  onMonthChange,
 }: DashboardHeaderProps) => {
   return (
     <div className="mb-8">
@@ -33,6 +40,14 @@ const DashboardHeader = ({
             sprints={sprints}
             selectedSprintId={selectedSprintId}
             onSprintChange={onSprintChange}
+          />
+        )}
+
+        {currentView === "month" && (
+          <MonthSelector
+            months={months}
+            selectedMonthId={selectedMonthId}
+            onMonthChange={onMonthChange}
           />
         )}
       </div>
