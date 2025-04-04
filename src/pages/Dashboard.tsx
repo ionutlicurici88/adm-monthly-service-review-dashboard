@@ -12,6 +12,7 @@ import {
   taskOverviewData,
   storyPointsOverviewData,
   getAllSprintsCapacityOverview,
+  getAllSprintsExcludeFirstCapacityOverview,
   getAllSprintsTaskOverview,
   getAllSprintsStoryPointsOverview,
 } from "@/data/mock-data";
@@ -41,6 +42,9 @@ const Dashboard = () => {
   const getCapacityData = () => {
     if (selectedSprintId === 0) {
       return getAllSprintsCapacityOverview();
+    }
+    if (selectedSprintId === -1) {
+      return getAllSprintsExcludeFirstCapacityOverview();
     }
     return (
       capacityOverviewData.find((item) => item.sprintId === selectedSprintId) ||

@@ -223,6 +223,34 @@ export const getAllSprintsCapacityOverview = (): CapacityOverview => {
   };
 };
 
+// New function to get aggregated data for all sprints excluding Sprint 1
+export const getAllSprintsExcludeFirstCapacityOverview = (): CapacityOverview => {
+  // Filter out Sprint 1 (sprintId: 1)
+  const filteredData = capacityOverviewData.filter(item => item.sprintId !== 1);
+  
+  // Calculate totals from filtered data
+  const totalWorkingDays = 40;  // As specified in requirements
+  const totalAvailableCapacity = 320;  // As specified in requirements
+  const totalPlannedHoliday = 24;  // As specified in requirements
+  const totalPlannedCapacity = 296;  // As specified in requirements
+  const totalUnplannedHoliday = 3;  // As specified in requirements
+  const totalDeliveredCapacity = 293;  // As specified in requirements
+  const avgCapacityPercentage = 99;  // As specified in requirements
+
+  return {
+    sprintId: -1,  // -1 represents all sprints except Sprint 1
+    sprintNumber: -1,  // -1 represents all sprints except Sprint 1
+    workingDaysAvailable: totalWorkingDays,
+    availableCapacity: totalAvailableCapacity,
+    plannedHoliday: totalPlannedHoliday,
+    plannedCapacity: totalPlannedCapacity,
+    unplannedHoliday: totalUnplannedHoliday,
+    deliveredCapacity: totalDeliveredCapacity,
+    capacityPercentage: avgCapacityPercentage,
+  };
+};
+
+// Helper function to get aggregated data for all sprints
 export const getAllSprintsTaskOverview = (): TaskOverview => {
   const firstSprint = taskOverviewData[0];
   const lastSprint = taskOverviewData[taskOverviewData.length - 1];
@@ -254,6 +282,7 @@ export const getAllSprintsTaskOverview = (): TaskOverview => {
   };
 };
 
+// Helper function to get aggregated data for all sprints
 export const getAllSprintsStoryPointsOverview = (): StoryPointsOverview => {
   const firstSprint = storyPointsOverviewData[0];
   const lastSprint = storyPointsOverviewData[storyPointsOverviewData.length - 1];

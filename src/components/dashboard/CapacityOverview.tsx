@@ -20,7 +20,14 @@ const CapacityOverview = ({ data, allData = [] }: CapacityOverviewProps) => {
     capacityPercentage,
   } = data;
 
-  const sprintTitle = sprintNumber === 0 ? "All Sprints" : `Sprint ${sprintNumber}`;
+  let sprintTitle;
+  if (sprintNumber === 0) {
+    sprintTitle = "All Sprints";
+  } else if (sprintNumber === -1) {
+    sprintTitle = "All Sprints -1";
+  } else {
+    sprintTitle = `Sprint ${sprintNumber}`;
+  }
 
   return (
     <div className="space-y-6">
@@ -81,8 +88,8 @@ const CapacityOverview = ({ data, allData = [] }: CapacityOverviewProps) => {
         />
       </div>
       
-      {/* Only show trend chart if this is the "All Sprints" view and we have data */}
-      {sprintNumber === 0 && allData.length > 0 && (
+      {/* Only show trend chart if this is the "All Sprints" or "All Sprints -1" view and we have data */}
+      {(sprintNumber === 0 || sprintNumber === -1) && allData.length > 0 && (
         <CapacityTrend data={allData} />
       )}
     </div>
