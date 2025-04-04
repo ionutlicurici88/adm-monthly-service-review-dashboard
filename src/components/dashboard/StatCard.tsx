@@ -1,4 +1,3 @@
-
 import { cn } from "@/lib/utils";
 import {
   Card,
@@ -25,7 +24,7 @@ interface StatCardProps {
     good: number;
     medium: number;
   };
-  tooltip?: string;
+  tooltip: string;
   compact?: boolean;
 }
 
@@ -71,18 +70,16 @@ const StatCard = ({
       <CardHeader className={cn("bg-gray-50", compact ? "p-2" : "p-4")}>
         <div className="flex items-center justify-between">
           <CardTitle className={cn("text-gray-500", compact ? "text-xs" : "text-sm", "font-medium")}>{title}</CardTitle>
-          {tooltip && (
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <HelpCircle className="h-3.5 w-3.5 text-gray-400 cursor-help" />
-                </TooltipTrigger>
-                <TooltipContent className="max-w-xs text-xs">
-                  {tooltip}
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          )}
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <HelpCircle className="h-3.5 w-3.5 text-gray-400 cursor-help" />
+              </TooltipTrigger>
+              <TooltipContent className="max-w-xs text-xs">
+                {tooltip}
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
       </CardHeader>
       <CardContent className={cn(compact ? "p-2" : "p-4")}>
