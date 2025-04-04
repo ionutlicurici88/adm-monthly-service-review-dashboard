@@ -1,4 +1,3 @@
-
 import { StoryPointsOverview as StoryPointsOverviewType } from "@/types/dashboard";
 import StatCard from "./StatCard";
 import StoryPointsTrend from "./StoryPointsTrend";
@@ -24,7 +23,6 @@ const StoryPointsOverview = ({ data, allData = [], excludeFirstSprint = false }:
 
   const sprintTitle = sprintNumber === 0 ? "All Sprints" : `Sprint ${sprintNumber}`;
   
-  // Format dates for display
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
@@ -34,8 +32,9 @@ const StoryPointsOverview = ({ data, allData = [], excludeFirstSprint = false }:
     });
   };
 
-  // Only show chart for all sprints view (when sprintNumber is 0)
   const showChart = allData.length > 0 && (sprintNumber === 0);
+
+  const velocityVsTargetPercentage = Math.round(data.velocityVsTarget * 100);
 
   return (
     <div className="space-y-6 w-full">
@@ -87,9 +86,10 @@ const StoryPointsOverview = ({ data, allData = [], excludeFirstSprint = false }:
         
         <StatCard
           title="Velocity vs. Target"
-          value={velocityVsTarget}
-          colorThreshold={{ good: 1, medium: 0.9 }}
-          tooltip="Ratio of actual velocity against target velocity. Values above 1 indicate exceeding targets."
+          value={velocityVsTargetPercentage}
+          isPercentage={true}
+          colorThreshold={{ good: 100, medium: 90 }}
+          tooltip="Percentage of target velocity achieved. Values above 100% indicate exceeding targets."
           compact
         />
       </div>
