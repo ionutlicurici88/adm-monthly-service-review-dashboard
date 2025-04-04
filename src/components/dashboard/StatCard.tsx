@@ -26,7 +26,7 @@ interface StatCardProps {
     medium: number;
   };
   tooltip: string;
-  compact?: boolean;
+  compact?: boolean; // Add this back to the interface
 }
 
 const StatCard = ({
@@ -37,6 +37,7 @@ const StatCard = ({
   isPercentage = false,
   colorThreshold,
   tooltip,
+  compact = false, // Restore the parameter with a default value
 }: StatCardProps) => {
   // Get color based on percentage value
   const getColorClass = () => {
