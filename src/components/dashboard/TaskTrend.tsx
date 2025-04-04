@@ -152,13 +152,14 @@ const TaskTrend = ({ data, excludeFirstSprint = false }: TaskTrendProps) => {
               
               <defs>
                 {filteredData.map((entry, index) => {
+                  const unplannedRatio = entry.unplannedTasks / entry.totalTasks;
                   const plannedRatio = entry.plannedTasks / entry.totalTasks;
                   return (
                     <linearGradient id={`splitColor-${index}`} key={`gradient-${index}`} x1="0" y1="0" x2="0" y2="1">
-                      <stop offset={0} stopColor={chartConfig.plannedTasks.color} />
-                      <stop offset={plannedRatio} stopColor={chartConfig.plannedTasks.color} />
-                      <stop offset={plannedRatio} stopColor={chartConfig.unplannedTasks.color} />
-                      <stop offset={1} stopColor={chartConfig.unplannedTasks.color} />
+                      <stop offset={0} stopColor={chartConfig.unplannedTasks.color} />
+                      <stop offset={unplannedRatio} stopColor={chartConfig.unplannedTasks.color} />
+                      <stop offset={unplannedRatio} stopColor={chartConfig.plannedTasks.color} />
+                      <stop offset={1} stopColor={chartConfig.plannedTasks.color} />
                     </linearGradient>
                   );
                 })}
