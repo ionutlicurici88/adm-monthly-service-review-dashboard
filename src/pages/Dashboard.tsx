@@ -75,7 +75,7 @@ const Dashboard = () => {
   // Content for the release view
   const renderReleaseViewContent = () => {
     return (
-      <div className="p-6 bg-white border rounded-lg shadow-sm min-h-[400px]">
+      <div className="p-6 bg-white border rounded-lg shadow-sm min-h-[400px] mb-8">
         <h2 className="text-xl font-semibold text-dashboard-blue-dark">Release View</h2>
         <p className="mt-4 text-gray-600">
           The Release View functionality is coming soon. This view will provide insights
