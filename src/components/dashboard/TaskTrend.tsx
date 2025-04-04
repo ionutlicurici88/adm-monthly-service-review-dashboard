@@ -128,7 +128,7 @@ const TaskTrend = ({ data, excludeFirstSprint = false }: TaskTrendProps) => {
 
   return (
     <div className="w-full px-4 pt-6">
-      <h3 className="text-lg font-medium mb-4 text-center text-dashboard-blue-dark">Task Trend Across Sprints</h3>
+      <h3 className="text-lg font-semibold mb-4 text-center text-dashboard-blue-dark">Task Trend Across Sprints</h3>
       <div className="w-full h-[500px]">
         <ChartContainer config={chartConfig} className="h-full w-full">
           <ResponsiveContainer width="100%" height="100%">
@@ -148,9 +148,9 @@ const TaskTrend = ({ data, excludeFirstSprint = false }: TaskTrendProps) => {
                 ))}
               </Bar>
 
-              {/* Changed the order: leftover now rendered after delivered */}
-              <Bar dataKey="delivered" fill={chartConfig.delivered.color} name="Delivered Tasks" />
+              {/* Reordered the bars: leftover now rendered before delivered so it appears on top */}
               <Bar dataKey="leftover" fill={chartConfig.leftover.color} name="Leftover Tasks" />
+              <Bar dataKey="delivered" fill={chartConfig.delivered.color} name="Delivered Tasks" />
               
               <defs>
                 {filteredData.map((entry, index) => {
