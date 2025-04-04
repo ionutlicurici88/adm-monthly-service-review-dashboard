@@ -34,7 +34,8 @@ const StoryPointsOverview = ({ data, allData = [], excludeFirstSprint = false }:
     });
   };
 
-  const showChart = allData.length > 0;
+  // Only show chart for all sprints view (when sprintNumber is 0)
+  const showChart = allData.length > 0 && (sprintNumber === 0);
 
   return (
     <div className="space-y-6 w-full">
