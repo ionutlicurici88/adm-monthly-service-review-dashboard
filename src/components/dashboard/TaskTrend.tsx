@@ -1,3 +1,4 @@
+
 import { TaskOverview } from "@/types/dashboard";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from "recharts";
@@ -147,13 +148,13 @@ const TaskTrend = ({ data, excludeFirstSprint = false }: TaskTrendProps) => {
                 ))}
               </Bar>
 
+              {/* Changed the order: leftover now rendered after delivered */}
               <Bar dataKey="delivered" fill={chartConfig.delivered.color} name="Delivered Tasks" />
               <Bar dataKey="leftover" fill={chartConfig.leftover.color} name="Leftover Tasks" />
               
               <defs>
                 {filteredData.map((entry, index) => {
                   const unplannedRatio = entry.unplannedTasks / entry.totalTasks;
-                  const plannedRatio = entry.plannedTasks / entry.totalTasks;
                   return (
                     <linearGradient id={`splitColor-${index}`} key={`gradient-${index}`} x1="0" y1="0" x2="0" y2="1">
                       <stop offset={0} stopColor={chartConfig.unplannedTasks.color} />
