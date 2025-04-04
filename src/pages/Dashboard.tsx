@@ -25,7 +25,7 @@ const months = [
 ];
 
 const Dashboard = () => {
-  const [currentView, setCurrentView] = useState<ViewType>("sprint");
+  const [currentView, setCurrentView] = useState<ViewType>("month"); // Default to month view
   const [currentOverview, setCurrentOverview] = useState<OverviewType>("capacity");
   const [selectedSprintId, setSelectedSprintId] = useState<number>(0);
   const [selectedMonthId, setSelectedMonthId] = useState<number>(0);
@@ -85,27 +85,59 @@ const Dashboard = () => {
     );
   };
 
+  // Placeholder month data - will be replaced with actual data later
+  const getMonthData = () => {
+    return {
+      capacityData: getAllSprintsCapacityOverview(), // Temporarily using sprint data
+      taskData: getAllSprintsTaskOverview(),
+      storyPointsData: getAllSprintsStoryPointsOverview()
+    };
+  };
+
   const renderMonthViewContent = () => {
-    return (
-      <div className="p-6 bg-white border rounded-lg shadow-sm min-h-[300px] flex flex-col items-center justify-center w-full">
-        <h2 className="text-xl font-semibold text-dashboard-blue-dark">Month View</h2>
-        {selectedMonthId === 0 && (
-          <p className="mt-4 text-gray-600">
-            Viewing data for all months. This view provides insights across multiple sprints grouped by month.
-          </p>
-        )}
-        {selectedMonthId === -1 && (
-          <p className="mt-4 text-gray-600">
-            Viewing data for all months, excluding Sprint 1. This helps to see trends after the initial sprint.
-          </p>
-        )}
-        {selectedMonthId > 0 && (
-          <p className="mt-4 text-gray-600">
-            Viewing data for {months.find(m => m.id === selectedMonthId)?.name}. This shows all metrics for the selected month.
-          </p>
-        )}
-      </div>
-    );
+    switch (currentOverview) {
+      case "capacity":
+        return (
+          <div className="p-6 bg-white rounded-lg shadow-sm min-h-[300px] flex flex-col items-center w-full">
+            <h2 className="text-xl font-semibold text-dashboard-blue-dark mb-4">Monthly Capacity Overview</h2>
+            <CapacityOverview 
+              data={getMonthData().capacityData} 
+              allData={capacityOverviewData.filter(item => item.sprintNumber > 0)}
+            />
+          </div>
+        );
+      case "task":
+        return (
+          <div className="p-6 bg-white rounded-lg shadow-sm min-h-[300px] flex flex-col items-center w-full">
+            <h2 className="text-xl font-semibold text-dashboard-blue-dark mb-4">Monthly Task Overview</h2>
+            <TaskOverview 
+              data={getMonthData().taskData}
+              allData={taskOverviewData.filter(item => item.sprintNumber > 0)}
+            />
+          </div>
+        );
+      case "story":
+        return (
+          <div className="p-6 bg-white rounded-lg shadow-sm min-h-[300px] flex flex-col items-center w-full">
+            <h2 className="text-xl font-semibold text-dashboard-blue-dark mb-4">Monthly Story Points Overview</h2>
+            <StoryPointsOverview 
+              data={getMonthData().storyPointsData}
+              allData={storyPointsOverviewData.filter(item => item.sprintNumber > 0)}
+              excludeFirstSprint={selectedMonthId === -1}
+            />
+          </div>
+        );
+      default:
+        return (
+          <div className="p-6 bg-white rounded-lg shadow-sm min-h-[300px] flex flex-col items-center w-full">
+            <h2 className="text-xl font-semibold text-dashboard-blue-dark mb-4">Monthly Capacity Overview</h2>
+            <CapacityOverview 
+              data={getMonthData().capacityData}
+              allData={capacityOverviewData.filter(item => item.sprintNumber > 0)}
+            />
+          </div>
+        );
+    }
   };
 
   const renderSprintViewContent = () => {
@@ -124,7 +156,6 @@ const Dashboard = () => {
                />;
       case "story":
         const storyPointsSpecificData = storyPointsOverviewData.filter(item => item.sprintNumber > 0);
-        // Pass excludeFirstSprint flag based on selectedSprintId
         return <StoryPointsOverview 
                 data={getStoryPointsData()} 
                 allData={storyPointsSpecificData}
@@ -163,7 +194,15 @@ const Dashboard = () => {
         </>
       )}
 
-      {currentView === "month" && renderMonthViewContent()}
+      {currentView === "month" && (
+        <>
+          <OverviewTabs
+            currentOverview={currentOverview}
+            onOverviewChange={handleOverviewChange}
+          />
+          {renderMonthViewContent()}
+        </>
+      )}
     </div>
   );
 };
