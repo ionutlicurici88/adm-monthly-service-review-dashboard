@@ -7,7 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { InfoIcon } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -69,8 +68,7 @@ const StatCard = ({
           {tooltip && (
             <Tooltip>
               <TooltipTrigger asChild>
-                <span className="text-gray-400 hover:text-gray-600">
-                  <InfoIcon className="w-4 h-4" />
+                <span className="cursor-default">
                 </span>
               </TooltipTrigger>
               <TooltipContent className="max-w-xs text-xs">

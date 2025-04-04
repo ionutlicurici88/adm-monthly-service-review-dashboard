@@ -2,6 +2,8 @@
 import { CapacityOverview as CapacityOverviewType } from "@/types/dashboard";
 import StatCard from "./StatCard";
 import CapacityTrend from "./CapacityTrend";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { Cell, Pie, PieChart, ResponsiveContainer } from "recharts";
 
 interface CapacityOverviewProps {
   data: CapacityOverviewType;
@@ -28,6 +30,28 @@ const CapacityOverview = ({ data, allData = [] }: CapacityOverviewProps) => {
   } else {
     sprintTitle = `Sprint ${sprintNumber}`;
   }
+  
+  // Data for pie chart - only for individual sprints
+  const pieData = [
+    {
+      name: "Planned Holiday",
+      value: plannedHoliday,
+      fill: "#9b87f5" // Primary Purple
+    },
+    {
+      name: "Unplanned Holiday",
+      value: unplannedHoliday,
+      fill: "#F97316" // Bright Orange
+    },
+    {
+      name: "Delivered Capacity",
+      value: deliveredCapacity,
+      fill: "#0EA5E9" // Ocean Blue
+    }
+  ];
+  
+  // Should we show the pie chart? Only for individual sprints
+  const showPieChart = sprintNumber !== 0 && sprintNumber !== -1;
 
   return (
     <div className="space-y-6">
@@ -94,6 +118,62 @@ const CapacityOverview = ({ data, allData = [] }: CapacityOverviewProps) => {
           data={allData} 
           excludeFirstSprint={sprintNumber === -1}
         />
+      )}
+      
+      {/* Add pie chart for individual sprints */}
+      {showPieChart && (
+        <div className="mt-8">
+          <h3 className="text-lg font-medium text-dashboard-blue-dark mb-4">
+            Sprint Capacity Distribution
+          </h3>
+          <div className="h-[400px] border rounded-lg p-4 bg-white">
+            <ChartContainer
+              config={{
+                plannedHoliday: {
+                  label: "Planned Holiday",
+                  color: "#9b87f5"
+                },
+                unplannedHoliday: {
+                  label: "Unplanned Holiday", 
+                  color: "#F97316"
+                },
+                deliveredCapacity: {
+                  label: "Delivered Capacity",
+                  color: "#0EA5E9"
+                }
+              }}
+            >
+              <PieChart>
+                <Pie
+                  data={pieData}
+                  dataKey="value"
+                  nameKey="name"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={150}
+                  innerRadius={60}
+                  label={(entry) => `${entry.name}: ${entry.value} man-days`}
+                  labelLine={true}
+                  paddingAngle={2}
+                >
+                  {pieData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.fill} />
+                  ))}
+                </Pie>
+                <ChartTooltip
+                  content={(props) => (
+                    <ChartTooltipContent
+                      formatter={(value, name) => {
+                        return [`${value} man-days`, name];
+                      }}
+                      {...props}
+                    />
+                  )}
+                />
+              </PieChart>
+            </ChartContainer>
+          </div>
+        </div>
       )}
     </div>
   );
