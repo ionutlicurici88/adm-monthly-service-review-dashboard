@@ -59,7 +59,7 @@ const CapacityTrend = ({ data, excludeFirstSprint = false }: CapacityTrendProps)
             },
           }}
         >
-          <ResponsiveContainer width="100%" height={250}> {/* Explicit height */}
+          <ResponsiveContainer width="100%" height={250}>
             <BarChart
               data={chartData}
               margin={{ top: 5, right: 30, left: 40, bottom: 20 }}
@@ -85,9 +85,9 @@ const CapacityTrend = ({ data, excludeFirstSprint = false }: CapacityTrendProps)
                 wrapperStyle={{ fontSize: '10px', paddingTop: '10px' }} 
                 iconSize={8}
               />
-              <Bar dataKey="Available Capacity" fill="#10B981" /> {/* Green */}
-              <Bar dataKey="Planned Capacity" fill="#93C5FD" /> {/* Light blue */}
-              <Bar dataKey="Delivered Capacity" fill="#1E40AF" /> {/* Dark blue */}
+              <Bar dataKey="Available Capacity" fill="#10B981" />
+              <Bar dataKey="Planned Capacity" fill="#93C5FD" />
+              <Bar dataKey="Delivered Capacity" fill="#1E40AF" />
             </BarChart>
           </ResponsiveContainer>
         </ChartContainer>
