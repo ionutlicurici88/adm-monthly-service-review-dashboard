@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { OverviewType, ViewType } from "@/types/dashboard";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
@@ -89,9 +88,11 @@ const Dashboard = () => {
   const renderSprintViewContent = () => {
     switch (currentOverview) {
       case "capacity":
+        // Pass individual sprint data to the component
+        const sprintSpecificData = capacityOverviewData.filter(item => item.sprintNumber > 0);
         return <CapacityOverview 
                 data={getCapacityData()} 
-                allData={capacityOverviewData} 
+                allData={sprintSpecificData} 
                />;
       case "task":
         return <TaskOverview data={getTaskData()} />;
@@ -100,7 +101,7 @@ const Dashboard = () => {
       default:
         return <CapacityOverview 
                 data={getCapacityData()} 
-                allData={capacityOverviewData} 
+                allData={capacityOverviewData.filter(item => item.sprintNumber > 0)} 
                />;
     }
   };
