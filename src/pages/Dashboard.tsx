@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { OverviewType, ViewType } from "@/types/dashboard";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
@@ -75,7 +74,7 @@ const Dashboard = () => {
   // Content for the release view
   const renderReleaseViewContent = () => {
     return (
-      <div className="p-6 bg-white border rounded-lg shadow-sm min-h-[400px]">
+      <div className="p-6 bg-white border rounded-lg shadow-sm min-h-[300px] flex flex-col items-center justify-center">
         <h2 className="text-xl font-semibold text-dashboard-blue-dark">Release View</h2>
         <p className="mt-4 text-gray-600">
           The Release View functionality is coming soon. This view will provide insights
@@ -106,7 +105,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="container mx-auto py-8 px-4">
+    <div className="container mx-auto py-6 px-4">
       <DashboardHeader
         currentView={currentView}
         onViewChange={handleViewChange}
@@ -121,7 +120,7 @@ const Dashboard = () => {
             currentOverview={currentOverview}
             onOverviewChange={handleOverviewChange}
           />
-          <div className="p-6 bg-white border rounded-lg shadow-sm min-h-[400px] mb-8">
+          <div className="p-6 bg-white border rounded-lg shadow-sm min-h-[300px] flex flex-col items-center">
             {renderSprintViewContent()}
           </div>
         </>
@@ -133,4 +132,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
