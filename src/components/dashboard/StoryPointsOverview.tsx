@@ -56,7 +56,7 @@ const StoryPointsOverview = ({ data, allData = [], excludeFirstSprint = false }:
   };
 
   // Determine when to show charts
-  const showSprintChart = allData.length > 0 && (!isMonthView && sprintNumber === 0);
+  const showSprintChart = allData.length > 0 && (!isMonthView && (sprintNumber === 0 || sprintNumber === -1));
   const showMonthChart = isMonthView && (monthId === "grand_total" || monthId === "total") && allData.length > 0;
 
   const velocityVsTargetPercentage = Math.round(data.velocityVsTarget * 100);

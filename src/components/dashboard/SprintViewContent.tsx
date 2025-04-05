@@ -25,6 +25,9 @@ const SprintViewContent = ({
   taskOverviewData,
   storyPointsOverviewData
 }: SprintViewContentProps) => {
+  // Determine if we need to exclude the first sprint based on selectedSprintId
+  const excludeFirstSprint = selectedSprintId === -1;
+
   switch (currentOverview) {
     case "capacity":
       const sprintSpecificData = capacityOverviewData.filter(item => item.sprintNumber > 0);
@@ -43,7 +46,7 @@ const SprintViewContent = ({
       return <StoryPointsOverview 
               data={getStoryPointsData()} 
               allData={storyPointsSpecificData}
-              excludeFirstSprint={selectedSprintId === -1}
+              excludeFirstSprint={excludeFirstSprint}
              />;
     default:
       return <CapacityOverview 
