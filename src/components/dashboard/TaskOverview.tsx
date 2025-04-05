@@ -1,11 +1,11 @@
-
+import React from 'react';
 import { TaskOverview as TaskOverviewType } from "@/types/dashboard";
 import StatCard from "./StatCard";
 import TaskTrend from "./TaskTrend";
 
 interface TaskOverviewProps {
   data: TaskOverviewType;
-  allData?: TaskOverviewType[]; // Added to pass all data for the trend chart
+  allData?: TaskOverviewType[]; 
 }
 
 const TaskOverview = ({ data, allData = [] }: TaskOverviewProps) => {
@@ -23,13 +23,13 @@ const TaskOverview = ({ data, allData = [] }: TaskOverviewProps) => {
 
   let sprintTitle;
   if (sprintNumber === 0) {
-    sprintTitle = "All Sprints";
+    sprintTitle = "All Sprints (Grand Total)";
   } else if (sprintNumber === -1) {
-    sprintTitle = "All Sprints (excludes Sprint 1)";
+    sprintTitle = "All Sprints (Excluding Sprint 1)";
   } else {
     sprintTitle = `Sprint ${sprintNumber}`;
   }
-  
+
   // Format dates for display
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);

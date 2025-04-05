@@ -32,8 +32,8 @@ const SprintSelector = ({
       <SelectContent>
         <SelectGroup>
           <SelectLabel>Sprints</SelectLabel>
-          <SelectItem value="0">All Sprints</SelectItem>
-          <SelectItem value="-1">All Sprints (excluding Sprint 1)</SelectItem>
+          <SelectItem value="0">All Sprints (Grand Total)</SelectItem>
+          <SelectItem value="-1">All Sprints (Excluding Sprint 1)</SelectItem>
           {sprints.map((sprint) => (
             <SelectItem key={sprint.id} value={sprint.id.toString()}>
               Sprint {sprint.number}
@@ -46,3 +46,4 @@ const SprintSelector = ({
 };
 
 export default SprintSelector;
+

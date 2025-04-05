@@ -1,11 +1,12 @@
 
+import React from 'react';
 import { CapacityOverview as CapacityOverviewType } from "@/types/dashboard";
 import StatCard from "./StatCard";
 import CapacityTrend from "./CapacityTrend";
 
 interface CapacityOverviewProps {
   data: CapacityOverviewType;
-  allData?: CapacityOverviewType[]; // Added to pass all data for the trend chart
+  allData?: CapacityOverviewType[]; 
 }
 
 const CapacityOverview = ({ data, allData = [] }: CapacityOverviewProps) => {
@@ -22,9 +23,9 @@ const CapacityOverview = ({ data, allData = [] }: CapacityOverviewProps) => {
 
   let sprintTitle;
   if (sprintNumber === 0) {
-    sprintTitle = "All Sprints";
+    sprintTitle = "All Sprints (Grand Total)";
   } else if (sprintNumber === -1) {
-    sprintTitle = "All Sprints (excludes Sprint 1)";
+    sprintTitle = "All Sprints (Excluding Sprint 1)";
   } else {
     sprintTitle = `Sprint ${sprintNumber}`;
   }
@@ -106,3 +107,4 @@ const CapacityOverview = ({ data, allData = [] }: CapacityOverviewProps) => {
 };
 
 export default CapacityOverview;
+
