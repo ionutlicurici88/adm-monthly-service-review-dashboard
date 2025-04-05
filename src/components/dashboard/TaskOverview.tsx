@@ -3,7 +3,7 @@ import React from 'react';
 import { TaskOverview as TaskOverviewType } from "@/types/dashboard";
 import StatCard from "./StatCard";
 import TaskTrend from "./TaskTrend";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import MonthTaskTrend from "./MonthTaskTrend";
 
 interface TaskOverviewProps {
   data: TaskOverviewType;
@@ -130,51 +130,12 @@ const TaskOverview = ({ data, allData = [] }: TaskOverviewProps) => {
         />
       </div>
 
-      {/* Show table for month view with Grand Total or All Months */}
+      {/* Show month trend chart when viewing Grand Total or All Months */}
       {isMonthView && (monthId === "grand_total" || monthId === "total") && allData.length > 0 && (
-        <div className="mt-8 overflow-auto">
-          <h3 className="text-lg font-semibold mb-4">Monthly Task Breakdown</h3>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Month</TableHead>
-                <TableHead>Start Date</TableHead>
-                <TableHead>End Date</TableHead>
-                <TableHead>Total Sprints</TableHead>
-                <TableHead>Length (Days)</TableHead>
-                <TableHead>Planned Tasks</TableHead>
-                <TableHead>Unplanned Tasks</TableHead>
-                <TableHead>Delivered Tasks</TableHead>
-                <TableHead>Leftover Tasks</TableHead>
-                <TableHead>Completion %</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {allData.map((item) => (
-                <TableRow key={item.monthId || item.sprintId}>
-                  <TableCell>{item.monthName}</TableCell>
-                  <TableCell>{formatDate(item.startDate)}</TableCell>
-                  <TableCell>{formatDate(item.endDate)}</TableCell>
-                  <TableCell>{item.totalSprints}</TableCell>
-                  <TableCell>{item.sprintLengthInDays}</TableCell>
-                  <TableCell>{item.plannedTasks}</TableCell>
-                  <TableCell>{item.unplannedTasks}</TableCell>
-                  <TableCell>{item.deliveredTasks}</TableCell>
-                  <TableCell>{item.leftoverTasks}</TableCell>
-                  <TableCell>
-                    <span className={`font-semibold ${
-                      item.completionPercentage >= 90 ? 'text-green-500' : 
-                      item.completionPercentage >= 80 ? 'text-amber-500' : 
-                      'text-rose-500'
-                    }`}>
-                      {item.completionPercentage}%
-                    </span>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+        <MonthTaskTrend 
+          data={allData} 
+          excludeS1Data={monthId === "total"}
+        />
       )}
 
       {/* Only show trend chart if this is the "All Sprints" or "All Sprints -1" view and we have data */}

@@ -1,4 +1,3 @@
-
 import { OverviewType } from "@/types/dashboard";
 import { monthCapacityOverviewData, MonthCapacityOverview as MonthCapacityOverviewType } from "@/data";
 import TaskOverview from "./TaskOverview";
@@ -51,9 +50,13 @@ const MonthViewContent = ({
           <TaskOverview 
             data={getMonthTaskData()}
             allData={monthlyTaskOverviewData.filter(item => 
-              // Filter out items based on context
-              (selectedMonthId === "grand_total" || 
-               (selectedMonthId === "total" && item.monthId !== "jan_s1" && item.monthId !== "feb_s1"))
+              // For "grand_total", include all data
+              // For "total", exclude both jan_s1 and feb_s1
+              // Otherwise, no filtering needed as the chart won't show
+              selectedMonthId === "grand_total" || 
+              (selectedMonthId === "total" && item.monthId !== "jan_s1" && item.monthId !== "feb_s1") ||
+              // Include all for specific month views, component will handle filtering
+              true
             )}
           />
         </div>
