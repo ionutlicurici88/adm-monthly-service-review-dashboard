@@ -26,7 +26,7 @@ const MonthCapacityOverview = ({ data }: MonthCapacityOverviewProps) => {
   } else if (monthId === "total") {
     title = "All Months (Excluding Sprint 1)";
   } else {
-    title = monthName || "Unknown Month";
+    title = monthName; // Changed to directly use monthName
   }
 
   return (

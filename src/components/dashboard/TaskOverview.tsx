@@ -36,7 +36,7 @@ const TaskOverview = ({ data, allData = [] }: TaskOverviewProps) => {
     } else if (monthId === "total") {
       title = "All Months (Excluding Sprint 1)";
     } else {
-      title = monthName || "Unknown Month";
+      title = monthName; // Changed to directly use monthName
     }
   } else if (sprintNumber === 0) {
     title = "All Sprints (Grand Total)";
