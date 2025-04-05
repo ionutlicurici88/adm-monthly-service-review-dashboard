@@ -22,4 +22,10 @@ export {
   getGrandTotalCapacityOverview,
   getMonthsExcludingS1CapacityOverview
 } from './month-capacity-data';
+export {
+  monthStoryPointsOverviewData,
+  getAllMonthsStoryPointsOverview, 
+  getGrandTotalStoryPointsOverview,
+  getMonthStoryPointsOverview
+} from './month-story-points-data';
 export type { MonthCapacityOverview } from '@/types/dashboard';

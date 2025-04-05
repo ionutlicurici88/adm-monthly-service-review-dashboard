@@ -26,6 +26,13 @@ import {
   getMonthTaskOverview
 } from "@/data/task-data";
 
+import {
+  monthStoryPointsOverviewData,
+  getAllMonthsStoryPointsOverview,
+  getGrandTotalStoryPointsOverview,
+  getMonthStoryPointsOverview
+} from "@/data/month-story-points-data";
+
 const months = [
   { id: "feb", name: "February" },
   { id: "mar", name: "March" },
@@ -118,7 +125,13 @@ const Dashboard = () => {
   };
 
   const getMonthStoryPointsData = () => {
-    return getAllSprintsStoryPointsOverview(); // Temporarily using sprint data
+    if (selectedMonthId === "grand_total") {
+      return getGrandTotalStoryPointsOverview();
+    }
+    if (selectedMonthId === "total") {
+      return getAllMonthsStoryPointsOverview();
+    }
+    return getMonthStoryPointsOverview(selectedMonthId);
   };
 
   return (

@@ -1,3 +1,4 @@
+
 import { OverviewType } from "@/types/dashboard";
 import { monthCapacityOverviewData, MonthCapacityOverview as MonthCapacityOverviewType } from "@/data";
 import TaskOverview from "./TaskOverview";
@@ -5,6 +6,7 @@ import StoryPointsOverview from "./StoryPointsOverview";
 import MonthCapacityOverviewComponent from "./MonthCapacityOverview";
 import MonthCapacityTrend from "./MonthCapacityTrend";
 import { monthlyTaskOverviewData } from "@/data/task-data";
+import { monthStoryPointsOverviewData } from "@/data/month-story-points-data";
 
 interface MonthViewContentProps {
   currentOverview: OverviewType;
@@ -58,10 +60,9 @@ const MonthViewContent = ({
     case "story":
       return (
         <div className="p-6 bg-white rounded-lg shadow-sm min-h-[300px] flex flex-col items-center w-full">
-          <h2 className="text-xl font-semibold text-dashboard-blue-dark mb-4">Monthly Story Points Overview</h2>
           <StoryPointsOverview 
             data={getMonthStoryPointsData()}
-            allData={[]}
+            allData={monthStoryPointsOverviewData}
             excludeFirstSprint={selectedMonthId === "total"}
           />
         </div>

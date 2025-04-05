@@ -1,3 +1,4 @@
+
 // Dashboard Types
 export type ViewType = 'sprint' | 'month';
 export type OverviewType = 'capacity' | 'task' | 'story';
@@ -67,4 +68,7 @@ export interface StoryPointsOverview {
   leftoverSTP: number;
   sprintVelocityPercentage: number;
   velocityVsTarget: number;
+  monthId?: string;
+  monthName?: string;
+  totalSprints?: number;
 }

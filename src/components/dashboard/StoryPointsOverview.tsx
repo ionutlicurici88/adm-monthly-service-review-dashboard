@@ -20,9 +20,24 @@ const StoryPointsOverview = ({ data, allData = [], excludeFirstSprint = false }:
     leftoverSTP,
     sprintVelocityPercentage,
     velocityVsTarget,
+    monthId,
+    monthName,
+    totalSprints
   } = data;
 
-  const sprintTitle = sprintNumber === 0 ? "All Sprints" : `Sprint ${sprintNumber}`;
+  let title;
+  
+  const isMonthView = !!monthName;
+
+  if (isMonthView) {
+    title = monthName || "Unknown Month";
+  } else if (sprintNumber === 0) {
+    title = "All Sprints (Grand Total)";
+  } else if (sprintNumber === -1) {
+    title = "All Sprints (Excluding Sprint 1)";
+  } else {
+    title = `Sprint ${sprintNumber}`;
+  }
   
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -33,15 +48,42 @@ const StoryPointsOverview = ({ data, allData = [], excludeFirstSprint = false }:
     });
   };
 
-  const showChart = allData.length > 0 && (sprintNumber === 0);
+  const showChart = allData.length > 0 && (!isMonthView && sprintNumber === 0);
 
   const velocityVsTargetPercentage = Math.round(data.velocityVsTarget * 100);
 
   return (
     <div className="space-y-6 w-full">
       <h2 className="text-xl font-semibold text-dashboard-blue-dark">
-        {sprintTitle} - Story Points Overview
+        {isMonthView ? `${title} - Story Points Overview` : `${title} - Story Points Overview`}
       </h2>
+      
+      {isMonthView && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <StatCard
+            title="Start Date"
+            value={formatDate(startDate)}
+            tooltip="The official start date of the month."
+            compact
+          />
+          
+          <StatCard
+            title="End Date"
+            value={formatDate(endDate)}
+            tooltip="The official end date of the month."
+            compact
+          />
+          
+          {totalSprints !== undefined && (
+            <StatCard
+              title="Total Sprints"
+              value={totalSprints}
+              tooltip="Number of sprints in this month."
+              compact
+            />
+          )}
+        </div>
+      )}
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
