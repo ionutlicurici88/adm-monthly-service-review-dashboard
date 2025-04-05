@@ -1,4 +1,3 @@
-
 import { StoryPointsOverview } from "@/types/dashboard";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from "recharts";
@@ -9,28 +8,59 @@ interface MonthStoryPointsTrendProps {
 }
 
 const MonthStoryPointsTrend = ({ data, excludeS1Data = false }: MonthStoryPointsTrendProps) => {
-  const filteredData = data
-    .filter(item => {
-      // Only include regular months (not aggregated totals)
-      const isRegularMonth = item.monthId !== "total" && item.monthId !== "grand_total";
+  const processData = () => {
+    if (excludeS1Data) {
+      return data
+        .filter(item => item.monthId !== "jan_s1" && item.monthId !== "feb_s1")
+        .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
+        .map(month => ({
+          name: month.monthName || month.monthId,
+          estimatedSTP: month.estimatedSTP,
+          extraSTP: month.extraSTP,
+          totalSTP: month.estimatedSTP + month.extraSTP,
+          delivered: month.deliveredSTP,
+          leftover: month.leftoverSTP,
+          velocityPercent: month.sprintVelocityPercentage
+        }));
+    } else {
+      const janData = data.find(item => item.monthId === "jan");
+      const febS1Data = data.find(item => item.monthId === "feb_s1");
       
-      // If excludeS1Data is true, exclude jan_s1 and feb_s1 data
-      if (excludeS1Data && (item.monthId === "jan_s1" || item.monthId === "feb_s1")) {
-        return false;
+      const processedData = data
+        .filter(item => 
+          item.monthId !== "jan" && 
+          item.monthId !== "feb_s1" && 
+          item.monthId !== "total" && 
+          item.monthId !== "grand_total"
+        )
+        .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
+        .map(month => ({
+          name: month.monthName || month.monthId,
+          estimatedSTP: month.estimatedSTP,
+          extraSTP: month.extraSTP,
+          totalSTP: month.estimatedSTP + month.extraSTP,
+          delivered: month.deliveredSTP,
+          leftover: month.leftoverSTP,
+          velocityPercent: month.sprintVelocityPercentage
+        }));
+        
+      if (janData) {
+        processedData.unshift({
+          name: "Jan & Feb S1",
+          estimatedSTP: janData.estimatedSTP,
+          extraSTP: janData.extraSTP,
+          totalSTP: janData.estimatedSTP + janData.extraSTP,
+          delivered: janData.deliveredSTP,
+          leftover: janData.leftoverSTP,
+          velocityPercent: janData.sprintVelocityPercentage
+        });
       }
       
-      return isRegularMonth;
-    })
-    .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
-    .map(month => ({
-      name: month.monthName || month.monthId,
-      estimatedSTP: month.estimatedSTP,
-      extraSTP: month.extraSTP,
-      totalSTP: month.estimatedSTP + month.extraSTP,
-      delivered: month.deliveredSTP,
-      leftover: month.leftoverSTP,
-      velocityPercent: month.sprintVelocityPercentage
-    }));
+      return processedData;
+    }
+  };
+
+  const filteredData = processData();
 
   const chartConfig = {
     estimatedSTP: {
