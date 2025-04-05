@@ -1,30 +1,10 @@
+
 import { useState } from "react";
 import { OverviewType, ViewType } from "@/types/dashboard";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import DashboardContent from "@/components/dashboard/DashboardContent";
-import {
-  sprints,
-  capacityOverviewData,
-  taskOverviewData,
-  storyPointsOverviewData,
-  getAllSprintsCapacityOverview,
-  getAllSprintsExcludeFirstCapacityOverview,
-  getAllSprintsStoryPointsOverview,
-  getAllSprintsExcludeFirstStoryPointsOverview,
-  monthCapacityOverviewData,
-  getAllMonthsCapacityOverview,
-  getGrandTotalCapacityOverview,
-  getAllSprintsTaskOverview,
-  getAllSprintsExcludeFirstTaskOverview,
-  monthlyTaskOverviewData,
-  getAllMonthsTaskOverview,
-  getGrandTotalTaskOverview,
-  getMonthTaskOverview,
-  monthStoryPointsOverviewData,
-  getAllMonthsStoryPointsOverview,
-  getGrandTotalStoryPointsOverview,
-  getMonthStoryPointsOverview
-} from "@/data";
+import { useDashboardData } from "@/hooks/useDashboardData";
+import { sprints } from "@/data";
 
 const months = [
   { id: "feb", name: "February" },
@@ -32,11 +12,16 @@ const months = [
 ];
 
 const Dashboard = () => {
-  const [currentView, setCurrentView] = useState<ViewType>("month"); // Default to month view
+  // State for view type, overview type, and selection IDs
+  const [currentView, setCurrentView] = useState<ViewType>("month");
   const [currentOverview, setCurrentOverview] = useState<OverviewType>("capacity");
   const [selectedSprintId, setSelectedSprintId] = useState<number>(0);
   const [selectedMonthId, setSelectedMonthId] = useState<string>("grand_total");
 
+  // Use the custom hook to get memoized data based on selections
+  const dashboardData = useDashboardData(currentView, selectedSprintId, selectedMonthId);
+
+  // Event handlers
   const handleViewChange = (view: ViewType) => {
     setCurrentView(view);
   };
@@ -51,80 +36,6 @@ const Dashboard = () => {
 
   const handleMonthChange = (monthId: string) => {
     setSelectedMonthId(monthId);
-  };
-
-  // Data retrieval functions for sprints
-  const getCapacityData = () => {
-    if (selectedSprintId === 0) {
-      return getAllSprintsCapacityOverview();
-    }
-    if (selectedSprintId === -1) {
-      return getAllSprintsExcludeFirstCapacityOverview();
-    }
-    return (
-      capacityOverviewData.find((item) => item.sprintId === selectedSprintId) ||
-      getAllSprintsCapacityOverview()
-    );
-  };
-
-  const getTaskData = () => {
-    if (selectedSprintId === 0) {
-      return getAllSprintsTaskOverview();
-    }
-    if (selectedSprintId === -1) {
-      return getAllSprintsExcludeFirstTaskOverview();
-    }
-    return (
-      taskOverviewData.find((item) => item.sprintId === selectedSprintId) ||
-      getAllSprintsTaskOverview()
-    );
-  };
-
-  const getStoryPointsData = () => {
-    if (selectedSprintId === 0) {
-      return getAllSprintsStoryPointsOverview();
-    }
-    if (selectedSprintId === -1) {
-      return getAllSprintsExcludeFirstStoryPointsOverview();
-    }
-    return (
-      storyPointsOverviewData.find((item) => item.sprintId === selectedSprintId) ||
-      getAllSprintsStoryPointsOverview()
-    );
-  };
-
-  // Data retrieval functions for months
-  const getMonthCapacityData = () => {
-    if (selectedMonthId === "grand_total") {
-      return getGrandTotalCapacityOverview();
-    }
-    if (selectedMonthId === "total") {
-      return getAllMonthsCapacityOverview();
-    }
-    return (
-      monthCapacityOverviewData.find((item) => item.monthId === selectedMonthId) ||
-      getGrandTotalCapacityOverview()
-    );
-  };
-
-  const getMonthTaskData = () => {
-    if (selectedMonthId === "grand_total") {
-      return getGrandTotalTaskOverview();
-    }
-    if (selectedMonthId === "total") {
-      return getAllMonthsTaskOverview();
-    }
-    return getMonthTaskOverview(selectedMonthId);
-  };
-
-  const getMonthStoryPointsData = () => {
-    if (selectedMonthId === "grand_total") {
-      return getGrandTotalStoryPointsOverview();
-    }
-    if (selectedMonthId === "total") {
-      return getAllMonthsStoryPointsOverview();
-    }
-    return getMonthStoryPointsOverview(selectedMonthId);
   };
 
   return (
@@ -146,15 +57,16 @@ const Dashboard = () => {
         onOverviewChange={handleOverviewChange}
         selectedSprintId={selectedSprintId}
         selectedMonthId={selectedMonthId}
-        getCapacityData={getCapacityData}
-        getTaskData={getTaskData}
-        getStoryPointsData={getStoryPointsData}
-        getMonthCapacityData={getMonthCapacityData}
-        getMonthTaskData={getMonthTaskData}
-        getMonthStoryPointsData={getMonthStoryPointsData}
-        capacityOverviewData={capacityOverviewData}
-        taskOverviewData={taskOverviewData}
-        storyPointsOverviewData={storyPointsOverviewData}
+        // Pass the getter functions and data arrays from the custom hook
+        getCapacityData={dashboardData.getCapacityData}
+        getTaskData={dashboardData.getTaskData}
+        getStoryPointsData={dashboardData.getStoryPointsData}
+        getMonthCapacityData={dashboardData.getMonthCapacityData}
+        getMonthTaskData={dashboardData.getMonthTaskData}
+        getMonthStoryPointsData={dashboardData.getMonthStoryPointsData}
+        capacityOverviewData={dashboardData.capacityOverviewData}
+        taskOverviewData={dashboardData.taskOverviewData}
+        storyPointsOverviewData={dashboardData.storyPointsOverviewData}
       />
     </div>
   );
