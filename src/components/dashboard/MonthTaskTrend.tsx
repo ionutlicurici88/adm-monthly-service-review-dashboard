@@ -11,26 +11,40 @@ interface MonthTaskTrendProps {
 const MonthTaskTrend = ({ data, excludeS1Data = false }: MonthTaskTrendProps) => {
   const filteredData = data
     .filter(item => {
-      // When excludeS1Data is true, filter out jan_s1 and feb_s1
-      if (excludeS1Data && (item.monthId === 'jan_s1' || item.monthId === 'feb_s1')) {
+      // Always filter out feb_s1 as it's empty
+      if (item.monthId === 'feb_s1') {
+        return false;
+      }
+      
+      // When excludeS1Data is true, also filter out jan_s1
+      if (excludeS1Data && item.monthId === 'jan_s1') {
         return false;
       }
       return true;
     })
+    .map(month => {
+      // Rename Jan S1 to Jan & Feb S1
+      const modifiedMonth = {...month};
+      if (modifiedMonth.monthId === 'jan_s1' && modifiedMonth.monthName === 'Jan S1') {
+        modifiedMonth.monthName = 'Jan & Feb S1';
+      }
+      
+      return {
+        name: modifiedMonth.monthName || "",
+        plannedTasks: modifiedMonth.plannedTasks,
+        unplannedTasks: modifiedMonth.unplannedTasks,
+        totalTasks: modifiedMonth.plannedTasks + modifiedMonth.unplannedTasks,
+        delivered: modifiedMonth.deliveredTasks,
+        leftover: modifiedMonth.leftoverTasks,
+        completionPercentage: modifiedMonth.completionPercentage
+      };
+    })
     .sort((a, b) => {
       // Custom sort for month order
-      const monthOrder = ['jan_s1', 'feb_s1', 'feb', 'mar'];
-      return monthOrder.indexOf(a.monthId!) - monthOrder.indexOf(b.monthId!);
-    })
-    .map(month => ({
-      name: month.monthName || "",
-      plannedTasks: month.plannedTasks,
-      unplannedTasks: month.unplannedTasks,
-      totalTasks: month.plannedTasks + month.unplannedTasks,
-      delivered: month.deliveredTasks,
-      leftover: month.leftoverTasks,
-      completionPercentage: month.completionPercentage
-    }));
+      // Update order to account for the renamed Jan & Feb S1
+      const monthOrder = ['Jan & Feb S1', 'Feb', 'Mar'];
+      return monthOrder.indexOf(a.name) - monthOrder.indexOf(b.name);
+    });
 
   const chartConfig = {
     plannedTasks: {
