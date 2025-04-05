@@ -5,6 +5,8 @@ import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import DashboardContent from "@/components/dashboard/DashboardContent";
 import { useDashboardData } from "@/hooks/useDashboardData";
 import { sprints } from "@/data";
+import { useSprintSelector } from "@/hooks/useSprintSelector";
+import { useMonthSelector } from "@/hooks/useMonthSelector";
 
 const months = [
   { id: "feb", name: "February" },
@@ -12,14 +14,20 @@ const months = [
 ];
 
 const Dashboard = () => {
-  // State for view type, overview type, and selection IDs
+  // State for view type and overview type
   const [currentView, setCurrentView] = useState<ViewType>("month");
   const [currentOverview, setCurrentOverview] = useState<OverviewType>("capacity");
-  const [selectedSprintId, setSelectedSprintId] = useState<number>(0);
-  const [selectedMonthId, setSelectedMonthId] = useState<string>("grand_total");
+  
+  // Use the custom hooks for sprint and month selection
+  const sprintSelector = useSprintSelector({ sprints });
+  const monthSelector = useMonthSelector({ months });
 
   // Use the custom hook to get memoized data based on selections
-  const dashboardData = useDashboardData(currentView, selectedSprintId, selectedMonthId);
+  const dashboardData = useDashboardData(
+    currentView, 
+    sprintSelector.selectedSprintId, 
+    monthSelector.selectedMonthId
+  );
 
   // Event handlers
   const handleViewChange = (view: ViewType) => {
@@ -30,14 +38,6 @@ const Dashboard = () => {
     setCurrentOverview(overview);
   };
 
-  const handleSprintChange = (sprintId: number) => {
-    setSelectedSprintId(sprintId);
-  };
-
-  const handleMonthChange = (monthId: string) => {
-    setSelectedMonthId(monthId);
-  };
-
   return (
     <div className="container mx-auto py-6 px-4">
       <DashboardHeader
@@ -45,18 +45,18 @@ const Dashboard = () => {
         onViewChange={handleViewChange}
         sprints={sprints}
         months={months}
-        selectedSprintId={selectedSprintId}
-        selectedMonthId={selectedMonthId}
-        onSprintChange={handleSprintChange}
-        onMonthChange={handleMonthChange}
+        selectedSprintId={sprintSelector.selectedSprintId}
+        selectedMonthId={monthSelector.selectedMonthId}
+        onSprintChange={sprintSelector.handleSprintChange}
+        onMonthChange={monthSelector.handleMonthChange}
       />
 
       <DashboardContent 
         currentView={currentView}
         currentOverview={currentOverview}
         onOverviewChange={handleOverviewChange}
-        selectedSprintId={selectedSprintId}
-        selectedMonthId={selectedMonthId}
+        selectedSprintId={sprintSelector.selectedSprintId}
+        selectedMonthId={monthSelector.selectedMonthId}
         // Pass the getter functions and data arrays from the custom hook
         getCapacityData={dashboardData.getCapacityData}
         getTaskData={dashboardData.getTaskData}

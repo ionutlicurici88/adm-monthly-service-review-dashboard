@@ -21,13 +21,24 @@ const SprintSelector = ({
   selectedSprintId,
   onSprintChange,
 }: SprintSelectorProps) => {
+  // Get the label for the current selection for the trigger
+  const getSprintLabel = (sprintId: number) => {
+    if (sprintId === 0) return "All Sprints (Grand Total)";
+    if (sprintId === -1) return "All Sprints (Excluding Sprint 1)";
+    
+    const sprint = sprints.find(s => s.id === sprintId);
+    return sprint ? `Sprint ${sprint.number}` : "Select Sprint";
+  };
+  
   return (
     <Select
       value={selectedSprintId.toString()}
       onValueChange={(value) => onSprintChange(parseInt(value))}
     >
       <SelectTrigger className="w-[240px]">
-        <SelectValue placeholder="Select Sprint" />
+        <SelectValue placeholder="Select Sprint">
+          {getSprintLabel(selectedSprintId)}
+        </SelectValue>
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
@@ -46,4 +57,3 @@ const SprintSelector = ({
 };
 
 export default SprintSelector;
-

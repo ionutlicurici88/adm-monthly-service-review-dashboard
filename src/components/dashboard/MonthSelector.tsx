@@ -9,6 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Month } from "@/types/dashboard";
+import { getFullMonthName } from "@/utils/format-utils";
 
 interface MonthSelectorProps {
   months: Month[];
@@ -21,13 +22,24 @@ const MonthSelector = ({
   selectedMonthId,
   onMonthChange,
 }: MonthSelectorProps) => {
+  // Get the label for the current selection for the trigger
+  const getMonthLabel = (monthId: string) => {
+    if (monthId === "grand_total") return "All Months (Grand Total)";
+    if (monthId === "total") return "All Months (Excluding Sprint 1)";
+    
+    const month = months.find(m => m.id === monthId);
+    return month ? getFullMonthName(month.id) : "Select Month";
+  };
+  
   return (
     <Select
       value={selectedMonthId}
       onValueChange={(value) => onMonthChange(value)}
     >
       <SelectTrigger className="w-[240px]">
-        <SelectValue placeholder="Select Month" />
+        <SelectValue placeholder="Select Month">
+          {getMonthLabel(selectedMonthId)}
+        </SelectValue>
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
@@ -36,7 +48,7 @@ const MonthSelector = ({
           <SelectItem value="total">All Months (Excluding Sprint 1)</SelectItem>
           {months.map((month) => (
             <SelectItem key={month.id} value={month.id}>
-              {month.name}
+              {getFullMonthName(month.id)}
             </SelectItem>
           ))}
         </SelectGroup>
