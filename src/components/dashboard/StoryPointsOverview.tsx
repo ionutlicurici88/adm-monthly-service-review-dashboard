@@ -1,3 +1,4 @@
+
 import { StoryPointsOverview as StoryPointsOverviewType } from "@/types/dashboard";
 import StatCard from "./StatCard";
 import StoryPointsTrend from "./StoryPointsTrend";
@@ -61,7 +62,7 @@ const StoryPointsOverview = ({ data, allData = [], excludeFirstSprint = false }:
   return (
     <div className="space-y-6 w-full">
       <h2 className="text-xl font-semibold text-dashboard-blue-dark">
-        {isMonthView ? `${title} - Story Points Overview` : `${title} - Story Points Overview`}
+        {title}
       </h2>
       
       {isMonthView && (
