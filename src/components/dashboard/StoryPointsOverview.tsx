@@ -41,7 +41,7 @@ const StoryPointsOverview = ({ data, allData = [], excludeFirstSprint = false }:
   } else if (sprintNumber === 0) {
     title = "All Sprints (Grand Total)";
   } else if (sprintNumber === -1 || excludeFirstSprint) {
-    title = "All Sprints (Excluding Sprint 1)";  // Updated this line
+    title = "All Sprints (Excluding Sprint 1)";
   } else {
     title = `Sprint ${sprintNumber}`;
   }
@@ -161,3 +161,4 @@ const StoryPointsOverview = ({ data, allData = [], excludeFirstSprint = false }:
 };
 
 export default StoryPointsOverview;
+
