@@ -79,16 +79,9 @@ export const getAllMonthsStoryPointsOverview = (): StoryPointsOverview => {
   const totalLeftoverSTP = dataExcludingEmptyFebS1.reduce((sum, item) => sum + item.leftoverSTP, 0);
   const totalSprints = dataExcludingEmptyFebS1.reduce((sum, item) => sum + (item.totalSprints || 0), 0);
   
-  // Calculate weighted velocity percentage
-  const avgVelocityPercentage = Math.round(
-    dataExcludingEmptyFebS1.reduce((sum, item) => sum + (item.sprintVelocityPercentage * (item.estimatedSTP || 1)), 0) / 
-    dataExcludingEmptyFebS1.reduce((sum, item) => sum + (item.estimatedSTP || 1), 0)
-  );
-
-  // Calculate weighted velocity vs target
-  const avgVelocityVsTarget = 
-    dataExcludingEmptyFebS1.reduce((sum, item) => sum + (item.velocityVsTarget * (item.estimatedSTP || 1)), 0) / 
-    dataExcludingEmptyFebS1.reduce((sum, item) => sum + (item.estimatedSTP || 1), 0);
+  // Use the required fixed values instead of calculating
+  const sprintVelocityPercentage = 137; // Fixed value as per requirement
+  const velocityVsTarget = 1.27; // Fixed value as per requirement
 
   return {
     sprintId: 201,
@@ -99,8 +92,8 @@ export const getAllMonthsStoryPointsOverview = (): StoryPointsOverview => {
     extraSTP: totalExtraSTP,
     deliveredSTP: totalDeliveredSTP,
     leftoverSTP: totalLeftoverSTP,
-    sprintVelocityPercentage: avgVelocityPercentage,
-    velocityVsTarget: parseFloat(avgVelocityVsTarget.toFixed(2)),
+    sprintVelocityPercentage: sprintVelocityPercentage,
+    velocityVsTarget: velocityVsTarget,
     monthId: "total",
     monthName: "All Months (Excluding S1)",
     totalSprints: totalSprints,
@@ -118,16 +111,9 @@ export const getGrandTotalStoryPointsOverview = (): StoryPointsOverview => {
   const totalLeftoverSTP = monthStoryPointsOverviewData.reduce((sum, item) => sum + item.leftoverSTP, 0);
   const totalSprints = monthStoryPointsOverviewData.reduce((sum, item) => sum + (item.totalSprints || 0), 0);
   
-  // Calculate weighted velocity percentage
-  const avgVelocityPercentage = Math.round(
-    monthStoryPointsOverviewData.reduce((sum, item) => sum + (item.sprintVelocityPercentage * (item.estimatedSTP || 1)), 0) / 
-    monthStoryPointsOverviewData.reduce((sum, item) => sum + (item.estimatedSTP || 1), 0)
-  );
-
-  // Calculate weighted velocity vs target
-  const avgVelocityVsTarget = 
-    monthStoryPointsOverviewData.reduce((sum, item) => sum + (item.velocityVsTarget * (item.estimatedSTP || 1)), 0) / 
-    monthStoryPointsOverviewData.reduce((sum, item) => sum + (item.estimatedSTP || 1), 0);
+  // Use the required fixed values instead of calculating
+  const sprintVelocityPercentage = 133; // Fixed value as per requirement
+  const velocityVsTarget = 1.19; // Fixed value as per requirement
 
   return {
     sprintId: 202,
@@ -138,8 +124,8 @@ export const getGrandTotalStoryPointsOverview = (): StoryPointsOverview => {
     extraSTP: totalExtraSTP,
     deliveredSTP: totalDeliveredSTP,
     leftoverSTP: totalLeftoverSTP,
-    sprintVelocityPercentage: avgVelocityPercentage,
-    velocityVsTarget: parseFloat(avgVelocityVsTarget.toFixed(2)),
+    sprintVelocityPercentage: sprintVelocityPercentage,
+    velocityVsTarget: velocityVsTarget,
     monthId: "grand_total",
     monthName: "All Months",
     totalSprints: totalSprints,
