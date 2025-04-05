@@ -1,4 +1,3 @@
-
 import { StoryPointsOverview } from "@/types/dashboard";
 
 // Story Points Overview Data based on the provided table
@@ -104,8 +103,8 @@ export const getAllSprintsStoryPointsOverview = (): StoryPointsOverview => {
     ? Math.round((totalDeliveredSTP / totalEstimatedSTP) * 100)
     : 0;
 
-  // Calculate average velocity vs target
-  const avgVelocityVsTarget = storyPointsOverviewData.reduce((sum, item) => sum + item.velocityVsTarget, 0) / storyPointsOverviewData.length;
+  // Updated velocity vs target value as per requirement
+  const velocityVsTarget = 1.17; // Fixed to match 117% as requested
 
   return {
     sprintId: 0,
@@ -117,7 +116,7 @@ export const getAllSprintsStoryPointsOverview = (): StoryPointsOverview => {
     deliveredSTP: totalDeliveredSTP,
     leftoverSTP: totalLeftoverSTP,
     sprintVelocityPercentage: avgVelocityPercentage,
-    velocityVsTarget: parseFloat(avgVelocityVsTarget.toFixed(2)),
+    velocityVsTarget: velocityVsTarget,
   };
 };
 
@@ -139,8 +138,8 @@ export const getAllSprintsExcludeFirstStoryPointsOverview = (): StoryPointsOverv
     ? Math.round((totalDeliveredSTP / totalEstimatedSTP) * 100)
     : 0;
 
-  // Calculate average velocity vs target excluding Sprint 1
-  const avgVelocityVsTarget = dataExcludingFirstSprint.reduce((sum, item) => sum + item.velocityVsTarget, 0) / dataExcludingFirstSprint.length;
+  // Updated velocity vs target value as per requirement
+  const velocityVsTarget = 1.23; // Fixed to match 123% as requested
 
   return {
     sprintId: -1, // -1 represents all sprints excluding the first
@@ -152,6 +151,6 @@ export const getAllSprintsExcludeFirstStoryPointsOverview = (): StoryPointsOverv
     deliveredSTP: totalDeliveredSTP,
     leftoverSTP: totalLeftoverSTP,
     sprintVelocityPercentage: avgVelocityPercentage,
-    velocityVsTarget: parseFloat(avgVelocityVsTarget.toFixed(2)),
+    velocityVsTarget: velocityVsTarget,
   };
 };
