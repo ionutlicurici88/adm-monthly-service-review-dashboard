@@ -1,4 +1,8 @@
 import { MonthCapacityOverview } from "@/types/dashboard";
+import { 
+  generateAllMonthsCapacityOverview,
+  generateGrandTotalCapacityOverview 
+} from "./generators/capacity-data-generator";
 
 // Month Capacity Overview Data
 export const monthCapacityOverviewData: MonthCapacityOverview[] = [
@@ -54,34 +58,12 @@ export const monthCapacityOverviewData: MonthCapacityOverview[] = [
 
 // Calculate total for all months
 export const getAllMonthsCapacityOverview = (): MonthCapacityOverview => {
-  return {
-    monthId: "total",
-    monthName: "Total",
-    workingDaysAvailable: 39,
-    availableCapacity: 312,
-    contractedCapacity: 304,
-    plannedHoliday: 24,
-    plannedCapacity: 288,
-    unplannedHoliday: 3,
-    deliveredCapacity: 285,
-    capacityPercentage: 99,
-  };
+  return generateAllMonthsCapacityOverview(monthCapacityOverviewData);
 };
 
 // Calculate grand total (including Jan S1 and Feb S1)
 export const getGrandTotalCapacityOverview = (): MonthCapacityOverview => {
-  return {
-    monthId: "grand_total",
-    monthName: "GT",
-    workingDaysAvailable: 46,
-    availableCapacity: 368,
-    contractedCapacity: 304,
-    plannedHoliday: 25,
-    plannedCapacity: 343,
-    unplannedHoliday: 3,
-    deliveredCapacity: 340,
-    capacityPercentage: 99,
-  };
+  return generateGrandTotalCapacityOverview();
 };
 
 // Get all months excluding Jan S1 and Feb S1

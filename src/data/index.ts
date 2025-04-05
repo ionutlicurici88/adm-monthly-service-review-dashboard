@@ -9,7 +9,11 @@ export {
 export { 
   taskOverviewData, 
   getAllSprintsTaskOverview,
-  getAllSprintsExcludeFirstTaskOverview
+  getAllSprintsExcludeFirstTaskOverview,
+  monthlyTaskOverviewData,
+  getAllMonthsTaskOverview,
+  getGrandTotalTaskOverview,
+  getMonthTaskOverview
 } from './task-data';
 export { 
   storyPointsOverviewData, 

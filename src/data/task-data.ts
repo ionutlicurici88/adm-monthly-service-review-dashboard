@@ -1,4 +1,10 @@
 import { TaskOverview } from "@/types/dashboard";
+import { 
+  generateAllSprintsTaskOverview,
+  generateAllSprintsExcludeFirstTaskOverview, 
+  generateAllMonthsTaskOverview, 
+  generateGrandTotalTaskOverview
+} from "./generators/task-data-generator";
 
 // Mock Task Overview Data
 export const taskOverviewData: TaskOverview[] = [
@@ -88,72 +94,6 @@ export const taskOverviewData: TaskOverview[] = [
   }
 ];
 
-// Helper function to get aggregated data for all sprints
-export const getAllSprintsTaskOverview = (): TaskOverview => {
-  const firstSprint = taskOverviewData[0];
-  const lastSprint = taskOverviewData[taskOverviewData.length - 1];
-  
-  const totalPlannedTasks = taskOverviewData.reduce((sum, item) => sum + item.plannedTasks, 0);
-  const totalUnplannedTasks = taskOverviewData.reduce((sum, item) => sum + item.unplannedTasks, 0);
-  const totalDeliveredTasks = taskOverviewData.reduce((sum, item) => sum + item.deliveredTasks, 0);
-  const totalLeftoverTasks = taskOverviewData.reduce((sum, item) => sum + item.leftoverTasks, 0);
-  
-  // Calculate aggregate completion percentage
-  const avgCompletionPercentage = totalPlannedTasks > 0
-    ? Math.round((totalDeliveredTasks / totalPlannedTasks) * 100)
-    : 0;
-
-  // Calculate total sprint length in days across all sprints
-  const totalSprintLength = taskOverviewData.reduce((sum, item) => sum + item.sprintLengthInDays, 0);
-
-  return {
-    sprintId: 0,
-    sprintNumber: 0, // 0 represents all sprints
-    startDate: firstSprint.startDate,
-    endDate: lastSprint.endDate,
-    sprintLengthInDays: totalSprintLength,
-    plannedTasks: totalPlannedTasks,
-    unplannedTasks: totalUnplannedTasks,
-    deliveredTasks: totalDeliveredTasks,
-    leftoverTasks: totalLeftoverTasks,
-    completionPercentage: avgCompletionPercentage,
-  };
-};
-
-// Helper function to get aggregated data for all sprints excluding Sprint 1
-export const getAllSprintsExcludeFirstTaskOverview = (): TaskOverview => {
-  const dataExcludingSprint1 = taskOverviewData.filter(item => item.sprintNumber !== 1);
-  
-  const firstSprint = dataExcludingSprint1[0];
-  const lastSprint = dataExcludingSprint1[dataExcludingSprint1.length - 1];
-  
-  const totalPlannedTasks = dataExcludingSprint1.reduce((sum, item) => sum + item.plannedTasks, 0);
-  const totalUnplannedTasks = dataExcludingSprint1.reduce((sum, item) => sum + item.unplannedTasks, 0);
-  const totalDeliveredTasks = dataExcludingSprint1.reduce((sum, item) => sum + item.deliveredTasks, 0);
-  const totalLeftoverTasks = dataExcludingSprint1.reduce((sum, item) => sum + item.leftoverTasks, 0);
-  
-  // Calculate aggregate completion percentage
-  const avgCompletionPercentage = totalPlannedTasks > 0
-    ? Math.round((totalDeliveredTasks / totalPlannedTasks) * 100)
-    : 0;
-
-  // Calculate total sprint length in days excluding sprint 1
-  const totalSprintLength = dataExcludingSprint1.reduce((sum, item) => sum + item.sprintLengthInDays, 0);
-
-  return {
-    sprintId: -1, // -1 represents all sprints except sprint 1
-    sprintNumber: -1,
-    startDate: firstSprint.startDate,
-    endDate: lastSprint.endDate,
-    sprintLengthInDays: totalSprintLength,
-    plannedTasks: totalPlannedTasks,
-    unplannedTasks: totalUnplannedTasks,
-    deliveredTasks: totalDeliveredTasks,
-    leftoverTasks: totalLeftoverTasks,
-    completionPercentage: avgCompletionPercentage,
-  };
-};
-
 // Monthly Task Overview Data
 export const monthlyTaskOverviewData: TaskOverview[] = [
   {
@@ -218,86 +158,24 @@ export const monthlyTaskOverviewData: TaskOverview[] = [
   }
 ];
 
+// Helper function to get aggregated data for all sprints
+export const getAllSprintsTaskOverview = (): TaskOverview => {
+  return generateAllSprintsTaskOverview(taskOverviewData);
+};
+
+// Helper function to get aggregated data for all sprints excluding Sprint 1
+export const getAllSprintsExcludeFirstTaskOverview = (): TaskOverview => {
+  return generateAllSprintsExcludeFirstTaskOverview(taskOverviewData);
+};
+
 // Get All Months Task Overview (excluding Jan S1 and Feb S1)
 export const getAllMonthsTaskOverview = (): TaskOverview => {
-  const regularMonths = monthlyTaskOverviewData.filter(
-    month => month.monthId !== "jan_s1" && month.monthId !== "feb_s1"
-  );
-  
-  const firstMonth = regularMonths[0];
-  const lastMonth = regularMonths[regularMonths.length - 1];
-  
-  const totalPlannedTasks = regularMonths.reduce((sum, item) => sum + item.plannedTasks, 0);
-  const totalUnplannedTasks = regularMonths.reduce((sum, item) => sum + item.unplannedTasks, 0);
-  const totalDeliveredTasks = regularMonths.reduce((sum, item) => sum + item.deliveredTasks, 0);
-  const totalLeftoverTasks = regularMonths.reduce((sum, item) => sum + item.leftoverTasks, 0);
-  
-  // Calculate aggregate completion percentage
-  const avgCompletionPercentage = totalPlannedTasks > 0
-    ? Math.round((totalDeliveredTasks / totalPlannedTasks) * 100)
-    : 0;
-
-  // Calculate total length in days
-  const totalLength = regularMonths.reduce((sum, item) => sum + item.sprintLengthInDays, 0);
-  
-  // Calculate total sprints
-  const totalSprints = regularMonths.reduce((sum, item) => sum + (item.totalSprints || 0), 0);
-
-  return {
-    sprintId: -10,
-    sprintNumber: -10,
-    monthId: "total",
-    monthName: "All Months",
-    startDate: firstMonth.startDate,
-    endDate: lastMonth.endDate,
-    totalSprints: totalSprints,
-    sprintLengthInDays: totalLength,
-    plannedTasks: totalPlannedTasks,
-    unplannedTasks: totalUnplannedTasks,
-    deliveredTasks: totalDeliveredTasks,
-    leftoverTasks: totalLeftoverTasks,
-    completionPercentage: avgCompletionPercentage,
-  };
+  return generateAllMonthsTaskOverview(monthlyTaskOverviewData);
 };
 
 // Get grand total including Jan S1 and Feb S1
 export const getGrandTotalTaskOverview = (): TaskOverview => {
-  const allMonths = monthlyTaskOverviewData;
-  
-  const firstMonth = allMonths[0]; // Jan S1
-  const lastMonth = allMonths[allMonths.length - 1]; // Mar
-  
-  const totalPlannedTasks = allMonths.reduce((sum, item) => sum + item.plannedTasks, 0);
-  const totalUnplannedTasks = allMonths.reduce((sum, item) => sum + item.unplannedTasks, 0);
-  const totalDeliveredTasks = allMonths.reduce((sum, item) => sum + item.deliveredTasks, 0);
-  const totalLeftoverTasks = allMonths.reduce((sum, item) => sum + item.leftoverTasks, 0);
-  
-  // Calculate aggregate completion percentage
-  const avgCompletionPercentage = totalPlannedTasks > 0
-    ? Math.round((totalDeliveredTasks / totalPlannedTasks) * 100)
-    : 0;
-
-  // Calculate total length in days
-  const totalLength = allMonths.reduce((sum, item) => sum + item.sprintLengthInDays, 0);
-  
-  // Calculate total sprints
-  const totalSprints = allMonths.reduce((sum, item) => sum + (item.totalSprints || 0), 0);
-
-  return {
-    sprintId: -11,
-    sprintNumber: -11,
-    monthId: "grand_total",
-    monthName: "Grand Total",
-    startDate: firstMonth.startDate,
-    endDate: lastMonth.endDate,
-    totalSprints: totalSprints,
-    sprintLengthInDays: totalLength,
-    plannedTasks: totalPlannedTasks,
-    unplannedTasks: totalUnplannedTasks,
-    deliveredTasks: totalDeliveredTasks,
-    leftoverTasks: totalLeftoverTasks,
-    completionPercentage: avgCompletionPercentage,
-  };
+  return generateGrandTotalTaskOverview(monthlyTaskOverviewData);
 };
 
 // Get specific month data

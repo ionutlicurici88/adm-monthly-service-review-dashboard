@@ -1,5 +1,8 @@
-
 import { StoryPointsOverview } from "@/types/dashboard";
+import { 
+  generateAllMonthsStoryPointsOverview,
+  generateGrandTotalStoryPointsOverview
+} from "./generators/story-points-data-generator";
 
 // Monthly Story Points Overview Data
 export const monthStoryPointsOverviewData: StoryPointsOverview[] = [
@@ -67,57 +70,12 @@ export const monthStoryPointsOverviewData: StoryPointsOverview[] = [
 
 // Helper function to get all months story points data
 export const getAllMonthsStoryPointsOverview = (): StoryPointsOverview => {
-  // Calculate totals excluding Feb S1 (which has no data)
-  const dataExcludingEmptyFebS1 = monthStoryPointsOverviewData.filter(month => month.monthId !== "feb_s1");
-  
-  // Per user request, use specific values for All Months (Excluding S1)
-  return {
-    sprintId: 201,
-    sprintNumber: 0,
-    startDate: "2025-02-05", // Updated as requested
-    endDate: dataExcludingEmptyFebS1[dataExcludingEmptyFebS1.length - 1].endDate,
-    estimatedSTP: 342, // Updated as requested
-    extraSTP: 175, // Updated as requested
-    deliveredSTP: 469, // Updated as requested 
-    leftoverSTP: dataExcludingEmptyFebS1.reduce((sum, item) => sum + item.leftoverSTP, 0),
-    sprintVelocityPercentage: 137, // Fixed value as per requirement
-    velocityVsTarget: 1.27, // Fixed value as per requirement
-    monthId: "total",
-    monthName: "All Months (Excluding S1)",
-    totalSprints: 6, // Updated as requested
-  };
+  return generateAllMonthsStoryPointsOverview();
 };
 
 // Helper function to get grand total including all data
 export const getGrandTotalStoryPointsOverview = (): StoryPointsOverview => {
-  const firstMonth = monthStoryPointsOverviewData[0];
-  const lastMonth = monthStoryPointsOverviewData[monthStoryPointsOverviewData.length - 1];
-  
-  const totalEstimatedSTP = monthStoryPointsOverviewData.reduce((sum, item) => sum + item.estimatedSTP, 0);
-  const totalExtraSTP = monthStoryPointsOverviewData.reduce((sum, item) => sum + item.extraSTP, 0);
-  const totalDeliveredSTP = monthStoryPointsOverviewData.reduce((sum, item) => sum + item.deliveredSTP, 0);
-  const totalLeftoverSTP = monthStoryPointsOverviewData.reduce((sum, item) => sum + item.leftoverSTP, 0);
-  const totalSprints = monthStoryPointsOverviewData.reduce((sum, item) => sum + (item.totalSprints || 0), 0);
-  
-  // Use the required fixed values instead of calculating
-  const sprintVelocityPercentage = 133; // Fixed value as per requirement
-  const velocityVsTarget = 1.19; // Fixed value as per requirement
-
-  return {
-    sprintId: 202,
-    sprintNumber: 0,
-    startDate: firstMonth.startDate,
-    endDate: lastMonth.endDate,
-    estimatedSTP: totalEstimatedSTP,
-    extraSTP: totalExtraSTP,
-    deliveredSTP: totalDeliveredSTP,
-    leftoverSTP: totalLeftoverSTP,
-    sprintVelocityPercentage: sprintVelocityPercentage,
-    velocityVsTarget: velocityVsTarget,
-    monthId: "grand_total",
-    monthName: "All Months",
-    totalSprints: totalSprints,
-  };
+  return generateGrandTotalStoryPointsOverview(monthStoryPointsOverviewData);
 };
 
 // Helper function to get monthly story points data by month ID

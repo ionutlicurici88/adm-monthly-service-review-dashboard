@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { OverviewType, ViewType } from "@/types/dashboard";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
@@ -14,24 +13,18 @@ import {
   getAllSprintsExcludeFirstStoryPointsOverview,
   monthCapacityOverviewData,
   getAllMonthsCapacityOverview,
-  getGrandTotalCapacityOverview
-} from "@/data";
-
-import {
+  getGrandTotalCapacityOverview,
   getAllSprintsTaskOverview,
   getAllSprintsExcludeFirstTaskOverview,
   monthlyTaskOverviewData,
   getAllMonthsTaskOverview,
   getGrandTotalTaskOverview,
-  getMonthTaskOverview
-} from "@/data/task-data";
-
-import {
+  getMonthTaskOverview,
   monthStoryPointsOverviewData,
   getAllMonthsStoryPointsOverview,
   getGrandTotalStoryPointsOverview,
   getMonthStoryPointsOverview
-} from "@/data/month-story-points-data";
+} from "@/data";
 
 const months = [
   { id: "feb", name: "February" },
