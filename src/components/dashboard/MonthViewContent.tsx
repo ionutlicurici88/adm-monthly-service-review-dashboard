@@ -46,19 +46,13 @@ const MonthViewContent = ({
       );
     case "task":
       return (
-        <div className="p-6 bg-white rounded-lg shadow-sm min-h-[300px] flex flex-col items-center w-full">
-          <TaskOverview 
-            data={getMonthTaskData()}
-            allData={monthlyTaskOverviewData.filter(item => 
-              // For "grand_total", include all data
-              // For "total", exclude both jan_s1 and feb_s1
-              // Otherwise, no filtering needed as the chart won't show
-              selectedMonthId === "grand_total" || 
-              (selectedMonthId === "total" && item.monthId !== "jan_s1" && item.monthId !== "feb_s1") ||
-              // Include all for specific month views, component will handle filtering
-              true
-            )}
-          />
+        <div className="flex flex-col w-full gap-6">
+          <div className="p-6 bg-white rounded-lg shadow-sm min-h-[300px] flex flex-col items-center w-full">
+            <TaskOverview 
+              data={getMonthTaskData()}
+              allData={monthlyTaskOverviewData} 
+            />
+          </div>
         </div>
       );
     case "story":

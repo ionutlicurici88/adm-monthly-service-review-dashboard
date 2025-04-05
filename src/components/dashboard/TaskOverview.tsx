@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { TaskOverview as TaskOverviewType } from "@/types/dashboard";
 import StatCard from "./StatCard";
@@ -28,7 +27,6 @@ const TaskOverview = ({ data, allData = [] }: TaskOverviewProps) => {
 
   let title;
   
-  // Determine if we're in sprint view or month view
   const isMonthView = !!monthName;
 
   if (isMonthView) {
@@ -41,7 +39,6 @@ const TaskOverview = ({ data, allData = [] }: TaskOverviewProps) => {
     title = `Sprint ${sprintNumber}`;
   }
 
-  // Format dates for display
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
@@ -130,7 +127,6 @@ const TaskOverview = ({ data, allData = [] }: TaskOverviewProps) => {
         />
       </div>
 
-      {/* Show month trend chart when viewing Grand Total or All Months */}
       {isMonthView && (monthId === "grand_total" || monthId === "total") && allData.length > 0 && (
         <MonthTaskTrend 
           data={allData} 
@@ -138,7 +134,6 @@ const TaskOverview = ({ data, allData = [] }: TaskOverviewProps) => {
         />
       )}
 
-      {/* Only show trend chart if this is the "All Sprints" or "All Sprints -1" view and we have data */}
       {!isMonthView && (sprintNumber === 0 || sprintNumber === -1) && allData.length > 0 && (
         <TaskTrend 
           data={allData} 

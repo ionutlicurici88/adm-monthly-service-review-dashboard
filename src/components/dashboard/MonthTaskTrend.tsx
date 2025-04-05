@@ -35,11 +35,11 @@ const MonthTaskTrend = ({ data, excludeS1Data = false }: MonthTaskTrendProps) =>
   const chartConfig = {
     plannedTasks: {
       label: "Planned Tasks",
-      color: "#60a5fa", // blue-400 on bottom
+      color: "#60a5fa", // blue-400
     },
     unplannedTasks: {
       label: "Unplanned Tasks",
-      color: "#f97316", // orange-500 on top
+      color: "#f97316", // orange-500
     },
     delivered: {
       label: "Delivered Tasks",
@@ -111,18 +111,17 @@ const MonthTaskTrend = ({ data, excludeS1Data = false }: MonthTaskTrendProps) =>
   const CustomLegendContent = (props: any) => {
     const { payload } = props;
     
-    const customItems = [
-      { value: 'Planned Tasks', color: chartConfig.plannedTasks.color, type: 'rect' },
-      { value: 'Unplanned Tasks', color: chartConfig.unplannedTasks.color, type: 'rect' }
+    // Create custom legend items
+    const legendItems = [
+      { value: 'Planned Tasks', color: chartConfig.plannedTasks.color },
+      { value: 'Unplanned Tasks', color: chartConfig.unplannedTasks.color },
+      { value: 'Delivered Tasks', color: chartConfig.delivered.color },
+      { value: 'Leftover Tasks', color: chartConfig.leftover.color }
     ];
-    
-    const filteredPayload = payload.filter((entry: any) => entry.value !== 'Total Tasks');
-    
-    const combinedItems = [...customItems, ...filteredPayload];
     
     return (
       <ul className="flex flex-wrap justify-center gap-6 text-xs">
-        {combinedItems.map((entry: any, index: number) => (
+        {legendItems.map((entry, index) => (
           <li key={`item-${index}`} className="flex items-center">
             <svg width="14" height="14" className="mr-1">
               <rect
@@ -153,41 +152,31 @@ const MonthTaskTrend = ({ data, excludeS1Data = false }: MonthTaskTrendProps) =>
               <Tooltip content={CustomTooltip} />
               <Legend content={CustomLegendContent} />
               
-              <Bar dataKey="totalTasks" name="Total Tasks">
-                {filteredData.map((entry, index) => (
-                  <Cell 
-                    key={`cell-${index}`}
-                    fill={`url(#splitColor-${index})`}
-                  />
-                ))}
-              </Bar>
-
+              <Bar 
+                dataKey="plannedTasks" 
+                fill={chartConfig.plannedTasks.color} 
+                name="Planned Tasks" 
+                stackId="a"
+              />
+              <Bar 
+                dataKey="unplannedTasks" 
+                fill={chartConfig.unplannedTasks.color} 
+                name="Unplanned Tasks" 
+                stackId="a"
+              />
+              
               <Bar 
                 dataKey="delivered" 
                 fill={chartConfig.delivered.color} 
                 name="Delivered Tasks" 
-                stackId="tasks"
+                stackId="b"
               />
               <Bar 
                 dataKey="leftover" 
                 fill={chartConfig.leftover.color} 
                 name="Leftover Tasks" 
-                stackId="tasks"
+                stackId="b"
               />
-              
-              <defs>
-                {filteredData.map((entry, index) => {
-                  const unplannedRatio = entry.unplannedTasks / entry.totalTasks;
-                  return (
-                    <linearGradient id={`splitColor-${index}`} key={`gradient-${index}`} x1="0" y1="0" x2="0" y2="1">
-                      <stop offset={0} stopColor={chartConfig.unplannedTasks.color} />
-                      <stop offset={unplannedRatio} stopColor={chartConfig.unplannedTasks.color} />
-                      <stop offset={unplannedRatio} stopColor={chartConfig.plannedTasks.color} />
-                      <stop offset={1} stopColor={chartConfig.plannedTasks.color} />
-                    </linearGradient>
-                  );
-                })}
-              </defs>
             </BarChart>
           </ResponsiveContainer>
         </ChartContainer>
