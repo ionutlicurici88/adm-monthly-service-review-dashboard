@@ -1,3 +1,4 @@
+
 import { StoryPointsOverview } from "@/types/dashboard";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from "recharts";
@@ -11,7 +12,11 @@ const MonthStoryPointsTrend = ({ data, excludeS1Data = false }: MonthStoryPoints
   const processData = () => {
     if (excludeS1Data) {
       return data
-        .filter(item => item.monthId !== "jan_s1" && item.monthId !== "feb_s1")
+        .filter(item => 
+          item.monthId !== "jan_s1" && 
+          item.monthId !== "feb_s1" && 
+          item.monthId !== "jan"
+        )
         .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
         .map(month => ({
           name: month.monthName || month.monthId,
