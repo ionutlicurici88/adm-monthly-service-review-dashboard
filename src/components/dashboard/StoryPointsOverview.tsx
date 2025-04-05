@@ -1,4 +1,3 @@
-
 import { StoryPointsOverview as StoryPointsOverviewType } from "@/types/dashboard";
 import StatCard from "./StatCard";
 import StoryPointsTrend from "./StoryPointsTrend";
@@ -38,9 +37,9 @@ const StoryPointsOverview = ({ data, allData = [], excludeFirstSprint = false }:
     } else {
       title = monthName || "Unknown Month";
     }
-  } else if (sprintNumber === 0) {
+  } else if (sprintNumber === 0 && !excludeFirstSprint) {
     title = "All Sprints (Grand Total)";
-  } else if (sprintNumber === -1 || excludeFirstSprint) {
+  } else if (sprintNumber === 0 || sprintNumber === -1 || excludeFirstSprint) {
     title = "All Sprints (Excluding Sprint 1)";
   } else {
     title = `Sprint ${sprintNumber}`;
@@ -55,7 +54,6 @@ const StoryPointsOverview = ({ data, allData = [], excludeFirstSprint = false }:
     });
   };
 
-  // Determine when to show charts
   const showSprintChart = allData.length > 0 && (!isMonthView && (sprintNumber === 0 || sprintNumber === -1));
   const showMonthChart = isMonthView && (monthId === "grand_total" || monthId === "total") && allData.length > 0;
 
@@ -161,4 +159,3 @@ const StoryPointsOverview = ({ data, allData = [], excludeFirstSprint = false }:
 };
 
 export default StoryPointsOverview;
-
