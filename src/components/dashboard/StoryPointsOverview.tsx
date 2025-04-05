@@ -2,6 +2,7 @@
 import { StoryPointsOverview as StoryPointsOverviewType } from "@/types/dashboard";
 import StatCard from "./StatCard";
 import StoryPointsTrend from "./StoryPointsTrend";
+import MonthStoryPointsTrend from "./MonthStoryPointsTrend";
 
 interface StoryPointsOverviewProps {
   data: StoryPointsOverviewType;
@@ -48,7 +49,9 @@ const StoryPointsOverview = ({ data, allData = [], excludeFirstSprint = false }:
     });
   };
 
-  const showChart = allData.length > 0 && (!isMonthView && sprintNumber === 0);
+  // Determine when to show charts
+  const showSprintChart = allData.length > 0 && (!isMonthView && sprintNumber === 0);
+  const showMonthChart = isMonthView && (monthId === "grand_total" || monthId === "total") && allData.length > 0;
 
   const velocityVsTargetPercentage = Math.round(data.velocityVsTarget * 100);
 
@@ -137,8 +140,15 @@ const StoryPointsOverview = ({ data, allData = [], excludeFirstSprint = false }:
         />
       </div>
 
-      {showChart && (
+      {showSprintChart && (
         <StoryPointsTrend data={allData} excludeFirstSprint={excludeFirstSprint} />
+      )}
+
+      {showMonthChart && (
+        <MonthStoryPointsTrend 
+          data={allData} 
+          excludeS1Data={monthId === "total"}
+        />
       )}
     </div>
   );
