@@ -32,7 +32,7 @@ const TaskOverview = ({ data, allData = [] }: TaskOverviewProps) => {
 
   if (isMonthView) {
     if (monthId === "grand_total") {
-      title = "All Months";
+      title = "All Months (Grand Total) - Task Overview";
     } else {
       title = monthName || "Unknown Month";
     }

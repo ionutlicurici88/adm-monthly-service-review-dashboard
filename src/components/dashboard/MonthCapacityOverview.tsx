@@ -9,6 +9,7 @@ interface MonthCapacityOverviewProps {
 const MonthCapacityOverview = ({ data }: MonthCapacityOverviewProps) => {
   const {
     monthName,
+    monthId,
     workingDaysAvailable,
     availableCapacity,
     contractedCapacity,
@@ -19,10 +20,14 @@ const MonthCapacityOverview = ({ data }: MonthCapacityOverviewProps) => {
     capacityPercentage,
   } = data;
 
+  const title = monthId === "grand_total" 
+    ? "All Months (Grand Total) - Capacity Overview" 
+    : `${monthName} - Capacity Overview`;
+
   return (
     <div className="space-y-4 w-full">
       <h2 className="text-xl font-semibold text-dashboard-blue-dark">
-        {monthName} - Capacity Overview
+        {title}
       </h2>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
