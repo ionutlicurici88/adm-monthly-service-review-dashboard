@@ -56,7 +56,7 @@ const TaskOverview = ({ data, allData = [] }: TaskOverviewProps) => {
   return (
     <div className="space-y-6 w-full">
       <h2 className="text-xl font-semibold text-dashboard-blue-dark mb-4">
-        {isMonthView ? `${title} - Task Overview` : `${title} - Task Overview`}
+        {title}
       </h2>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
