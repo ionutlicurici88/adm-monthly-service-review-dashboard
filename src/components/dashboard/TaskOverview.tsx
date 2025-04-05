@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { TaskOverview as TaskOverviewType } from "@/types/dashboard";
 import StatCard from "./StatCard";
@@ -30,7 +31,11 @@ const TaskOverview = ({ data, allData = [] }: TaskOverviewProps) => {
   const isMonthView = !!monthName;
 
   if (isMonthView) {
-    title = monthName || "Unknown Month";
+    if (monthId === "grand_total") {
+      title = "All Months";
+    } else {
+      title = monthName || "Unknown Month";
+    }
   } else if (sprintNumber === 0) {
     title = "All Sprints (Grand Total)";
   } else if (sprintNumber === -1) {
