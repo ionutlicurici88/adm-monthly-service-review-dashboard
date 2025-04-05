@@ -20,9 +20,14 @@ const MonthCapacityOverview = ({ data }: MonthCapacityOverviewProps) => {
     capacityPercentage,
   } = data;
 
-  const title = monthId === "grand_total" 
-    ? "All Months (Grand Total) - Capacity Overview" 
-    : `${monthName} - Capacity Overview`;
+  let title;
+  if (monthId === "grand_total") {
+    title = "All Months (Grand Total)";
+  } else if (monthId === "total") {
+    title = "All Months (Excluding Sprint 1)";
+  } else {
+    title = monthName || "Unknown Month";
+  }
 
   return (
     <div className="space-y-4 w-full">

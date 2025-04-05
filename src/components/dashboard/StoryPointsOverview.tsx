@@ -32,7 +32,9 @@ const StoryPointsOverview = ({ data, allData = [], excludeFirstSprint = false }:
 
   if (isMonthView) {
     if (monthId === "grand_total") {
-      title = "All Months (Grand Total) - Story Points Overview";
+      title = "All Months (Grand Total)";
+    } else if (monthId === "total") {
+      title = "All Months (Excluding Sprint 1)";
     } else {
       title = monthName || "Unknown Month";
     }

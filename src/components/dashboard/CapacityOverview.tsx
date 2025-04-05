@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { CapacityOverview as CapacityOverviewType } from "@/types/dashboard";
 import StatCard from "./StatCard";
@@ -21,19 +20,19 @@ const CapacityOverview = ({ data, allData = [] }: CapacityOverviewProps) => {
     capacityPercentage,
   } = data;
 
-  let sprintTitle;
+  let title;
   if (sprintNumber === 0) {
-    sprintTitle = "All Sprints (Grand Total)";
+    title = "All Sprints (Grand Total)";
   } else if (sprintNumber === -1) {
-    sprintTitle = "All Sprints (Excluding Sprint 1)";
+    title = "All Sprints (Excluding Sprint 1)";
   } else {
-    sprintTitle = `Sprint ${sprintNumber}`;
+    title = `Sprint ${sprintNumber}`;
   }
 
   return (
     <div className="space-y-4 w-full">
       <h2 className="text-xl font-semibold text-dashboard-blue-dark">
-        {sprintTitle} - Capacity Overview
+        {title}
       </h2>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -107,4 +106,3 @@ const CapacityOverview = ({ data, allData = [] }: CapacityOverviewProps) => {
 };
 
 export default CapacityOverview;
-
