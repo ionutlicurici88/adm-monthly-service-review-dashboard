@@ -10,14 +10,21 @@ import {
   storyPointsOverviewData,
   getAllSprintsCapacityOverview,
   getAllSprintsExcludeFirstCapacityOverview,
-  getAllSprintsTaskOverview,
-  getAllSprintsExcludeFirstTaskOverview,
   getAllSprintsStoryPointsOverview,
   getAllSprintsExcludeFirstStoryPointsOverview,
   monthCapacityOverviewData,
   getAllMonthsCapacityOverview,
   getGrandTotalCapacityOverview
 } from "@/data";
+
+import {
+  getAllSprintsTaskOverview,
+  getAllSprintsExcludeFirstTaskOverview,
+  monthlyTaskOverviewData,
+  getAllMonthsTaskOverview,
+  getGrandTotalTaskOverview,
+  getMonthTaskOverview
+} from "@/data/task-data";
 
 const months = [
   { id: "feb", name: "February" },
@@ -101,7 +108,13 @@ const Dashboard = () => {
   };
 
   const getMonthTaskData = () => {
-    return getAllSprintsTaskOverview(); // Temporarily using sprint data
+    if (selectedMonthId === "grand_total") {
+      return getGrandTotalTaskOverview();
+    }
+    if (selectedMonthId === "total") {
+      return getAllMonthsTaskOverview();
+    }
+    return getMonthTaskOverview(selectedMonthId);
   };
 
   const getMonthStoryPointsData = () => {

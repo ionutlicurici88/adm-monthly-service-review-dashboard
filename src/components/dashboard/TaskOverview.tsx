@@ -1,7 +1,9 @@
+
 import React from 'react';
 import { TaskOverview as TaskOverviewType } from "@/types/dashboard";
 import StatCard from "./StatCard";
 import TaskTrend from "./TaskTrend";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 interface TaskOverviewProps {
   data: TaskOverviewType;
@@ -19,15 +21,24 @@ const TaskOverview = ({ data, allData = [] }: TaskOverviewProps) => {
     deliveredTasks,
     leftoverTasks,
     completionPercentage,
+    monthName,
+    monthId,
+    totalSprints
   } = data;
 
-  let sprintTitle;
-  if (sprintNumber === 0) {
-    sprintTitle = "All Sprints (Grand Total)";
+  let title;
+  
+  // Determine if we're in sprint view or month view
+  const isMonthView = !!monthName;
+
+  if (isMonthView) {
+    title = monthName || "Unknown Month";
+  } else if (sprintNumber === 0) {
+    title = "All Sprints (Grand Total)";
   } else if (sprintNumber === -1) {
-    sprintTitle = "All Sprints (Excluding Sprint 1)";
+    title = "All Sprints (Excluding Sprint 1)";
   } else {
-    sprintTitle = `Sprint ${sprintNumber}`;
+    title = `Sprint ${sprintNumber}`;
   }
 
   // Format dates for display
@@ -42,44 +53,53 @@ const TaskOverview = ({ data, allData = [] }: TaskOverviewProps) => {
 
   return (
     <div className="space-y-6 w-full">
-      <h2 className="text-xl font-semibold text-dashboard-blue-dark">
-        {sprintTitle} - Task Overview
+      <h2 className="text-xl font-semibold text-dashboard-blue-dark mb-4">
+        {isMonthView ? `${title} - Task Overview` : `${title} - Task Overview`}
       </h2>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           title="Start Date"
           value={formatDate(startDate)}
-          tooltip="The official start date of the sprint."
+          tooltip="The official start date of the sprint or month."
           compact
         />
         
         <StatCard
           title="End Date"
           value={formatDate(endDate)}
-          tooltip="The official end date of the sprint."
+          tooltip="The official end date of the sprint or month."
           compact
         />
         
+        {isMonthView && totalSprints !== undefined && (
+          <StatCard
+            title="Total Sprints"
+            value={totalSprints}
+            tooltip="Number of sprints in this month."
+            compact
+          />
+        )}
+        
         <StatCard
-          title="Sprint Length"
+          title={isMonthView ? "Length in Days" : "Sprint Length"}
           value={sprintLengthInDays}
           description="days"
-          tooltip="Total calendar days between the start and end dates of the sprint."
+          tooltip="Total calendar days between the start and end dates."
           compact
         />
         
         <StatCard
           title="Planned Tasks"
           value={plannedTasks}
-          tooltip="Number of tasks committed to during sprint planning."
+          tooltip="Number of tasks committed to during planning."
           compact
         />
         
         <StatCard
           title="Unplanned Tasks"
           value={unplannedTasks}
-          tooltip="Additional tasks that were added after sprint planning began."
+          tooltip="Additional tasks that were added after planning began."
           compact
         />
         
@@ -87,7 +107,7 @@ const TaskOverview = ({ data, allData = [] }: TaskOverviewProps) => {
           title="Delivered Tasks"
           value={deliveredTasks}
           description="DEV & QA"
-          tooltip="Tasks that were fully completed (developed and passed QA) during the sprint."
+          tooltip="Tasks that were fully completed (developed and passed QA)."
           compact
         />
         
@@ -95,7 +115,7 @@ const TaskOverview = ({ data, allData = [] }: TaskOverviewProps) => {
           title="Leftover Tasks"
           value={leftoverTasks}
           description="Analysis & WIP"
-          tooltip="Tasks that were started but not completed by the end of the sprint."
+          tooltip="Tasks that were started but not completed by the end of the period."
           compact
         />
         
@@ -110,8 +130,55 @@ const TaskOverview = ({ data, allData = [] }: TaskOverviewProps) => {
         />
       </div>
 
+      {/* Show table for month view with Grand Total or All Months */}
+      {isMonthView && (monthId === "grand_total" || monthId === "total") && allData.length > 0 && (
+        <div className="mt-8 overflow-auto">
+          <h3 className="text-lg font-semibold mb-4">Monthly Task Breakdown</h3>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Month</TableHead>
+                <TableHead>Start Date</TableHead>
+                <TableHead>End Date</TableHead>
+                <TableHead>Total Sprints</TableHead>
+                <TableHead>Length (Days)</TableHead>
+                <TableHead>Planned Tasks</TableHead>
+                <TableHead>Unplanned Tasks</TableHead>
+                <TableHead>Delivered Tasks</TableHead>
+                <TableHead>Leftover Tasks</TableHead>
+                <TableHead>Completion %</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {allData.map((item) => (
+                <TableRow key={item.monthId || item.sprintId}>
+                  <TableCell>{item.monthName}</TableCell>
+                  <TableCell>{formatDate(item.startDate)}</TableCell>
+                  <TableCell>{formatDate(item.endDate)}</TableCell>
+                  <TableCell>{item.totalSprints}</TableCell>
+                  <TableCell>{item.sprintLengthInDays}</TableCell>
+                  <TableCell>{item.plannedTasks}</TableCell>
+                  <TableCell>{item.unplannedTasks}</TableCell>
+                  <TableCell>{item.deliveredTasks}</TableCell>
+                  <TableCell>{item.leftoverTasks}</TableCell>
+                  <TableCell>
+                    <span className={`font-semibold ${
+                      item.completionPercentage >= 90 ? 'text-green-500' : 
+                      item.completionPercentage >= 80 ? 'text-amber-500' : 
+                      'text-rose-500'
+                    }`}>
+                      {item.completionPercentage}%
+                    </span>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      )}
+
       {/* Only show trend chart if this is the "All Sprints" or "All Sprints -1" view and we have data */}
-      {(sprintNumber === 0 || sprintNumber === -1) && allData.length > 0 && (
+      {!isMonthView && (sprintNumber === 0 || sprintNumber === -1) && allData.length > 0 && (
         <TaskTrend 
           data={allData} 
           excludeFirstSprint={sprintNumber === -1}

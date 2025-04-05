@@ -5,6 +5,7 @@ import TaskOverview from "./TaskOverview";
 import StoryPointsOverview from "./StoryPointsOverview";
 import MonthCapacityOverviewComponent from "./MonthCapacityOverview";
 import MonthCapacityTrend from "./MonthCapacityTrend";
+import { monthlyTaskOverviewData } from "@/data/task-data";
 
 interface MonthViewContentProps {
   currentOverview: OverviewType;
@@ -47,10 +48,13 @@ const MonthViewContent = ({
     case "task":
       return (
         <div className="p-6 bg-white rounded-lg shadow-sm min-h-[300px] flex flex-col items-center w-full">
-          <h2 className="text-xl font-semibold text-dashboard-blue-dark mb-4">Monthly Task Overview</h2>
           <TaskOverview 
             data={getMonthTaskData()}
-            allData={[]}
+            allData={monthlyTaskOverviewData.filter(item => 
+              // Filter out items based on context
+              (selectedMonthId === "grand_total" || 
+               (selectedMonthId === "total" && item.monthId !== "jan_s1" && item.monthId !== "feb_s1"))
+            )}
           />
         </div>
       );
