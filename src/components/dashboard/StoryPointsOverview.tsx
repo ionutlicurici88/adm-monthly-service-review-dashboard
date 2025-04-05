@@ -1,4 +1,3 @@
-
 import { StoryPointsOverview as StoryPointsOverviewType } from "@/types/dashboard";
 import StatCard from "./StatCard";
 import StoryPointsTrend from "./StoryPointsTrend";
