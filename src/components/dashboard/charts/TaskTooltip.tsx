@@ -11,9 +11,9 @@ type TaskData = {
 };
 
 interface TaskTooltipProps {
-  active: boolean;
-  payload: any[];
-  label: string;
+  active?: boolean; // Make active optional to fix the TypeScript error
+  payload?: any[];
+  label?: string;
   chartConfig: Record<string, { color: string; label: string }>;
 }
 
