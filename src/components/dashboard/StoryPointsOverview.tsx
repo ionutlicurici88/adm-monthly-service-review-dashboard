@@ -40,8 +40,8 @@ const StoryPointsOverview = ({ data, allData = [], excludeFirstSprint = false }:
     }
   } else if (sprintNumber === 0) {
     title = "All Sprints (Grand Total)";
-  } else if (sprintNumber === -1) {
-    title = "All Sprints (Excluding Sprint 1)";
+  } else if (sprintNumber === -1 || excludeFirstSprint) {
+    title = "All Sprints (Excluding Sprint 1)";  // Updated this line
   } else {
     title = `Sprint ${sprintNumber}`;
   }
