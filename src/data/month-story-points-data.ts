@@ -70,33 +70,21 @@ export const getAllMonthsStoryPointsOverview = (): StoryPointsOverview => {
   // Calculate totals excluding Feb S1 (which has no data)
   const dataExcludingEmptyFebS1 = monthStoryPointsOverviewData.filter(month => month.monthId !== "feb_s1");
   
-  const firstMonth = dataExcludingEmptyFebS1[0];
-  const lastMonth = dataExcludingEmptyFebS1[dataExcludingEmptyFebS1.length - 1];
-  
-  const totalEstimatedSTP = dataExcludingEmptyFebS1.reduce((sum, item) => sum + item.estimatedSTP, 0);
-  const totalExtraSTP = dataExcludingEmptyFebS1.reduce((sum, item) => sum + item.extraSTP, 0);
-  const totalDeliveredSTP = dataExcludingEmptyFebS1.reduce((sum, item) => sum + item.deliveredSTP, 0);
-  const totalLeftoverSTP = dataExcludingEmptyFebS1.reduce((sum, item) => sum + item.leftoverSTP, 0);
-  const totalSprints = dataExcludingEmptyFebS1.reduce((sum, item) => sum + (item.totalSprints || 0), 0);
-  
-  // Use the required fixed values instead of calculating
-  const sprintVelocityPercentage = 137; // Fixed value as per requirement
-  const velocityVsTarget = 1.27; // Fixed value as per requirement
-
+  // Per user request, use specific values for All Months (Excluding S1)
   return {
     sprintId: 201,
     sprintNumber: 0,
-    startDate: firstMonth.startDate,
-    endDate: lastMonth.endDate,
-    estimatedSTP: totalEstimatedSTP,
-    extraSTP: totalExtraSTP,
-    deliveredSTP: totalDeliveredSTP,
-    leftoverSTP: totalLeftoverSTP,
-    sprintVelocityPercentage: sprintVelocityPercentage,
-    velocityVsTarget: velocityVsTarget,
+    startDate: "2025-02-05", // Updated as requested
+    endDate: dataExcludingEmptyFebS1[dataExcludingEmptyFebS1.length - 1].endDate,
+    estimatedSTP: 342, // Updated as requested
+    extraSTP: 175, // Updated as requested
+    deliveredSTP: 469, // Updated as requested 
+    leftoverSTP: dataExcludingEmptyFebS1.reduce((sum, item) => sum + item.leftoverSTP, 0),
+    sprintVelocityPercentage: 137, // Fixed value as per requirement
+    velocityVsTarget: 1.27, // Fixed value as per requirement
     monthId: "total",
     monthName: "All Months (Excluding S1)",
-    totalSprints: totalSprints,
+    totalSprints: 6, // Updated as requested
   };
 };
 
