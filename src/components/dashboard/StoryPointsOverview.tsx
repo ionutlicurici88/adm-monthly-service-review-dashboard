@@ -1,3 +1,4 @@
+
 import { StoryPointsOverview as StoryPointsOverviewType } from "@/types/dashboard";
 import StatCard from "./StatCard";
 import StoryPointsTrend from "./StoryPointsTrend";
@@ -35,7 +36,7 @@ const StoryPointsOverview = ({ data, allData = [], excludeFirstSprint = false }:
     } else if (monthId === "total") {
       title = "All Months (Excluding Sprint 1)";
     } else {
-      title = monthName || "Unknown Month";
+      title = monthName; // Changed to directly use monthName
     }
   } else if (sprintNumber === 0 && !excludeFirstSprint) {
     title = "All Sprints (Grand Total)";
