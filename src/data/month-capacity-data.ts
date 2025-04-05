@@ -1,11 +1,10 @@
-
 import { MonthCapacityOverview } from "@/types/dashboard";
 
 // Month Capacity Overview Data
 export const monthCapacityOverviewData: MonthCapacityOverview[] = [
   {
     monthId: "jan_s1",
-    monthName: "Jan S1",
+    monthName: "January S1",
     workingDaysAvailable: 5,
     availableCapacity: 40,
     contractedCapacity: 0,
@@ -17,7 +16,7 @@ export const monthCapacityOverviewData: MonthCapacityOverview[] = [
   },
   {
     monthId: "feb_s1",
-    monthName: "Feb S1",
+    monthName: "February S1",
     workingDaysAvailable: 2,
     availableCapacity: 16,
     contractedCapacity: 0,
@@ -29,7 +28,7 @@ export const monthCapacityOverviewData: MonthCapacityOverview[] = [
   },
   {
     monthId: "feb",
-    monthName: "Feb",
+    monthName: "February",
     workingDaysAvailable: 18,
     availableCapacity: 144,
     contractedCapacity: 152,
@@ -41,7 +40,7 @@ export const monthCapacityOverviewData: MonthCapacityOverview[] = [
   },
   {
     monthId: "mar",
-    monthName: "Mar",
+    monthName: "March",
     workingDaysAvailable: 21,
     availableCapacity: 168,
     contractedCapacity: 152,

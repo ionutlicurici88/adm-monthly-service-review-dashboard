@@ -1,4 +1,3 @@
-
 import { TaskOverview } from "@/types/dashboard";
 
 // Mock Task Overview Data
@@ -158,10 +157,10 @@ export const getAllSprintsExcludeFirstTaskOverview = (): TaskOverview => {
 // Monthly Task Overview Data
 export const monthlyTaskOverviewData: TaskOverview[] = [
   {
-    sprintId: -2, // Special ID for Jan S1
+    sprintId: -2,
     sprintNumber: -2,
     monthId: "jan_s1",
-    monthName: "Jan S1",
+    monthName: "January S1",
     startDate: "2025-01-27",
     endDate: "2025-01-31",
     totalSprints: 1,
@@ -173,13 +172,13 @@ export const monthlyTaskOverviewData: TaskOverview[] = [
     completionPercentage: 107,
   },
   {
-    sprintId: -3, // Special ID for Feb S1
+    sprintId: -3,
     sprintNumber: -3,
     monthId: "feb_s1",
-    monthName: "Feb S1",
+    monthName: "February S1",
     startDate: "2025-02-03",
     endDate: "2025-02-04",
-    totalSprints: 0, // No completed sprints
+    totalSprints: 0,
     sprintLengthInDays: 2,
     plannedTasks: 0,
     unplannedTasks: 0,
@@ -188,10 +187,10 @@ export const monthlyTaskOverviewData: TaskOverview[] = [
     completionPercentage: 0,
   },
   {
-    sprintId: -4, // Special ID for Feb
+    sprintId: -4,
     sprintNumber: -4,
     monthId: "feb",
-    monthName: "Feb",
+    monthName: "February",
     startDate: "2025-02-05",
     endDate: "2025-02-28",
     totalSprints: 4,
@@ -203,10 +202,10 @@ export const monthlyTaskOverviewData: TaskOverview[] = [
     completionPercentage: 208,
   },
   {
-    sprintId: -5, // Special ID for Mar
+    sprintId: -5,
     sprintNumber: -5,
     monthId: "mar",
-    monthName: "Mar",
+    monthName: "March",
     startDate: "2025-03-03",
     endDate: "2025-04-01",
     totalSprints: 2,
@@ -245,7 +244,7 @@ export const getAllMonthsTaskOverview = (): TaskOverview => {
   const totalSprints = regularMonths.reduce((sum, item) => sum + (item.totalSprints || 0), 0);
 
   return {
-    sprintId: -10, // Special ID for all regular months
+    sprintId: -10,
     sprintNumber: -10,
     monthId: "total",
     monthName: "All Months",
@@ -285,7 +284,7 @@ export const getGrandTotalTaskOverview = (): TaskOverview => {
   const totalSprints = allMonths.reduce((sum, item) => sum + (item.totalSprints || 0), 0);
 
   return {
-    sprintId: -11, // Special ID for grand total
+    sprintId: -11,
     sprintNumber: -11,
     monthId: "grand_total",
     monthName: "Grand Total",
