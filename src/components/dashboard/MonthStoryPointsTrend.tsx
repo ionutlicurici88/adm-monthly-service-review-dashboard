@@ -22,8 +22,20 @@ const MonthStoryPointsTrend = ({ data, excludeS1Data = false }: MonthStoryPoints
     }
     // Otherwise (for Grand Total view), "jan_feb_s1" is included by default
 
+    // Define the desired order for months in the chart
+    const baseMonthOrder: Record<string, number> = {
+      "jan_feb_s1": 0, // "Jan & Feb S1"
+      "feb": 1,       // February
+      "mar": 2,       // March
+      "apr": 3,       // April
+    };
+    
     return filteredChartData
-      .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime()) // Sort by start date
+      .sort((a, b) => { // Sort by defined month order
+        const orderA = baseMonthOrder[a.monthId] ?? 99; // Items not in order map go to end
+        const orderB = baseMonthOrder[b.monthId] ?? 99;
+        return orderA - orderB;
+      })
       .map(month => ({
         name: month.monthName || month.monthId || "", // Use monthName, fallback to monthId
         estimatedSTP: month.estimatedSTP,
@@ -116,19 +128,6 @@ const MonthStoryPointsTrend = ({ data, excludeS1Data = false }: MonthStoryPoints
   const CustomLegendContent = (props: any) => {
     const { payload } = props;
     
-    const customItems = [
-      { value: 'Estimated STP', color: chartConfig.estimatedSTP.color, type: 'rect' },
-      { value: 'Extra STP', color: chartConfig.extraSTP.color, type: 'rect' }
-    ];
-    
-    const filteredPayload = payload.filter((entry: any) => entry.value !== 'Total STP');
-    
-    // Combine Recharts payload with custom items, ensuring correct order or structure if needed.
-    // For this specific legend, we are replacing the default legend with custom styled items.
-    // So, we use `customItems` and potentially `filteredPayload` if we want to include default items too.
-    // The current implementation effectively uses custom items for STP breakdown and default for delivered/leftover.
-    // Let's ensure the combinedItems reflect what the user expects.
-    // The existing logic seems to be to show Estimated, Extra, Delivered, Leftover in legend.
     const legendItemsToDisplay = [
         { value: 'Estimated STP', color: chartConfig.estimatedSTP.color },
         { value: 'Extra STP', color: chartConfig.extraSTP.color },
@@ -165,7 +164,7 @@ const MonthStoryPointsTrend = ({ data, excludeS1Data = false }: MonthStoryPoints
             <BarChart data={filteredData} margin={{ top: 20, right: 30, left: 20, bottom: 30 }}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
-              <YAxis />
+              <YAxis yAxisId="left" /> {/* Added yAxisId="left" here */}
               <Tooltip content={<CustomTooltip />} />
               <Legend content={<CustomLegendContent />} />
               
@@ -173,7 +172,7 @@ const MonthStoryPointsTrend = ({ data, excludeS1Data = false }: MonthStoryPoints
                 {filteredData.map((entry, index) => (
                   <Cell 
                     key={`cell-${index}`}
-                    fill={`url(#splitColorMonth-${index})`} // Unique gradient ID prefix for this chart
+                    fill={`url(#splitColorMonth-${index})`} 
                   />
                 ))}
               </Bar>
@@ -196,7 +195,6 @@ const MonthStoryPointsTrend = ({ data, excludeS1Data = false }: MonthStoryPoints
               <defs>
                 {filteredData.map((entry, index) => {
                   const total = entry.totalSTP;
-                  // Handle totalSTP being 0 to avoid division by zero
                   const extraRatio = total > 0 ? entry.extraSTP / total : 0;
                   
                   return (
