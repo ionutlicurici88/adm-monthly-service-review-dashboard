@@ -1,3 +1,4 @@
+
 import { StoryPointsOverview } from "@/types/dashboard";
 import { 
   generateAllMonthsStoryPointsOverview,
@@ -6,21 +7,21 @@ import {
 
 // Monthly Story Points Overview Data
 export const monthStoryPointsOverviewData: StoryPointsOverview[] = [
-  {
-    sprintId: 101,
-    sprintNumber: 0,
-    startDate: "2025-01-27",
-    endDate: "2025-01-31",
-    estimatedSTP: 56,
-    extraSTP: 3,
-    deliveredSTP: 59,
-    leftoverSTP: 0,
-    sprintVelocityPercentage: 105,
-    velocityVsTarget: 0.83,
-    monthId: "jan",
-    monthName: "January",
-    totalSprints: 1,
-  },
+  // { // Removed January data (monthId: "jan")
+  //   sprintId: 101,
+  //   sprintNumber: 0,
+  //   startDate: "2025-01-27",
+  //   endDate: "2025-01-31",
+  //   estimatedSTP: 56,
+  //   extraSTP: 3,
+  //   deliveredSTP: 59,
+  //   leftoverSTP: 0,
+  //   sprintVelocityPercentage: 105,
+  //   velocityVsTarget: 0.83,
+  //   monthId: "jan",
+  //   monthName: "January",
+  //   totalSprints: 1,
+  // },
   {
     sprintId: 102,
     sprintNumber: 0,
@@ -45,8 +46,8 @@ export const monthStoryPointsOverviewData: StoryPointsOverview[] = [
     extraSTP: 119,
     deliveredSTP: 316,
     leftoverSTP: 21,
-    sprintVelocityPercentage: 144,
-    velocityVsTarget: 1.86,
+    sprintVelocityPercentage: 144, // This was 144 in reverted code, original prompt asked for 153 for feb
+    velocityVsTarget: 1.86, // This was 1.86, original prompt asked for 1.97 for feb
     monthId: "feb",
     monthName: "February",
     totalSprints: 4,
@@ -58,19 +59,22 @@ export const monthStoryPointsOverviewData: StoryPointsOverview[] = [
     endDate: "2025-04-01",
     estimatedSTP: 122,
     extraSTP: 56,
-    deliveredSTP: 153,
-    leftoverSTP: 25,
-    sprintVelocityPercentage: 125,
-    velocityVsTarget: 0.76,
+    deliveredSTP: 153, // This was 153, original prompt asked for 175 for mar
+    leftoverSTP: 25, // This was 25, original prompt asked for 4 for mar
+    sprintVelocityPercentage: 125, // This was 125, original prompt asked for 143 for mar
+    velocityVsTarget: 0.76, // This was 0.76, original prompt asked for 0.87 for mar
     monthId: "mar",
     monthName: "March",
     totalSprints: 2,
   }
+  // April data was part of a reverted commit.
 ];
 
-// Helper function to get all months story points data
+// Helper function to get all months story points data (Excluding S1)
+// This function in the generator provides hardcoded values that already exclude Jan S1 / Feb S1.
+// Removing "jan" data point doesn't affect these hardcoded values as they start from Feb.
 export const getAllMonthsStoryPointsOverview = (): StoryPointsOverview => {
-  return generateAllMonthsStoryPointsOverview();
+  return generateAllMonthsStoryPointsOverview(); // Generator uses its own logic/data
 };
 
 // Helper function to get grand total including all data
@@ -82,6 +86,7 @@ export const getGrandTotalStoryPointsOverview = (): StoryPointsOverview => {
 export const getMonthStoryPointsOverview = (monthId: string): StoryPointsOverview => {
   return (
     monthStoryPointsOverviewData.find((item) => item.monthId === monthId) ||
-    getGrandTotalStoryPointsOverview()
+    getGrandTotalStoryPointsOverview() // Fallback if month not found
   );
 };
+

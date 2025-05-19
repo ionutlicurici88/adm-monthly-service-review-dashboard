@@ -14,13 +14,13 @@ const MonthCapacityTrend = ({ data, excludeS1Data = false }: MonthCapacityTrendP
     if (excludeS1Data) {
       // For "total" view (excluding S1 data)
       return data
-        .filter(item => item.monthId !== "jan_s1" && item.monthId !== "feb_s1")
+        .filter(item => item.monthId !== "jan_s1" && item.monthId !== "feb_s1") // jan_s1 is already removed from source
         .sort((a, b) => {
           const monthOrder: Record<string, number> = {
             "feb": 1,
             "mar": 2,
-            "apr": 3, // Added April
-            "total": 4, // Adjusted order
+            "apr": 3,
+            "total": 4,
           };
           return (monthOrder[a.monthId] || 99) - (monthOrder[b.monthId] || 99);
         })
@@ -32,19 +32,19 @@ const MonthCapacityTrend = ({ data, excludeS1Data = false }: MonthCapacityTrendP
           delivered: month.deliveredCapacity,
         }));
     } else {
-      // For "grand_total" view (including S1 data, S1 combined)
-      const janS1Data = data.find(item => item.monthId === "jan_s1");
+      // For "grand_total" view (including S1 data, S1 combined if both present, or individual if one present)
+      // const janS1Data = data.find(item => item.monthId === "jan_s1"); // jan_s1 is removed from data source
       const febS1Data = data.find(item => item.monthId === "feb_s1");
       
       const processedData = data
-        .filter(item => item.monthId !== "jan_s1" && item.monthId !== "feb_s1")
+        .filter(item => item.monthId !== "jan_s1" && item.monthId !== "feb_s1") // Filter out S1s for the main list
         .sort((a, b) => {
           const monthOrder: Record<string, number> = {
             "feb": 1,
             "mar": 2,
-            "apr": 3, // Added April
-            "total": 4, // Adjusted order
-            "grand_total": 5 // Adjusted order
+            "apr": 3,
+            "total": 4,
+            "grand_total": 5
           };
           return (monthOrder[a.monthId] || 99) - (monthOrder[b.monthId] || 99);
         })
@@ -56,23 +56,14 @@ const MonthCapacityTrend = ({ data, excludeS1Data = false }: MonthCapacityTrendP
           delivered: month.deliveredCapacity,
         }));
         
-      if (janS1Data || febS1Data) {
-        const janAvailable = janS1Data?.availableCapacity || 0;
-        const janContracted = janS1Data?.contractedCapacity || 0;
-        const janPlanned = janS1Data?.plannedCapacity || 0;
-        const janDelivered = janS1Data?.deliveredCapacity || 0;
-        
-        const febAvailable = febS1Data?.availableCapacity || 0;
-        const febContracted = febS1Data?.contractedCapacity || 0;
-        const febPlanned = febS1Data?.plannedCapacity || 0;
-        const febDelivered = febS1Data?.deliveredCapacity || 0;
-        
+      // If Feb S1 data exists, add it to the beginning of the chart data
+      if (febS1Data) {
         processedData.unshift({
-          name: "Jan & Feb S1",
-          available: janAvailable + febAvailable,
-          contracted: janContracted + febContracted,
-          planned: janPlanned + febPlanned,
-          delivered: janDelivered + febDelivered,
+          name: febS1Data.monthName, // Will be "February S1"
+          available: febS1Data.availableCapacity || 0,
+          contracted: febS1Data.contractedCapacity || 0,
+          planned: febS1Data.plannedCapacity || 0,
+          delivered: febS1Data.deliveredCapacity || 0,
         });
       }
       
@@ -130,3 +121,4 @@ const MonthCapacityTrend = ({ data, excludeS1Data = false }: MonthCapacityTrendP
 };
 
 export default MonthCapacityTrend;
+

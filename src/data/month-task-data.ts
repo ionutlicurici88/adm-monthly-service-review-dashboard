@@ -3,21 +3,21 @@ import { TaskOverview } from "@/types/dashboard";
 
 // Monthly Task Overview Data
 export const monthlyTaskOverviewData: TaskOverview[] = [
-  {
-    sprintId: -2,
-    sprintNumber: -2,
-    monthId: "jan_s1",
-    monthName: "January S1",
-    startDate: "2025-01-27",
-    endDate: "2025-01-31",
-    totalSprints: 1,
-    sprintLengthInDays: 5,
-    plannedTasks: 54,
-    unplannedTasks: 4,
-    deliveredTasks: 58,
-    leftoverTasks: 0,
-    completionPercentage: 107,
-  },
+  // { // Removed January S1 data
+  //   sprintId: -2,
+  //   sprintNumber: -2,
+  //   monthId: "jan_s1",
+  //   monthName: "January S1",
+  //   startDate: "2025-01-27",
+  //   endDate: "2025-01-31",
+  //   totalSprints: 1,
+  //   sprintLengthInDays: 5,
+  //   plannedTasks: 54,
+  //   unplannedTasks: 4,
+  //   deliveredTasks: 58,
+  //   leftoverTasks: 0,
+  //   completionPercentage: 107,
+  // },
   {
     sprintId: -3,
     sprintNumber: -3,
@@ -63,19 +63,6 @@ export const monthlyTaskOverviewData: TaskOverview[] = [
     leftoverTasks: 4,
     completionPercentage: 400,
   },
-  {
-    sprintId: -6,
-    sprintNumber: -6,
-    monthId: "apr",
-    monthName: "April",
-    startDate: "2025-04-02",
-    endDate: "2025-04-29",
-    totalSprints: 2,
-    sprintLengthInDays: 20,
-    plannedTasks: 13,
-    unplannedTasks: 32,
-    deliveredTasks: 41,
-    leftoverTasks: 4,
-    completionPercentage: 315,
-  }
+  // April data was part of a reverted commit.
 ];
+
