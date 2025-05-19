@@ -1,4 +1,3 @@
-
 import { StoryPointsOverview as StoryPointsOverviewType } from "@/types/dashboard";
 import StatCard from "./StatCard";
 import StoryPointsTrend from "./StoryPointsTrend";
@@ -36,7 +35,7 @@ const StoryPointsOverview = ({ data, allData = [], excludeFirstSprint = false }:
     } else if (monthId === "total") {
       title = "All Months (Excluding Sprint 1)";
     } else {
-      title = monthName; // Changed to directly use monthName
+      title = monthName; 
     }
   } else if (sprintNumber === 0 && !excludeFirstSprint) {
     title = "All Sprints (Grand Total)";
@@ -67,7 +66,7 @@ const StoryPointsOverview = ({ data, allData = [], excludeFirstSprint = false }:
       </h2>
       
       {isMonthView && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <StatCard
             title="Start Date"
             value={formatDate(startDate)}
@@ -93,7 +92,7 @@ const StoryPointsOverview = ({ data, allData = [], excludeFirstSprint = false }:
         </div>
       )}
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <StatCard
           title="Estimated STP"
           value={estimatedSTP}
