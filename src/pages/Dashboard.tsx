@@ -8,15 +8,16 @@ import { useSprintSelector } from "@/hooks/useSprintSelector";
 import { useMonthSelector } from "@/hooks/useMonthSelector";
 
 const months = [
+  { id: "jan", name: "January" }, // Added January
   { id: "feb", name: "February" },
   { id: "mar", name: "March" },
-  { id: "apr", name: "April" }, // Added April
+  { id: "apr", name: "April" },
 ];
 
 const Dashboard = () => {
   // State for view type and overview type
   const [currentView, setCurrentView] = useState<ViewType>("month");
-  const [currentOverview, setCurrentOverview] = useState<OverviewType>("capacity");
+  const [currentOverview, setCurrentOverview] = useState<OverviewType>("story"); // Default to story to see changes
   
   // Use the custom hooks for sprint and month selection
   const sprintSelector = useSprintSelector({ sprints });

@@ -4,7 +4,7 @@ import TaskOverview from "./TaskOverview";
 import StoryPointsOverview from "./StoryPointsOverview";
 import MonthCapacityOverviewComponent from "./MonthCapacityOverview";
 import MonthCapacityTrend from "./MonthCapacityTrend";
-import { monthlyTaskOverviewData } from "@/data/task-data";
+import { monthlyTaskOverviewData } from "@/data/month-task-data";
 import { monthStoryPointsOverviewData } from "@/data/month-story-points-data";
 
 interface MonthViewContentProps {
