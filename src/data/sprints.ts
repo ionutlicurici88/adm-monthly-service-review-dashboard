@@ -10,4 +10,7 @@ export const sprints: Sprint[] = [
   { id: 5, number: 5, startDate: "2025-03-01", endDate: "2025-03-14", lengthInDays: 10 },
   { id: 6, number: 6, startDate: "2025-03-15", endDate: "2025-03-28", lengthInDays: 10 },
   { id: 7, number: 7, startDate: "2025-03-29", endDate: "2025-04-11", lengthInDays: 10 },
+  { id: 8, number: 8, startDate: "2025-04-12", endDate: "2025-04-25", lengthInDays: 10 }, // New Sprint 8
+  { id: 9, number: 9, startDate: "2025-04-26", endDate: "2025-05-09", lengthInDays: 10 }, // New Sprint 9
 ];
+

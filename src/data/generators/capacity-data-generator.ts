@@ -1,4 +1,3 @@
-
 import { CapacityOverview, MonthCapacityOverview } from "@/types/dashboard";
 import { sumProperty, calculatePercentage } from "@/utils/data-utils";
 
@@ -13,12 +12,11 @@ export const generateAllSprintsCapacityOverview = (capacityData: CapacityOvervie
   const totalUnplannedHoliday = sumProperty(capacityData, 'unplannedHoliday');
   const totalDeliveredCapacity = sumProperty(capacityData, 'deliveredCapacity');
   
-  // Calculate aggregate capacity percentage
   const avgCapacityPercentage = calculatePercentage(totalDeliveredCapacity, totalPlannedCapacity);
 
   return {
     sprintId: 0,
-    sprintNumber: 0, // 0 represents all sprints
+    sprintNumber: 0, 
     workingDaysAvailable: totalWorkingDays,
     availableCapacity: totalAvailableCapacity,
     plannedHoliday: totalPlannedHoliday,
@@ -32,18 +30,28 @@ export const generateAllSprintsCapacityOverview = (capacityData: CapacityOvervie
 /**
  * Generate aggregated capacity data excluding the first sprint
  */
-export const generateAllSprintsExcludeFirstCapacityOverview = (): CapacityOverview => {
-  // Using pre-defined values as specified in requirements
+export const generateAllSprintsExcludeFirstCapacityOverview = (capacityData: CapacityOverview[]): CapacityOverview => {
+  const filteredData = capacityData.filter(sprint => sprint.sprintNumber !== 1 && sprint.sprintNumber > 0); // Exclude sprint 1 and any aggregate rows
+
+  const totalWorkingDays = sumProperty(filteredData, 'workingDaysAvailable');
+  const totalAvailableCapacity = sumProperty(filteredData, 'availableCapacity');
+  const totalPlannedHoliday = sumProperty(filteredData, 'plannedHoliday');
+  const totalPlannedCapacity = sumProperty(filteredData, 'plannedCapacity');
+  const totalUnplannedHoliday = sumProperty(filteredData, 'unplannedHoliday');
+  const totalDeliveredCapacity = sumProperty(filteredData, 'deliveredCapacity');
+  
+  const avgCapacityPercentage = calculatePercentage(totalDeliveredCapacity, totalPlannedCapacity);
+
   return {
-    sprintId: -1,
-    sprintNumber: -1,
-    workingDaysAvailable: 40,
-    availableCapacity: 320,
-    plannedHoliday: 24,
-    plannedCapacity: 296,
-    unplannedHoliday: 3,
-    deliveredCapacity: 293,
-    capacityPercentage: 99,
+    sprintId: -1, // Identifier for "All Sprints Excluding Sprint 1"
+    sprintNumber: -1, // Identifier for "All Sprints Excluding Sprint 1"
+    workingDaysAvailable: totalWorkingDays,
+    availableCapacity: totalAvailableCapacity,
+    plannedHoliday: totalPlannedHoliday,
+    plannedCapacity: totalPlannedCapacity,
+    unplannedHoliday: totalUnplannedHoliday,
+    deliveredCapacity: totalDeliveredCapacity,
+    capacityPercentage: avgCapacityPercentage,
   };
 };
 

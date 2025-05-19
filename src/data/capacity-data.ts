@@ -1,3 +1,4 @@
+
 import { CapacityOverview } from "@/types/dashboard";
 import { 
   generateAllSprintsCapacityOverview,
@@ -81,7 +82,29 @@ export const capacityOverviewData: CapacityOverview[] = [
     plannedCapacity: 69,
     unplannedHoliday: 1,
     deliveredCapacity: 68,
-    capacityPercentage: 99,
+    capacityPercentage: 99, // Corrected based on 68/69
+  },
+  { // New Sprint 8 Data
+    sprintId: 8,
+    sprintNumber: 8,
+    workingDaysAvailable: 10,
+    availableCapacity: 80,
+    plannedHoliday: 0,
+    plannedCapacity: 80,
+    unplannedHoliday: 0,
+    deliveredCapacity: 80,
+    capacityPercentage: 100,
+  },
+  { // New Sprint 9 Data
+    sprintId: 9,
+    sprintNumber: 9,
+    workingDaysAvailable: 10,
+    availableCapacity: 80,
+    plannedHoliday: 27,
+    plannedCapacity: 53,
+    unplannedHoliday: 0,
+    deliveredCapacity: 53,
+    capacityPercentage: 100, // 53/53 = 100%
   }
 ];
 
@@ -92,5 +115,7 @@ export const getAllSprintsCapacityOverview = (): CapacityOverview => {
 
 // Function to get aggregated data for all sprints excluding Sprint 1
 export const getAllSprintsExcludeFirstCapacityOverview = (): CapacityOverview => {
-  return generateAllSprintsExcludeFirstCapacityOverview();
+  // Now pass the data to the generator function for dynamic calculation
+  return generateAllSprintsExcludeFirstCapacityOverview(capacityOverviewData);
 };
+
