@@ -1,4 +1,3 @@
-
 import { TaskOverview } from "@/types/dashboard";
 import { sumProperty, calculatePercentage } from "@/utils/data-utils";
 
@@ -69,12 +68,34 @@ export const generateAllSprintsExcludeFirstTaskOverview = (taskData: TaskOvervie
 };
 
 /**
- * Generate monthly task overview for all months excluding specific periods
+ * Generate monthly task overview for all months excluding specific S1 periods
  */
 export const generateAllMonthsTaskOverview = (monthData: TaskOverview[]): TaskOverview => {
+  // Filter out S1 data based on the new monthId "jan_feb_s1"
   const regularMonths = monthData.filter(
-    month => month.monthId !== "jan_s1" && month.monthId !== "feb_s1"
+    month => month.monthId !== "jan_feb_s1" 
   );
+  
+  // Handle cases where regularMonths might be empty after filtering
+  if (regularMonths.length === 0) {
+    // Return a default or empty overview if no regular months are found
+    // This prevents errors if all data is S1 data or monthData is empty
+    return {
+      sprintId: -10,
+      sprintNumber: -10,
+      monthId: "total",
+      monthName: "All Months",
+      startDate: new Date().toISOString().split('T')[0], // Placeholder
+      endDate: new Date().toISOString().split('T')[0],   // Placeholder
+      totalSprints: 0,
+      sprintLengthInDays: 0,
+      plannedTasks: 0,
+      unplannedTasks: 0,
+      deliveredTasks: 0,
+      leftoverTasks: 0,
+      completionPercentage: 0,
+    };
+  }
   
   const firstMonth = regularMonths[0];
   const lastMonth = regularMonths[regularMonths.length - 1];
@@ -97,7 +118,7 @@ export const generateAllMonthsTaskOverview = (monthData: TaskOverview[]): TaskOv
     sprintId: -10,
     sprintNumber: -10,
     monthId: "total",
-    monthName: "All Months",
+    monthName: "All Months", // This title is used in TaskOverview.tsx
     startDate: firstMonth.startDate,
     endDate: lastMonth.endDate,
     totalSprints: totalSprints,
@@ -115,6 +136,25 @@ export const generateAllMonthsTaskOverview = (monthData: TaskOverview[]): TaskOv
  */
 export const generateGrandTotalTaskOverview = (monthData: TaskOverview[]): TaskOverview => {
   const allMonths = monthData;
+
+  // Handle cases where monthData might be empty
+  if (allMonths.length === 0) {
+    return {
+      sprintId: -11,
+      sprintNumber: -11,
+      monthId: "grand_total",
+      monthName: "Grand Total",
+      startDate: new Date().toISOString().split('T')[0], // Placeholder
+      endDate: new Date().toISOString().split('T')[0],   // Placeholder
+      totalSprints: 0,
+      sprintLengthInDays: 0,
+      plannedTasks: 0,
+      unplannedTasks: 0,
+      deliveredTasks: 0,
+      leftoverTasks: 0,
+      completionPercentage: 0,
+    };
+  }
   
   const firstMonth = allMonths[0];
   const lastMonth = allMonths[allMonths.length - 1];
@@ -137,7 +177,7 @@ export const generateGrandTotalTaskOverview = (monthData: TaskOverview[]): TaskO
     sprintId: -11,
     sprintNumber: -11,
     monthId: "grand_total",
-    monthName: "Grand Total",
+    monthName: "Grand Total", // This title is used in TaskOverview.tsx
     startDate: firstMonth.startDate,
     endDate: lastMonth.endDate,
     totalSprints: totalSprints,

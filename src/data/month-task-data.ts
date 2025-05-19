@@ -2,40 +2,26 @@
 import { TaskOverview } from "@/types/dashboard";
 
 // Monthly Task Overview Data
+// Updated based on the user's provided table
 export const monthlyTaskOverviewData: TaskOverview[] = [
-  // { // Removed January S1 data
-  //   sprintId: -2,
-  //   sprintNumber: -2,
-  //   monthId: "jan_s1",
-  //   monthName: "January S1",
-  //   startDate: "2025-01-27",
-  //   endDate: "2025-01-31",
-  //   totalSprints: 1,
-  //   sprintLengthInDays: 5,
-  //   plannedTasks: 54,
-  //   unplannedTasks: 4,
-  //   deliveredTasks: 58,
-  //   leftoverTasks: 0,
-  //   completionPercentage: 107,
-  // },
   {
-    sprintId: -3,
-    sprintNumber: -3,
-    monthId: "feb_s1",
-    monthName: "February S1",
-    startDate: "2025-02-03",
+    sprintId: -20, // Unique ID for this S1 period
+    sprintNumber: -20,
+    monthId: "jan_feb_s1",
+    monthName: "Jan & Feb S1",
+    startDate: "2025-01-27",
     endDate: "2025-02-04",
-    totalSprints: 0,
-    sprintLengthInDays: 2,
-    plannedTasks: 0,
-    unplannedTasks: 0,
-    deliveredTasks: 0,
+    totalSprints: 1,
+    sprintLengthInDays: 7,
+    plannedTasks: 54,
+    unplannedTasks: 4,
+    deliveredTasks: 58,
     leftoverTasks: 0,
-    completionPercentage: 0,
+    completionPercentage: 107,
   },
   {
-    sprintId: -4,
-    sprintNumber: -4,
+    sprintId: -21, // Unique ID for February
+    sprintNumber: -21,
     monthId: "feb",
     monthName: "February",
     startDate: "2025-02-05",
@@ -49,8 +35,8 @@ export const monthlyTaskOverviewData: TaskOverview[] = [
     completionPercentage: 214,
   },
   {
-    sprintId: -5,
-    sprintNumber: -5,
+    sprintId: -22, // Unique ID for March
+    sprintNumber: -22,
     monthId: "mar",
     monthName: "March",
     startDate: "2025-03-03",
@@ -63,6 +49,20 @@ export const monthlyTaskOverviewData: TaskOverview[] = [
     leftoverTasks: 4,
     completionPercentage: 400,
   },
-  // April data was part of a reverted commit.
+  {
+    sprintId: -23, // Unique ID for April
+    sprintNumber: -23,
+    monthId: "apr",
+    monthName: "April",
+    startDate: "2025-04-02",
+    endDate: "2025-04-29",
+    totalSprints: 2,
+    sprintLengthInDays: 20,
+    plannedTasks: 13,
+    unplannedTasks: 32,
+    deliveredTasks: 41,
+    leftoverTasks: 4,
+    completionPercentage: 315,
+  },
 ];
 
