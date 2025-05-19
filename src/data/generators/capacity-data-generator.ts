@@ -59,8 +59,9 @@ export const generateAllSprintsExcludeFirstCapacityOverview = (capacityData: Cap
  * Generate aggregated month capacity data (excluding S1 periods)
  */
 export const generateAllMonthsCapacityOverview = (monthData: MonthCapacityOverview[]): MonthCapacityOverview => {
+  // Filter out S1 periods, now specifically "jan_feb_s1"
   const regularMonths = monthData.filter(
-    item => item.monthId !== "jan_s1" && item.monthId !== "feb_s1"
+    item => item.monthId !== "jan_feb_s1" 
   );
   
   const totalWorkingDaysAvailable = sumProperty(regularMonths, 'workingDaysAvailable');

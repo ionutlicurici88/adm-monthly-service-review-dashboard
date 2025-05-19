@@ -9,69 +9,52 @@ interface MonthCapacityTrendProps {
 }
 
 const MonthCapacityTrend = ({ data, excludeS1Data = false }: MonthCapacityTrendProps) => {
-  // Process data for chart display
-  const processData = () => {
-    if (excludeS1Data) {
-      // For "total" view (excluding S1 data)
-      return data
-        .filter(item => item.monthId !== "jan_s1" && item.monthId !== "feb_s1") // jan_s1 is already removed from source
-        .sort((a, b) => {
-          const monthOrder: Record<string, number> = {
-            "feb": 1,
-            "mar": 2,
-            "apr": 3,
-            "total": 4,
-          };
-          return (monthOrder[a.monthId] || 99) - (monthOrder[b.monthId] || 99);
-        })
-        .map(month => ({
-          name: month.monthName,
-          available: month.availableCapacity,
-          contracted: month.contractedCapacity || 0,
-          planned: month.plannedCapacity,
-          delivered: month.deliveredCapacity,
-        }));
-    } else {
-      // For "grand_total" view (including S1 data, S1 combined if both present, or individual if one present)
-      // const janS1Data = data.find(item => item.monthId === "jan_s1"); // jan_s1 is removed from data source
-      const febS1Data = data.find(item => item.monthId === "feb_s1");
-      
-      const processedData = data
-        .filter(item => item.monthId !== "jan_s1" && item.monthId !== "feb_s1") // Filter out S1s for the main list
-        .sort((a, b) => {
-          const monthOrder: Record<string, number> = {
-            "feb": 1,
-            "mar": 2,
-            "apr": 3,
-            "total": 4,
-            "grand_total": 5
-          };
-          return (monthOrder[a.monthId] || 99) - (monthOrder[b.monthId] || 99);
-        })
-        .map(month => ({
-          name: month.monthName,
-          available: month.availableCapacity,
-          contracted: month.contractedCapacity || 0,
-          planned: month.plannedCapacity,
-          delivered: month.deliveredCapacity,
-        }));
-        
-      // If Feb S1 data exists, add it to the beginning of the chart data
-      if (febS1Data) {
-        processedData.unshift({
-          name: febS1Data.monthName, // Will be "February S1"
-          available: febS1Data.availableCapacity || 0,
-          contracted: febS1Data.contractedCapacity || 0,
-          planned: febS1Data.plannedCapacity || 0,
-          delivered: febS1Data.deliveredCapacity || 0,
-        });
-      }
-      
-      return processedData;
-    }
+  const s1MonthId = "jan_feb_s1";
+
+  // Define the desired order for months in the chart
+  const baseMonthOrder: Record<string, number> = {
+    [s1MonthId]: 0, // "Jan & Feb S1"
+    "feb": 1,       // February
+    "mar": 2,       // March
+    "apr": 3,       // April
   };
 
-  const filteredData = processData();
+  // Process data for chart display
+  const processData = () => {
+    let chartDataItems: MonthCapacityOverview[];
+
+    if (excludeS1Data) {
+      // For "total" view (excluding S1 data like "jan_feb_s1")
+      chartDataItems = data.filter(item => item.monthId !== s1MonthId);
+    } else {
+      // For "grand_total" view or individual month views where trend might show all data
+      chartDataItems = [...data]; // Use all available data items from the prop
+    }
+
+    // Filter out any aggregate rows like "total" or "grand_total" if they were accidentally included in `data`.
+    // Note: The `data` prop should ideally be the raw `monthCapacityOverviewData` array.
+    chartDataItems = chartDataItems.filter(item => 
+        item.monthId !== "total" && item.monthId !== "grand_total"
+    );
+    
+    // Sort the items based on the defined order
+    chartDataItems.sort((a, b) => {
+      const orderA = baseMonthOrder[a.monthId] ?? 99; // Items not in order map go to end
+      const orderB = baseMonthOrder[b.monthId] ?? 99;
+      return orderA - orderB;
+    });
+
+    // Map to the format expected by the chart
+    return chartDataItems.map(month => ({
+      name: month.monthName,
+      available: month.availableCapacity,
+      contracted: month.contractedCapacity || 0, // Ensure contractedCapacity is handled if undefined
+      planned: month.plannedCapacity,
+      delivered: month.deliveredCapacity,
+    }));
+  };
+
+  const chartFormattedData = processData();
 
   const chartConfig = {
     available: {
@@ -98,7 +81,7 @@ const MonthCapacityTrend = ({ data, excludeS1Data = false }: MonthCapacityTrendP
       <div className="w-full h-[500px]">
         <ChartContainer config={chartConfig} className="h-full w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={filteredData} margin={{ top: 20, right: 30, left: 20, bottom: 30 }}>
+            <BarChart data={chartFormattedData} margin={{ top: 20, right: 30, left: 20, bottom: 30 }}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
               <YAxis />

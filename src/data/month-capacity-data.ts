@@ -6,29 +6,18 @@ import {
 } from "./generators/capacity-data-generator";
 
 // Month Capacity Overview Data
+// Updated based on the user's provided table
 export const monthCapacityOverviewData: MonthCapacityOverview[] = [
-  // { // Removed January S1 data
-  //   monthId: "jan_s1",
-  //   monthName: "January S1",
-  //   workingDaysAvailable: 5,
-  //   availableCapacity: 40,
-  //   contractedCapacity: 0,
-  //   plannedHoliday: 1,
-  //   plannedCapacity: 39,
-  //   unplannedHoliday: 0,
-  //   deliveredCapacity: 39,
-  //   capacityPercentage: 100,
-  // },
   {
-    monthId: "feb_s1",
-    monthName: "February S1",
-    workingDaysAvailable: 2,
-    availableCapacity: 16,
+    monthId: "jan_feb_s1",
+    monthName: "Jan & Feb S1",
+    workingDaysAvailable: 7,
+    availableCapacity: 56,
     contractedCapacity: 0,
-    plannedHoliday: 0,
-    plannedCapacity: 16,
+    plannedHoliday: 1,
+    plannedCapacity: 55,
     unplannedHoliday: 0,
-    deliveredCapacity: 16,
+    deliveredCapacity: 55,
     capacityPercentage: 100,
   },
   {
@@ -55,8 +44,18 @@ export const monthCapacityOverviewData: MonthCapacityOverview[] = [
     deliveredCapacity: 154,
     capacityPercentage: 99,
   },
-  // April data was part of a reverted commit, so it's not here.
-  // If it needs to be re-added, that's a separate request.
+  {
+    monthId: "apr",
+    monthName: "April",
+    workingDaysAvailable: 20,
+    availableCapacity: 160,
+    contractedCapacity: 152,
+    plannedHoliday: 27,
+    plannedCapacity: 133,
+    unplannedHoliday: 0,
+    deliveredCapacity: 133,
+    capacityPercentage: 100,
+  },
 ];
 
 // Calculate total for all months (excluding S1 data)
@@ -71,11 +70,11 @@ export const getGrandTotalCapacityOverview = (): MonthCapacityOverview => {
   return generateGrandTotalCapacityOverview(monthCapacityOverviewData);
 };
 
-// Get all months excluding S1 data (e.g. feb_s1 if it remains)
+// Get all months excluding S1 data (e.g. jan_feb_s1)
 export const getMonthsExcludingS1CapacityOverview = (): MonthCapacityOverview[] => {
   return monthCapacityOverviewData.filter(
-    // Adjusted to filter any monthId ending with "_s1" or specific S1 ids if convention changes
-    item => !item.monthId.endsWith("_s1") && item.monthId !== "jan_s1" && item.monthId !== "feb_s1"
+    // Adjusted to filter any monthId that is an S1 period
+    item => item.monthId !== "jan_feb_s1" 
   );
 };
 
