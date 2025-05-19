@@ -1,6 +1,5 @@
-
 import { StoryPointsOverview } from "@/types/dashboard";
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { ChartContainer } from "@/components/ui/chart";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from "recharts";
 
 interface MonthStoryPointsTrendProps {
@@ -10,59 +9,30 @@ interface MonthStoryPointsTrendProps {
 
 const MonthStoryPointsTrend = ({ data, excludeS1Data = false }: MonthStoryPointsTrendProps) => {
   const processData = () => {
+    // Filter out aggregate rows like "total" or "grand_total" from chart data
+    let filteredChartData = data.filter(item =>
+      item.monthId !== "total" && item.monthId !== "grand_total"
+    );
+
     if (excludeS1Data) {
-      return data
-        .filter(item => 
-          item.monthId !== "jan_s1" && 
-          item.monthId !== "feb_s1" && 
-          item.monthId !== "jan"
-        )
-        .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
-        .map(month => ({
-          name: month.monthName || month.monthId,
-          estimatedSTP: month.estimatedSTP,
-          extraSTP: month.extraSTP,
-          totalSTP: month.estimatedSTP + month.extraSTP,
-          delivered: month.deliveredSTP,
-          leftover: month.leftoverSTP,
-          velocityPercent: month.sprintVelocityPercentage
-        }));
-    } else {
-      const janData = data.find(item => item.monthId === "jan");
-      const febS1Data = data.find(item => item.monthId === "feb_s1");
-      
-      const processedData = data
-        .filter(item => 
-          item.monthId !== "jan" && 
-          item.monthId !== "feb_s1" && 
-          item.monthId !== "total" && 
-          item.monthId !== "grand_total"
-        )
-        .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
-        .map(month => ({
-          name: month.monthName || month.monthId,
-          estimatedSTP: month.estimatedSTP,
-          extraSTP: month.extraSTP,
-          totalSTP: month.estimatedSTP + month.extraSTP,
-          delivered: month.deliveredSTP,
-          leftover: month.leftoverSTP,
-          velocityPercent: month.sprintVelocityPercentage
-        }));
-        
-      if (janData) {
-        processedData.unshift({
-          name: "Jan & Feb S1",
-          estimatedSTP: janData.estimatedSTP,
-          extraSTP: janData.extraSTP,
-          totalSTP: janData.estimatedSTP + janData.extraSTP,
-          delivered: janData.deliveredSTP,
-          leftover: janData.leftoverSTP,
-          velocityPercent: janData.sprintVelocityPercentage
-        });
-      }
-      
-      return processedData;
+      // If excludeS1Data is true, filter out the "Jan & Feb S1" data point
+      filteredChartData = filteredChartData.filter(item => 
+        item.monthId !== "jan_feb_s1"
+      );
     }
+    // Otherwise (for Grand Total view), "jan_feb_s1" is included by default
+
+    return filteredChartData
+      .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime()) // Sort by start date
+      .map(month => ({
+        name: month.monthName || month.monthId || "", // Use monthName, fallback to monthId
+        estimatedSTP: month.estimatedSTP,
+        extraSTP: month.extraSTP,
+        totalSTP: month.estimatedSTP + month.extraSTP,
+        delivered: month.deliveredSTP,
+        leftover: month.leftoverSTP,
+        velocityPercent: month.sprintVelocityPercentage
+      }));
   };
 
   const filteredData = processData();
@@ -153,11 +123,22 @@ const MonthStoryPointsTrend = ({ data, excludeS1Data = false }: MonthStoryPoints
     
     const filteredPayload = payload.filter((entry: any) => entry.value !== 'Total STP');
     
-    const combinedItems = [...customItems, ...filteredPayload];
+    // Combine Recharts payload with custom items, ensuring correct order or structure if needed.
+    // For this specific legend, we are replacing the default legend with custom styled items.
+    // So, we use `customItems` and potentially `filteredPayload` if we want to include default items too.
+    // The current implementation effectively uses custom items for STP breakdown and default for delivered/leftover.
+    // Let's ensure the combinedItems reflect what the user expects.
+    // The existing logic seems to be to show Estimated, Extra, Delivered, Leftover in legend.
+    const legendItemsToDisplay = [
+        { value: 'Estimated STP', color: chartConfig.estimatedSTP.color },
+        { value: 'Extra STP', color: chartConfig.extraSTP.color },
+        { value: 'Delivered STP', color: chartConfig.delivered.color },
+        { value: 'Leftover STP', color: chartConfig.leftover.color },
+    ];
     
     return (
-      <ul className="flex flex-wrap justify-center gap-6 text-xs">
-        {combinedItems.map((entry: any, index: number) => (
+      <ul className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs">
+        {legendItemsToDisplay.map((entry: any, index: number) => (
           <li key={`item-${index}`} className="flex items-center">
             <svg width="14" height="14" className="mr-1">
               <rect
@@ -185,14 +166,14 @@ const MonthStoryPointsTrend = ({ data, excludeS1Data = false }: MonthStoryPoints
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
               <YAxis />
-              <Tooltip content={CustomTooltip} />
-              <Legend content={CustomLegendContent} />
+              <Tooltip content={<CustomTooltip />} />
+              <Legend content={<CustomLegendContent />} />
               
-              <Bar dataKey="totalSTP" name="Total STP">
+              <Bar dataKey="totalSTP" name="Total STP" yAxisId="left">
                 {filteredData.map((entry, index) => (
                   <Cell 
                     key={`cell-${index}`}
-                    fill={`url(#splitColor-${index})`}
+                    fill={`url(#splitColorMonth-${index})`} // Unique gradient ID prefix for this chart
                   />
                 ))}
               </Bar>
@@ -202,19 +183,24 @@ const MonthStoryPointsTrend = ({ data, excludeS1Data = false }: MonthStoryPoints
                 fill={chartConfig.delivered.color} 
                 name="Delivered STP" 
                 stackId="storyPoints"
+                yAxisId="left"
               />
               <Bar 
                 dataKey="leftover" 
                 fill={chartConfig.leftover.color} 
                 name="Leftover STP" 
                 stackId="storyPoints"
+                yAxisId="left"
               />
               
               <defs>
                 {filteredData.map((entry, index) => {
-                  const extraRatio = entry.extraSTP / entry.totalSTP;
+                  const total = entry.totalSTP;
+                  // Handle totalSTP being 0 to avoid division by zero
+                  const extraRatio = total > 0 ? entry.extraSTP / total : 0;
+                  
                   return (
-                    <linearGradient id={`splitColor-${index}`} key={`gradient-${index}`} x1="0" y1="0" x2="0" y2="1">
+                    <linearGradient id={`splitColorMonth-${index}`} key={`gradientMonth-${index}`} x1="0" y1="0" x2="0" y2="1">
                       <stop offset={0} stopColor={chartConfig.extraSTP.color} />
                       <stop offset={extraRatio} stopColor={chartConfig.extraSTP.color} />
                       <stop offset={extraRatio} stopColor={chartConfig.estimatedSTP.color} />
