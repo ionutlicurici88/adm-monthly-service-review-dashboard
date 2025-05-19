@@ -6,15 +6,18 @@ export {
   getAllSprintsCapacityOverview, 
   getAllSprintsExcludeFirstCapacityOverview 
 } from './capacity-data';
-export { 
-  taskOverviewData, 
+
+// Task Data - Refactored
+export { taskOverviewData } from './sprint-task-data';
+export { monthlyTaskOverviewData } from './month-task-data';
+export {
   getAllSprintsTaskOverview,
   getAllSprintsExcludeFirstTaskOverview,
-  monthlyTaskOverviewData,
   getAllMonthsTaskOverview,
   getGrandTotalTaskOverview,
   getMonthTaskOverview
-} from './task-data';
+} from './task-data-accessors';
+
 export { 
   storyPointsOverviewData, 
   getAllSprintsStoryPointsOverview,
