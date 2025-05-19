@@ -1,11 +1,17 @@
+
 import { OverviewType } from "@/types/dashboard";
-import { monthCapacityOverviewData, MonthCapacityOverview as MonthCapacityOverviewType } from "@/data";
+import { 
+  monthCapacityOverviewData, 
+  MonthCapacityOverview as MonthCapacityOverviewType,
+  monthlyTaskOverviewData, // Corrected: Import from @/data
+  monthStoryPointsOverviewData // Updated: Import from @/data for consistency
+} from "@/data";
 import TaskOverview from "./TaskOverview";
 import StoryPointsOverview from "./StoryPointsOverview";
 import MonthCapacityOverviewComponent from "./MonthCapacityOverview";
 import MonthCapacityTrend from "./MonthCapacityTrend";
-import { monthlyTaskOverviewData } from "@/data/task-data";
-import { monthStoryPointsOverviewData } from "@/data/month-story-points-data";
+// Removed: import { monthlyTaskOverviewData } from "@/data/task-data";
+// Removed: import { monthStoryPointsOverviewData } from "@/data/month-story-points-data";
 
 interface MonthViewContentProps {
   currentOverview: OverviewType;
