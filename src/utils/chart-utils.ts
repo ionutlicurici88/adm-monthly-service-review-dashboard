@@ -1,4 +1,3 @@
-
 import { TaskOverview } from "@/types/dashboard";
 
 export interface ProcessedTaskData {
@@ -20,38 +19,38 @@ export const processTaskTrendData = (
 ): ProcessedTaskData[] => {
   return data
     .filter(item => {
-      // Always filter out feb_s1 as it's empty
-      if (item.monthId === 'feb_s1') {
-        return false;
-      }
-      
-      // When excludeS1Data is true, also filter out jan_s1
-      if (excludeS1Data && item.monthId === 'jan_s1') {
+      // When excludeS1Data is true, filter out 'jan_feb_s1'
+      if (excludeS1Data && item.monthId === 'jan_feb_s1') {
         return false;
       }
       return true;
     })
     .map(month => {
-      // Rename Jan S1 to Jan & Feb S1
-      const modifiedMonth = {...month};
-      if (modifiedMonth.monthId === 'jan_s1' && modifiedMonth.monthName === 'Jan S1') {
-        modifiedMonth.monthName = 'Jan & Feb S1';
-      }
-      
+      // monthName from data source (e.g., monthlyTaskOverviewData) is now used directly
       return {
-        name: modifiedMonth.monthName || "",
-        plannedTasks: modifiedMonth.plannedTasks,
-        unplannedTasks: modifiedMonth.unplannedTasks,
-        totalTasks: modifiedMonth.plannedTasks + modifiedMonth.unplannedTasks,
-        delivered: modifiedMonth.deliveredTasks,
-        leftover: modifiedMonth.leftoverTasks,
-        completionPercentage: modifiedMonth.completionPercentage
+        name: month.monthName || "",
+        plannedTasks: month.plannedTasks,
+        unplannedTasks: month.unplannedTasks,
+        totalTasks: month.plannedTasks + month.unplannedTasks,
+        delivered: month.deliveredTasks,
+        leftover: month.leftoverTasks,
+        completionPercentage: month.completionPercentage
       };
     })
     .sort((a, b) => {
-      // Custom sort for month order
-      const monthOrder = ['Jan & Feb S1', 'Feb', 'Mar'];
-      return monthOrder.indexOf(a.name) - monthOrder.indexOf(b.name);
+      // Custom sort for month order: Jan & Feb S1, February, March, April
+      const monthOrder = ['Jan & Feb S1', 'February', 'March', 'April'];
+      
+      const indexA = monthOrder.indexOf(a.name);
+      const indexB = monthOrder.indexOf(b.name);
+
+      // Handle cases where a name might not be in monthOrder (though unlikely with current data)
+      // Items not in monthOrder are placed at the end.
+      if (indexA === -1 && indexB === -1) return 0; // Keep original relative order if both not found
+      if (indexA === -1) return 1;  // 'a' comes after 'b' if 'a' is not in monthOrder
+      if (indexB === -1) return -1; // 'b' comes after 'a' if 'b' is not in monthOrder
+
+      return indexA - indexB;
     });
 };
 
