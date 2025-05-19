@@ -1,4 +1,3 @@
-
 import { OverviewType } from "@/types/dashboard";
 import { monthCapacityOverviewData, MonthCapacityOverview as MonthCapacityOverviewType } from "@/data";
 import TaskOverview from "./TaskOverview";
@@ -24,8 +23,8 @@ const MonthViewContent = ({
   getMonthStoryPointsData,
 }: MonthViewContentProps) => {
   // Determine if we should show the capacity trend chart
-  // Hide chart for feb and mar selections
-  const shouldShowCapacityTrend = !['feb', 'mar'].includes(selectedMonthId);
+  // Hide chart for feb, mar, and apr selections
+  const shouldShowCapacityTrend = !['feb', 'mar', 'apr'].includes(selectedMonthId);
 
   switch (currentOverview) {
     case "capacity":
@@ -35,11 +34,10 @@ const MonthViewContent = ({
             <MonthCapacityOverviewComponent data={getMonthCapacityData()} />
           </div>
           
-          {/* Only show capacity trend chart for allowed months */}
           {shouldShowCapacityTrend && (
             <div className="p-6 bg-white rounded-lg shadow-sm min-h-[300px] flex flex-col items-center w-full">
               <MonthCapacityTrend 
-                data={monthCapacityOverviewData}
+                data={monthCapacityOverviewData} // Pass the full data array for trend calculation
                 excludeS1Data={selectedMonthId === "total"}
               />
             </div>
@@ -74,7 +72,6 @@ const MonthViewContent = ({
             <MonthCapacityOverviewComponent data={getMonthCapacityData()} />
           </div>
           
-          {/* Only show capacity trend chart for allowed months */}
           {shouldShowCapacityTrend && (
             <div className="p-6 bg-white rounded-lg shadow-sm min-h-[300px] flex flex-col items-center w-full">
               <MonthCapacityTrend 

@@ -56,42 +56,61 @@ export const generateAllSprintsExcludeFirstCapacityOverview = (capacityData: Cap
 };
 
 /**
- * Generate aggregated month capacity data
+ * Generate aggregated month capacity data (excluding S1 periods)
  */
 export const generateAllMonthsCapacityOverview = (monthData: MonthCapacityOverview[]): MonthCapacityOverview => {
-  // Filter out the special periods
   const regularMonths = monthData.filter(
     item => item.monthId !== "jan_s1" && item.monthId !== "feb_s1"
   );
   
+  const totalWorkingDaysAvailable = sumProperty(regularMonths, 'workingDaysAvailable');
+  const totalAvailableCapacity = sumProperty(regularMonths, 'availableCapacity');
+  const totalContractedCapacity = sumProperty(regularMonths, 'contractedCapacity');
+  const totalPlannedHoliday = sumProperty(regularMonths, 'plannedHoliday');
+  const totalPlannedCapacity = sumProperty(regularMonths, 'plannedCapacity');
+  const totalUnplannedHoliday = sumProperty(regularMonths, 'unplannedHoliday');
+  const totalDeliveredCapacity = sumProperty(regularMonths, 'deliveredCapacity');
+  
+  const avgCapacityPercentage = calculatePercentage(totalDeliveredCapacity, totalPlannedCapacity);
+
   return {
     monthId: "total",
-    monthName: "Total",
-    workingDaysAvailable: 39,
-    availableCapacity: 312,
-    contractedCapacity: 304,
-    plannedHoliday: 24,
-    plannedCapacity: 288,
-    unplannedHoliday: 3,
-    deliveredCapacity: 285,
-    capacityPercentage: 99,
+    monthName: "Total (Excl. S1)", // Clarified name
+    workingDaysAvailable: totalWorkingDaysAvailable,
+    availableCapacity: totalAvailableCapacity,
+    contractedCapacity: totalContractedCapacity,
+    plannedHoliday: totalPlannedHoliday,
+    plannedCapacity: totalPlannedCapacity,
+    unplannedHoliday: totalUnplannedHoliday,
+    deliveredCapacity: totalDeliveredCapacity,
+    capacityPercentage: avgCapacityPercentage,
   };
 };
 
 /**
- * Generate grand total month capacity data
+ * Generate grand total month capacity data (including all periods)
  */
-export const generateGrandTotalCapacityOverview = (): MonthCapacityOverview => {
+export const generateGrandTotalCapacityOverview = (monthData: MonthCapacityOverview[]): MonthCapacityOverview => {
+  const totalWorkingDaysAvailable = sumProperty(monthData, 'workingDaysAvailable');
+  const totalAvailableCapacity = sumProperty(monthData, 'availableCapacity');
+  const totalContractedCapacity = sumProperty(monthData, 'contractedCapacity');
+  const totalPlannedHoliday = sumProperty(monthData, 'plannedHoliday');
+  const totalPlannedCapacity = sumProperty(monthData, 'plannedCapacity');
+  const totalUnplannedHoliday = sumProperty(monthData, 'unplannedHoliday');
+  const totalDeliveredCapacity = sumProperty(monthData, 'deliveredCapacity');
+  
+  const avgCapacityPercentage = calculatePercentage(totalDeliveredCapacity, totalPlannedCapacity);
+  
   return {
     monthId: "grand_total",
-    monthName: "GT",
-    workingDaysAvailable: 46,
-    availableCapacity: 368,
-    contractedCapacity: 304,
-    plannedHoliday: 25,
-    plannedCapacity: 343,
-    unplannedHoliday: 3,
-    deliveredCapacity: 340,
-    capacityPercentage: 99,
+    monthName: "Grand Total", // Clarified name
+    workingDaysAvailable: totalWorkingDaysAvailable,
+    availableCapacity: totalAvailableCapacity,
+    contractedCapacity: totalContractedCapacity,
+    plannedHoliday: totalPlannedHoliday,
+    plannedCapacity: totalPlannedCapacity,
+    unplannedHoliday: totalUnplannedHoliday,
+    deliveredCapacity: totalDeliveredCapacity,
+    capacityPercentage: avgCapacityPercentage,
   };
 };

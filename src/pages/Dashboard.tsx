@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { OverviewType, ViewType } from "@/types/dashboard";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
@@ -11,6 +10,7 @@ import { useMonthSelector } from "@/hooks/useMonthSelector";
 const months = [
   { id: "feb", name: "February" },
   { id: "mar", name: "March" },
+  { id: "apr", name: "April" }, // Added April
 ];
 
 const Dashboard = () => {
@@ -44,7 +44,7 @@ const Dashboard = () => {
         currentView={currentView}
         onViewChange={handleViewChange}
         sprints={sprints}
-        months={months}
+        months={months} // Pass the updated months array
         selectedSprintId={sprintSelector.selectedSprintId}
         selectedMonthId={monthSelector.selectedMonthId}
         onSprintChange={sprintSelector.handleSprintChange}

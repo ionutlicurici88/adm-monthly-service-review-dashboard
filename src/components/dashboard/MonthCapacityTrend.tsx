@@ -12,17 +12,16 @@ const MonthCapacityTrend = ({ data, excludeS1Data = false }: MonthCapacityTrendP
   // Process data for chart display
   const processData = () => {
     if (excludeS1Data) {
-      // For "total" view, filter out S1 data
+      // For "total" view (excluding S1 data)
       return data
         .filter(item => item.monthId !== "jan_s1" && item.monthId !== "feb_s1")
         .sort((a, b) => {
-          // Custom sort logic for months
           const monthOrder: Record<string, number> = {
             "feb": 1,
             "mar": 2,
-            "total": 3,
+            "apr": 3, // Added April
+            "total": 4, // Adjusted order
           };
-          
           return (monthOrder[a.monthId] || 99) - (monthOrder[b.monthId] || 99);
         })
         .map(month => ({
@@ -33,22 +32,20 @@ const MonthCapacityTrend = ({ data, excludeS1Data = false }: MonthCapacityTrendP
           delivered: month.deliveredCapacity,
         }));
     } else {
-      // For "grand_total" view, combine jan_s1 and feb_s1
+      // For "grand_total" view (including S1 data, S1 combined)
       const janS1Data = data.find(item => item.monthId === "jan_s1");
       const febS1Data = data.find(item => item.monthId === "feb_s1");
       
-      // Filter and process other data
       const processedData = data
         .filter(item => item.monthId !== "jan_s1" && item.monthId !== "feb_s1")
         .sort((a, b) => {
-          // Custom sort logic for months
           const monthOrder: Record<string, number> = {
             "feb": 1,
             "mar": 2,
-            "total": 3,
-            "grand_total": 4
+            "apr": 3, // Added April
+            "total": 4, // Adjusted order
+            "grand_total": 5 // Adjusted order
           };
-          
           return (monthOrder[a.monthId] || 99) - (monthOrder[b.monthId] || 99);
         })
         .map(month => ({
@@ -59,7 +56,6 @@ const MonthCapacityTrend = ({ data, excludeS1Data = false }: MonthCapacityTrendP
           delivered: month.deliveredCapacity,
         }));
         
-      // Create and add combined Jan & Feb S1 at the beginning
       if (janS1Data || febS1Data) {
         const janAvailable = janS1Data?.availableCapacity || 0;
         const janContracted = janS1Data?.contractedCapacity || 0;
