@@ -64,5 +64,19 @@ export const monthlyTaskOverviewData: TaskOverview[] = [
     leftoverTasks: 4,
     completionPercentage: 315,
   },
+  {
+    sprintId: -24, // Unique ID for May
+    sprintNumber: -24,
+    monthId: "may",
+    monthName: "May",
+    startDate: "2025-04-30",
+    endDate: "2025-05-27",
+    totalSprints: 2,
+    sprintLengthInDays: 20,
+    plannedTasks: 0,
+    unplannedTasks: 49,
+    deliveredTasks: 42,
+    leftoverTasks: 7,
+    completionPercentage: 0, // 0% since no planned tasks
+  },
 ];
-

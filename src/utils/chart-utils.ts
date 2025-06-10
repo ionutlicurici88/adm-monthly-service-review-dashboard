@@ -1,3 +1,4 @@
+
 import { TaskOverview } from "@/types/dashboard";
 
 export interface ProcessedTaskData {
@@ -38,8 +39,8 @@ export const processTaskTrendData = (
       };
     })
     .sort((a, b) => {
-      // Custom sort for month order: Jan & Feb S1, February, March, April
-      const monthOrder = ['Jan & Feb S1', 'February', 'March', 'April'];
+      // Custom sort for month order: Jan & Feb S1, February, March, April, May
+      const monthOrder = ['Jan & Feb S1', 'February', 'March', 'April', 'May'];
       
       const indexA = monthOrder.indexOf(a.name);
       const indexB = monthOrder.indexOf(b.name);
