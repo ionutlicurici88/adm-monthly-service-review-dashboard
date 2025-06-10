@@ -91,7 +91,7 @@ export const storyPointsOverviewData: StoryPointsOverview[] = [
     sprintVelocityPercentage: 132, // Was 91, user provided 132
     velocityVsTarget: 0.84, // Was 0.58, user provided 84%
   },
-  { // New Sprint 8 Data
+  { // Sprint 8 Data
     sprintId: 8,
     sprintNumber: 8,
     startDate: "2025-04-12", // From sprints.ts
@@ -103,7 +103,7 @@ export const storyPointsOverviewData: StoryPointsOverview[] = [
     sprintVelocityPercentage: 341,
     velocityVsTarget: 0.56, // 56%
   },
-  { // New Sprint 9 Data
+  { // Sprint 9 Data
     sprintId: 9,
     sprintNumber: 9,
     startDate: "2025-04-26", // From sprints.ts
@@ -114,6 +114,30 @@ export const storyPointsOverviewData: StoryPointsOverview[] = [
     leftoverSTP: 2,
     sprintVelocityPercentage: 0,
     velocityVsTarget: 0.15, // 15%
+  },
+  { // New Sprint 10 Data
+    sprintId: 10,
+    sprintNumber: 10,
+    startDate: "2025-04-30", // From user data
+    endDate: "2025-05-13",   // From user data
+    estimatedSTP: 0,
+    extraSTP: 64,
+    deliveredSTP: 43,
+    leftoverSTP: 21,
+    sprintVelocityPercentage: 0,
+    velocityVsTarget: 0.53, // 53%
+  },
+  { // New Sprint 11 Data
+    sprintId: 11,
+    sprintNumber: 11,
+    startDate: "2025-05-14", // From user data
+    endDate: "2025-05-27",   // From user data
+    estimatedSTP: 0,
+    extraSTP: 63,
+    deliveredSTP: 42,
+    leftoverSTP: 21,
+    sprintVelocityPercentage: 0,
+    velocityVsTarget: 0.46, // 46%
   }
 ];
 
@@ -126,4 +150,3 @@ export const getAllSprintsStoryPointsOverview = (): StoryPointsOverview => {
 export const getAllSprintsExcludeFirstStoryPointsOverview = (): StoryPointsOverview => {
   return generateAllSprintsExcludeFirstStoryPointsOverview(storyPointsOverviewData);
 };
-
