@@ -6,7 +6,7 @@ import {
 } from "./generators/capacity-data-generator";
 
 // Month Capacity Overview Data
-// Updated based on the user's provided table
+// Updated based on the user's provided table including May
 export const monthCapacityOverviewData: MonthCapacityOverview[] = [
   {
     monthId: "jan_feb_s1",
@@ -54,6 +54,18 @@ export const monthCapacityOverviewData: MonthCapacityOverview[] = [
     plannedCapacity: 133,
     unplannedHoliday: 0,
     deliveredCapacity: 133,
+    capacityPercentage: 100,
+  },
+  {
+    monthId: "may",
+    monthName: "May",
+    workingDaysAvailable: 21,
+    availableCapacity: 168,
+    contractedCapacity: 152,
+    plannedHoliday: 28,
+    plannedCapacity: 140,
+    unplannedHoliday: 0,
+    deliveredCapacity: 140,
     capacityPercentage: 100,
   },
 ];

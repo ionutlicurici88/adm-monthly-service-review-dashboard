@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { OverviewType, ViewType } from "@/types/dashboard";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
@@ -10,7 +11,8 @@ import { useMonthSelector } from "@/hooks/useMonthSelector";
 const months = [
   { id: "feb", name: "February" },
   { id: "mar", name: "March" },
-  { id: "apr", name: "April" }, // Added April
+  { id: "apr", name: "April" },
+  { id: "may", name: "May" }, // Added May
 ];
 
 const Dashboard = () => {

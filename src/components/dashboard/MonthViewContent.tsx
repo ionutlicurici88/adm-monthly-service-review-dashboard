@@ -1,4 +1,3 @@
-
 import { OverviewType } from "@/types/dashboard";
 import { 
   monthCapacityOverviewData, 
@@ -29,8 +28,8 @@ const MonthViewContent = ({
   getMonthStoryPointsData,
 }: MonthViewContentProps) => {
   // Determine if we should show the capacity trend chart
-  // Hide chart for feb, mar, and apr selections
-  const shouldShowCapacityTrend = !['feb', 'mar', 'apr'].includes(selectedMonthId);
+  // Hide chart for feb, mar, apr, and may selections
+  const shouldShowCapacityTrend = !['feb', 'mar', 'apr', 'may'].includes(selectedMonthId);
 
   switch (currentOverview) {
     case "capacity":

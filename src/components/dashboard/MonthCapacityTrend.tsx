@@ -1,4 +1,3 @@
-
 import { MonthCapacityOverview } from "@/types/dashboard";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
@@ -17,6 +16,7 @@ const MonthCapacityTrend = ({ data, excludeS1Data = false }: MonthCapacityTrendP
     "feb": 1,       // February
     "mar": 2,       // March
     "apr": 3,       // April
+    "may": 4,       // May
   };
 
   // Process data for chart display
@@ -104,4 +104,3 @@ const MonthCapacityTrend = ({ data, excludeS1Data = false }: MonthCapacityTrendP
 };
 
 export default MonthCapacityTrend;
-
