@@ -33,6 +33,7 @@ export const processMonthStoryPointsDataForChart = (
     "feb": 1,       // February
     "mar": 2,       // March
     "apr": 3,       // April
+    "may": 4,       // May
   };
 
   return filteredChartData

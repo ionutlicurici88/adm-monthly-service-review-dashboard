@@ -66,6 +66,21 @@ export const monthStoryPointsOverviewData: StoryPointsOverview[] = [
     monthId: "apr",
     monthName: "April",
     totalSprints: 2,
+  },
+  {
+    sprintId: 105, // Unique ID for May
+    sprintNumber: 0,
+    startDate: "2025-04-30",
+    endDate: "2025-05-27",
+    estimatedSTP: 0,
+    extraSTP: 127,
+    deliveredSTP: 85,
+    leftoverSTP: 42,
+    sprintVelocityPercentage: 0, // 0% since no estimated STP
+    velocityVsTarget: 0.47, // 47%
+    monthId: "may",
+    monthName: "May",
+    totalSprints: 2,
   }
 ];
 
