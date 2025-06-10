@@ -105,6 +105,28 @@ export const capacityOverviewData: CapacityOverview[] = [
     unplannedHoliday: 0,
     deliveredCapacity: 53,
     capacityPercentage: 100, // 53/53 = 100%
+  },
+  { // New Sprint 10 Data
+    sprintId: 10,
+    sprintNumber: 10,
+    workingDaysAvailable: 10,
+    availableCapacity: 80,
+    plannedHoliday: 18,
+    plannedCapacity: 62,
+    unplannedHoliday: 0,
+    deliveredCapacity: 62,
+    capacityPercentage: 100,
+  },
+  { // New Sprint 11 Data
+    sprintId: 11,
+    sprintNumber: 11,
+    workingDaysAvailable: 10,
+    availableCapacity: 80,
+    plannedHoliday: 10,
+    plannedCapacity: 70,
+    unplannedHoliday: 0,
+    deliveredCapacity: 70,
+    capacityPercentage: 100,
   }
 ];
 
@@ -118,4 +140,3 @@ export const getAllSprintsExcludeFirstCapacityOverview = (): CapacityOverview =>
   // Now pass the data to the generator function for dynamic calculation
   return generateAllSprintsExcludeFirstCapacityOverview(capacityOverviewData);
 };
-
