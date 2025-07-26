@@ -1,4 +1,3 @@
-
 import { StoryPointsOverview } from "@/types/dashboard";
 import { 
   generateAllMonthsStoryPointsOverview,
@@ -29,10 +28,10 @@ export const monthStoryPointsOverviewData: StoryPointsOverview[] = [
     endDate: "2025-02-28",
     estimatedSTP: 220,
     extraSTP: 124,
-    deliveredSTP: 336,
-    leftoverSTP: 8,
-    sprintVelocityPercentage: 153,
-    velocityVsTarget: 1.97, // 197%
+    deliveredSTP: 320,
+    leftoverSTP: 24,
+    sprintVelocityPercentage: 145,
+    velocityVsTarget: 1.88, // 188%
     monthId: "feb",
     monthName: "February",
     totalSprints: 4,
@@ -44,10 +43,10 @@ export const monthStoryPointsOverviewData: StoryPointsOverview[] = [
     endDate: "2025-04-01",
     estimatedSTP: 122,
     extraSTP: 57,
-    deliveredSTP: 175,
-    leftoverSTP: 4,
-    sprintVelocityPercentage: 143,
-    velocityVsTarget: 0.87, // 87%
+    deliveredSTP: 176,
+    leftoverSTP: 3,
+    sprintVelocityPercentage: 144,
+    velocityVsTarget: 0.88, // 88%
     monthId: "mar",
     monthName: "March",
     totalSprints: 2,
@@ -58,11 +57,11 @@ export const monthStoryPointsOverviewData: StoryPointsOverview[] = [
     startDate: "2025-04-02",
     endDate: "2025-04-29",
     estimatedSTP: 17,
-    extraSTP: 69,
-    deliveredSTP: 68,
-    leftoverSTP: 18,
-    sprintVelocityPercentage: 400,
-    velocityVsTarget: 0.39, // 39%
+    extraSTP: 71,
+    deliveredSTP: 75,
+    leftoverSTP: 13,
+    sprintVelocityPercentage: 441,
+    velocityVsTarget: 0.43, // 43%
     monthId: "apr",
     monthName: "April",
     totalSprints: 2,
@@ -73,8 +72,8 @@ export const monthStoryPointsOverviewData: StoryPointsOverview[] = [
     startDate: "2025-04-30",
     endDate: "2025-05-27",
     estimatedSTP: 0,
-    extraSTP: 127,
-    deliveredSTP: 85,
+    extraSTP: 128,
+    deliveredSTP: 86,
     leftoverSTP: 42,
     sprintVelocityPercentage: 0, // 0% since no estimated STP
     velocityVsTarget: 0.47, // 47%
@@ -92,7 +91,7 @@ export const monthStoryPointsOverviewData: StoryPointsOverview[] = [
     deliveredSTP: 148,
     leftoverSTP: 91,
     sprintVelocityPercentage: 247,
-    velocityVsTarget: 0.74, // 74%
+    velocityVsTarget: 0.76, // 76%
     monthId: "june",
     monthName: "June",
     totalSprints: 2,
@@ -107,7 +106,7 @@ export const monthStoryPointsOverviewData: StoryPointsOverview[] = [
     deliveredSTP: 100,
     leftoverSTP: 74,
     sprintVelocityPercentage: 476,
-    velocityVsTarget: 0.45, // 45%
+    velocityVsTarget: 0.42, // 42%
     monthId: "july",
     monthName: "July",
     totalSprints: 2,
@@ -122,7 +121,7 @@ export const monthStoryPointsOverviewData: StoryPointsOverview[] = [
     deliveredSTP: 8,
     leftoverSTP: 29,
     sprintVelocityPercentage: 0,
-    velocityVsTarget: 0.08, // 8%
+    velocityVsTarget: 0.04, // 4%
     monthId: "aug",
     monthName: "August",
     totalSprints: 1,
