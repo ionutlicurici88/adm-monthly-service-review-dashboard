@@ -81,6 +81,51 @@ export const monthStoryPointsOverviewData: StoryPointsOverview[] = [
     monthId: "may",
     monthName: "May",
     totalSprints: 2,
+  },
+  { // New June Data
+    sprintId: 106,
+    sprintNumber: 0,
+    startDate: "2025-05-28",
+    endDate: "2025-06-24",
+    estimatedSTP: 60,
+    extraSTP: 179,
+    deliveredSTP: 148,
+    leftoverSTP: 91,
+    sprintVelocityPercentage: 247,
+    velocityVsTarget: 0.74, // 74%
+    monthId: "june",
+    monthName: "June",
+    totalSprints: 2,
+  },
+  { // New July Data
+    sprintId: 107,
+    sprintNumber: 0,
+    startDate: "2025-06-25",
+    endDate: "2025-07-22",
+    estimatedSTP: 21,
+    extraSTP: 153,
+    deliveredSTP: 100,
+    leftoverSTP: 74,
+    sprintVelocityPercentage: 476,
+    velocityVsTarget: 0.45, // 45%
+    monthId: "july",
+    monthName: "July",
+    totalSprints: 2,
+  },
+  { // New August Data
+    sprintId: 108,
+    sprintNumber: 0,
+    startDate: "2025-07-23",
+    endDate: "2025-08-05",
+    estimatedSTP: 0,
+    extraSTP: 37,
+    deliveredSTP: 8,
+    leftoverSTP: 29,
+    sprintVelocityPercentage: 0,
+    velocityVsTarget: 0.08, // 8%
+    monthId: "aug",
+    monthName: "August",
+    totalSprints: 1,
   }
 ];
 
