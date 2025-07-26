@@ -13,5 +13,10 @@ export const sprints: Sprint[] = [
   { id: 8, number: 8, startDate: "2025-04-12", endDate: "2025-04-25", lengthInDays: 10 }, // New Sprint 8
   { id: 9, number: 9, startDate: "2025-04-26", endDate: "2025-05-09", lengthInDays: 10 }, // New Sprint 9
   { id: 10, number: 10, startDate: "2025-05-10", endDate: "2025-05-23", lengthInDays: 10 }, // New Sprint 10
-  { id: 11, number: 11, startDate: "2025-05-24", endDate: "2025-06-06", lengthInDays: 10 }, // New Sprint 11
+  { id: 11, number: 11, startDate: "2025-05-24", endDate: "2025-06-06", lengthInDays: 10 }, // Sprint 11
+  { id: 12, number: 12, startDate: "2025-06-07", endDate: "2025-06-20", lengthInDays: 10 }, // New Sprint 12
+  { id: 13, number: 13, startDate: "2025-06-21", endDate: "2025-07-04", lengthInDays: 10 }, // New Sprint 13
+  { id: 14, number: 14, startDate: "2025-07-05", endDate: "2025-07-18", lengthInDays: 10 }, // New Sprint 14
+  { id: 15, number: 15, startDate: "2025-07-19", endDate: "2025-08-01", lengthInDays: 10 }, // New Sprint 15
+  { id: 16, number: 16, startDate: "2025-08-02", endDate: "2025-08-15", lengthInDays: 10 }, // New Sprint 16
 ];
