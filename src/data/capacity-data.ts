@@ -82,9 +82,9 @@ export const capacityOverviewData: CapacityOverview[] = [
     plannedCapacity: 69,
     unplannedHoliday: 1,
     deliveredCapacity: 68,
-    capacityPercentage: 99, // Corrected based on 68/69
+    capacityPercentage: 99,
   },
-  { // New Sprint 8 Data
+  {
     sprintId: 8,
     sprintNumber: 8,
     workingDaysAvailable: 10,
@@ -95,7 +95,7 @@ export const capacityOverviewData: CapacityOverview[] = [
     deliveredCapacity: 80,
     capacityPercentage: 100,
   },
-  { // New Sprint 9 Data
+  {
     sprintId: 9,
     sprintNumber: 9,
     workingDaysAvailable: 10,
@@ -104,9 +104,9 @@ export const capacityOverviewData: CapacityOverview[] = [
     plannedCapacity: 53,
     unplannedHoliday: 0,
     deliveredCapacity: 53,
-    capacityPercentage: 100, // 53/53 = 100%
+    capacityPercentage: 100,
   },
-  { // New Sprint 10 Data
+  {
     sprintId: 10,
     sprintNumber: 10,
     workingDaysAvailable: 10,
@@ -117,7 +117,7 @@ export const capacityOverviewData: CapacityOverview[] = [
     deliveredCapacity: 62,
     capacityPercentage: 100,
   },
-  { // Sprint 11 Data
+  {
     sprintId: 11,
     sprintNumber: 11,
     workingDaysAvailable: 10,
