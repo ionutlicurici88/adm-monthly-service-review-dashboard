@@ -42,7 +42,7 @@ export const getFullMonthName = (monthId: string): string => {
   if (monthId === "feb_s1") return "February S1";
   if (monthId === "feb_3_21") return "February (Delta)";
   if (monthId === "feb_24_28") return "February (Contracted)";
-  if (monthId === "total") return "All Months";
+  if (monthId === "total") return "All Months (Excluding Jan & Feb S1)";
   if (monthId === "grand_total") return "All Months (Grand Total)";
   if (monthId === "grand_total_excluding_feb_delta") return "All Months (Excluding February Delta)";
   
@@ -69,7 +69,7 @@ export const formatDashboardTitle = (
     if (monthId === "grand_total") {
       return "All Months (Grand Total)";
     } else if (monthId === "total") {
-      return "All Months (Excluding Sprint 1)";
+      return "All Months (Excluding Jan & Feb S1)";
     } else {
       return monthName || "";
     }

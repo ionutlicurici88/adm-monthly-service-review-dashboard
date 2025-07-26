@@ -48,6 +48,7 @@ const DashboardHeader = ({
             months={months}
             selectedMonthId={selectedMonthId}
             onMonthChange={onMonthChange}
+            viewType={currentView}
           />
         )}
       </div>
