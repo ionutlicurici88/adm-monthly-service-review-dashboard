@@ -1,4 +1,3 @@
-
 import { MonthCapacityOverview } from "@/types/dashboard";
 import { 
   generateAllMonthsCapacityOverview,
@@ -6,18 +5,29 @@ import {
 } from "./generators/capacity-data-generator";
 
 // Month Capacity Overview Data
-// Updated based on the user's provided table including May
 export const monthCapacityOverviewData: MonthCapacityOverview[] = [
   {
-    monthId: "jan_feb_s1",
-    monthName: "Jan & Feb S1",
-    workingDaysAvailable: 7,
-    availableCapacity: 56,
+    monthId: "jan_s1",
+    monthName: "Jan S1",
+    workingDaysAvailable: 5,
+    availableCapacity: 40,
     contractedCapacity: 0,
     plannedHoliday: 1,
-    plannedCapacity: 55,
+    plannedCapacity: 39,
     unplannedHoliday: 0,
-    deliveredCapacity: 55,
+    deliveredCapacity: 39,
+    capacityPercentage: 100,
+  },
+  {
+    monthId: "feb_s1",
+    monthName: "Feb S1",
+    workingDaysAvailable: 2,
+    availableCapacity: 16,
+    contractedCapacity: 0,
+    plannedHoliday: 0,
+    plannedCapacity: 16,
+    unplannedHoliday: 0,
+    deliveredCapacity: 16,
     capacityPercentage: 100,
   },
   {
@@ -68,6 +78,42 @@ export const monthCapacityOverviewData: MonthCapacityOverview[] = [
     deliveredCapacity: 140,
     capacityPercentage: 100,
   },
+  { // New June Data
+    monthId: "june",
+    monthName: "June",
+    workingDaysAvailable: 20,
+    availableCapacity: 160,
+    contractedCapacity: 152,
+    plannedHoliday: 9,
+    plannedCapacity: 151,
+    unplannedHoliday: 1,
+    deliveredCapacity: 150,
+    capacityPercentage: 99,
+  },
+  { // New July Data
+    monthId: "july",
+    monthName: "July",
+    workingDaysAvailable: 23,
+    availableCapacity: 207,
+    contractedCapacity: 171,
+    plannedHoliday: 20,
+    plannedCapacity: 187,
+    unplannedHoliday: 2,
+    deliveredCapacity: 185,
+    capacityPercentage: 99,
+  },
+  { // New August Data
+    monthId: "aug",
+    monthName: "August",
+    workingDaysAvailable: 20,
+    availableCapacity: 180,
+    contractedCapacity: 171,
+    plannedHoliday: 9,
+    plannedCapacity: 171,
+    unplannedHoliday: 3,
+    deliveredCapacity: 168,
+    capacityPercentage: 98,
+  },
 ];
 
 // Calculate total for all months (excluding S1 data)
@@ -82,11 +128,10 @@ export const getGrandTotalCapacityOverview = (): MonthCapacityOverview => {
   return generateGrandTotalCapacityOverview(monthCapacityOverviewData);
 };
 
-// Get all months excluding S1 data (e.g. jan_feb_s1)
+// Get all months excluding S1 data (e.g. jan_s1, feb_s1)
 export const getMonthsExcludingS1CapacityOverview = (): MonthCapacityOverview[] => {
   return monthCapacityOverviewData.filter(
-    // Adjusted to filter any monthId that is an S1 period
-    item => item.monthId !== "jan_feb_s1" 
+    // Filter any monthId that contains "s1"
+    item => !item.monthId.includes("s1") 
   );
 };
-
