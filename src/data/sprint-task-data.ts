@@ -1,4 +1,3 @@
-
 import { TaskOverview } from "@/types/dashboard";
 
 // Mock Task Overview Data for Sprints
@@ -11,9 +10,9 @@ export const taskOverviewData: TaskOverview[] = [
     sprintLengthInDays: 7,
     plannedTasks: 54,
     unplannedTasks: 4,
-    deliveredTasks: 58,
-    leftoverTasks: 0,
-    completionPercentage: 107,
+    deliveredTasks: 57,
+    leftoverTasks: 1,
+    completionPercentage: 106,
   },
   {
     sprintId: 2,
@@ -46,10 +45,10 @@ export const taskOverviewData: TaskOverview[] = [
     endDate: "2025-02-25",
     sprintLengthInDays: 5,
     plannedTasks: 5,
-    unplannedTasks: 13,
-    deliveredTasks: 18,
-    leftoverTasks: 0,
-    completionPercentage: 360,
+    unplannedTasks: 12,
+    deliveredTasks: 16,
+    leftoverTasks: 1,
+    completionPercentage: 320,
   },
   {
     sprintId: 5,
@@ -83,9 +82,9 @@ export const taskOverviewData: TaskOverview[] = [
     sprintLengthInDays: 10,
     plannedTasks: 5,
     unplannedTasks: 24,
-    deliveredTasks: 26,
-    leftoverTasks: 3,
-    completionPercentage: 520,
+    deliveredTasks: 28,
+    leftoverTasks: 1,
+    completionPercentage: 560,
   },
   {
     sprintId: 8,
@@ -95,9 +94,9 @@ export const taskOverviewData: TaskOverview[] = [
     sprintLengthInDays: 10,
     plannedTasks: 13,
     unplannedTasks: 26,
-    deliveredTasks: 37,
-    leftoverTasks: 2,
-    completionPercentage: 285,
+    deliveredTasks: 38,
+    leftoverTasks: 1,
+    completionPercentage: 292,
   },
   {
     sprintId: 9,
@@ -107,8 +106,8 @@ export const taskOverviewData: TaskOverview[] = [
     sprintLengthInDays: 10,
     plannedTasks: 0,
     unplannedTasks: 6,
-    deliveredTasks: 5,
-    leftoverTasks: 1,
+    deliveredTasks: 6,
+    leftoverTasks: 0,
     completionPercentage: 0,
   },
   {
