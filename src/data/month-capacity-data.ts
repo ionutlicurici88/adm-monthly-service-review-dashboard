@@ -7,27 +7,15 @@ import {
 // Month Capacity Overview Data
 export const monthCapacityOverviewData: MonthCapacityOverview[] = [
   {
-    monthId: "jan_s1",
-    monthName: "Jan S1",
-    workingDaysAvailable: 5,
-    availableCapacity: 40,
+    monthId: "jan_feb_s1",
+    monthName: "Jan & Feb S1",
+    workingDaysAvailable: 7,
+    availableCapacity: 56,
     contractedCapacity: 0,
     plannedHoliday: 1,
-    plannedCapacity: 39,
+    plannedCapacity: 55,
     unplannedHoliday: 0,
-    deliveredCapacity: 39,
-    capacityPercentage: 100,
-  },
-  {
-    monthId: "feb_s1",
-    monthName: "Feb S1",
-    workingDaysAvailable: 2,
-    availableCapacity: 16,
-    contractedCapacity: 0,
-    plannedHoliday: 0,
-    plannedCapacity: 16,
-    unplannedHoliday: 0,
-    deliveredCapacity: 16,
+    deliveredCapacity: 55,
     capacityPercentage: 100,
   },
   {
@@ -128,10 +116,9 @@ export const getGrandTotalCapacityOverview = (): MonthCapacityOverview => {
   return generateGrandTotalCapacityOverview(monthCapacityOverviewData);
 };
 
-// Get all months excluding S1 data (e.g. jan_s1, feb_s1)
+// Get all months excluding S1 data
 export const getMonthsExcludingS1CapacityOverview = (): MonthCapacityOverview[] => {
   return monthCapacityOverviewData.filter(
-    // Filter any monthId that contains "s1"
-    item => !item.monthId.includes("s1") 
+    item => item.monthId !== "jan_feb_s1" 
   );
 };
