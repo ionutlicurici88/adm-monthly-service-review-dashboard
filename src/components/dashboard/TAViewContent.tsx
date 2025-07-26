@@ -3,6 +3,7 @@ import {
   taCapacityOverviewData, 
 } from "@/data/ta-capacity-data";
 import MonthCapacityOverviewComponent from "./MonthCapacityOverview";
+import TACapacityTrend from "./TACapacityTrend";
 
 interface TAViewContentProps {
   selectedMonthId: string;
@@ -18,6 +19,12 @@ const TAViewContent = ({
       <div className="p-6 bg-white rounded-lg shadow-sm min-h-[300px] flex flex-col items-center w-full">
         <MonthCapacityOverviewComponent data={getTACapacityData()} />
       </div>
+      
+      {selectedMonthId === "grand_total" && (
+        <div className="p-6 bg-white rounded-lg shadow-sm w-full">
+          <TACapacityTrend data={taCapacityOverviewData} />
+        </div>
+      )}
     </div>
   );
 };
