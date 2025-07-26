@@ -21,12 +21,14 @@ export const formatDate = (dateString: string): string => {
 export const getFullMonthName = (monthId: string): string => {
   const monthMap: Record<string, string> = {
     jan: "January",
-    feb: "February",
+    feb: "February", 
     mar: "March",
     apr: "April",
     may: "May",
     jun: "June",
-    jul: "July",
+    june: "June",
+    jul: "July", 
+    july: "July",
     aug: "August",
     sep: "September",
     oct: "October",
@@ -34,13 +36,19 @@ export const getFullMonthName = (monthId: string): string => {
     dec: "December",
   };
   
-  // Handle special month IDs
+  // Handle special month IDs first
+  if (monthId === "jan_feb_s1") return "Jan & Feb S1";
   if (monthId === "jan_s1") return "January S1";
   if (monthId === "feb_s1") return "February S1";
   if (monthId === "total") return "All Months";
   if (monthId === "grand_total") return "All Months (Grand Total)";
   
-  // Try to get the month name from the map
+  // Direct match first
+  if (monthMap[monthId]) {
+    return monthMap[monthId];
+  }
+  
+  // Try to get the month name from the map by splitting
   const baseMonthId = monthId.split("_")[0];
   return monthMap[baseMonthId] || monthId;
 };
