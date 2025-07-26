@@ -25,7 +25,6 @@ const MonthSelector = ({
   // Get the label for the current selection for the trigger
   const getMonthLabel = (monthId: string) => {
     if (monthId === "grand_total") return "All Months (Grand Total)";
-    if (monthId === "total") return "All Months (Excluding Sprint 1)";
     
     const month = months.find(m => m.id === monthId);
     return month ? getFullMonthName(month.id) : "Select Month";
@@ -45,7 +44,6 @@ const MonthSelector = ({
         <SelectGroup>
           <SelectLabel>Months</SelectLabel>
           <SelectItem value="grand_total">All Months (Grand Total)</SelectItem>
-          <SelectItem value="total">All Months (Excluding Sprint 1)</SelectItem>
           {months.map((month) => (
             <SelectItem key={month.id} value={month.id}>
               {getFullMonthName(month.id)}
