@@ -23,6 +23,7 @@ import {
   getGrandTotalStoryPointsOverview,
   getMonthStoryPointsOverview
 } from "@/data";
+import { getTACapacityOverview } from "@/data/ta-capacity-data";
 
 /**
  * Custom hook to handle dashboard data calculations with memoization
@@ -122,6 +123,13 @@ export function useDashboardData(
     return getMonthStoryPointsOverview(selectedMonthId);
   }, [currentView, selectedMonthId]);
   
+  // Memoize the calculation of TA capacity data for the selected month
+  const taCapacityData = useMemo(() => {
+    if (currentView !== "ta") return null;
+    
+    return getTACapacityOverview(selectedMonthId);
+  }, [currentView, selectedMonthId]);
+  
   // Return all the memoized data and raw data arrays
   return {
     // Sprint view data
@@ -140,6 +148,9 @@ export function useDashboardData(
     monthlyTaskOverviewData,
     monthStoryPointsOverviewData,
     
+    // TA view data
+    taCapacityData,
+    
     // Data getter functions (conveniently named for a more intuitive interface)
     getCapacityData: () => capacityData!,
     getTaskData: () => taskData!,
@@ -147,5 +158,6 @@ export function useDashboardData(
     getMonthCapacityData: () => monthCapacityData!,
     getMonthTaskData: () => monthTaskData!,
     getMonthStoryPointsData: () => monthStoryPointsData!,
+    getTACapacityData: () => taCapacityData!,
   };
 }

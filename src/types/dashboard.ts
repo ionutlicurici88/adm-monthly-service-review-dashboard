@@ -1,6 +1,6 @@
 
 // Dashboard Types
-export type ViewType = 'sprint' | 'month';
+export type ViewType = 'sprint' | 'month' | 'ta';
 export type OverviewType = 'capacity' | 'task' | 'story';
 
 export interface Sprint {

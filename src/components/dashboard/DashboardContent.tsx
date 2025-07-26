@@ -3,6 +3,7 @@ import { ViewType, OverviewType } from "@/types/dashboard";
 import OverviewTabs from "./OverviewTabs";
 import MonthViewContent from "./MonthViewContent";
 import SprintViewContent from "./SprintViewContent";
+import TAViewContent from "./TAViewContent";
 
 interface DashboardContentProps {
   currentView: ViewType;
@@ -16,6 +17,7 @@ interface DashboardContentProps {
   getMonthCapacityData: () => any;
   getMonthTaskData: () => any;
   getMonthStoryPointsData: () => any;
+  getTACapacityData?: () => any;
   capacityOverviewData: any[];
   taskOverviewData: any[];
   storyPointsOverviewData: any[];
@@ -33,16 +35,19 @@ const DashboardContent = ({
   getMonthCapacityData,
   getMonthTaskData,
   getMonthStoryPointsData,
+  getTACapacityData,
   capacityOverviewData,
   taskOverviewData,
   storyPointsOverviewData
 }: DashboardContentProps) => {
   return (
     <>
-      <OverviewTabs
-        currentOverview={currentOverview}
-        onOverviewChange={onOverviewChange}
-      />
+      {(currentView === "sprint" || currentView === "month") && (
+        <OverviewTabs
+          currentOverview={currentOverview}
+          onOverviewChange={onOverviewChange}
+        />
+      )}
       
       {currentView === "sprint" && (
         <div className="p-6 bg-white border rounded-lg shadow-sm min-h-[300px] flex flex-col items-center w-full">
@@ -66,6 +71,13 @@ const DashboardContent = ({
           getMonthCapacityData={getMonthCapacityData}
           getMonthTaskData={getMonthTaskData}
           getMonthStoryPointsData={getMonthStoryPointsData}
+        />
+      )}
+
+      {currentView === "ta" && getTACapacityData && (
+        <TAViewContent
+          selectedMonthId={selectedMonthId}
+          getTACapacityData={getTACapacityData}
         />
       )}
     </>

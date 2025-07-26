@@ -31,6 +31,16 @@ const ViewToggle = ({ currentView, onViewChange }: ViewToggleProps) => {
       >
         Month View
       </Button>
+      <Button
+        variant={currentView === "ta" ? "default" : "outline"}
+        className={cn(
+          "px-4 py-2 font-medium",
+          currentView === "ta" && "bg-dashboard-blue"
+        )}
+        onClick={() => onViewChange("ta")}
+      >
+        TA
+      </Button>
     </div>
   );
 };

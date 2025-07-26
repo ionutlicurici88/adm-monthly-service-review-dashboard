@@ -19,6 +19,17 @@ const months = [
   { id: "aug", name: "August" },
 ];
 
+const taMonths = [
+  { id: "feb_3_21", name: "Feb (3 - 21)" },
+  { id: "feb_24_28", name: "Feb (24 - 28)" },
+  { id: "mar", name: "March" },
+  { id: "apr", name: "April" },
+  { id: "may", name: "May" },
+  { id: "june", name: "June" },
+  { id: "july", name: "July" },
+  { id: "aug", name: "August" },
+];
+
 const Dashboard = () => {
   // State for view type and overview type
   const [currentView, setCurrentView] = useState<ViewType>("month");
@@ -26,7 +37,7 @@ const Dashboard = () => {
   
   // Use the custom hooks for sprint and month selection
   const sprintSelector = useSprintSelector({ sprints });
-  const monthSelector = useMonthSelector({ months });
+  const monthSelector = useMonthSelector({ months: currentView === 'ta' ? taMonths : months });
 
   // Use the custom hook to get memoized data based on selections
   const dashboardData = useDashboardData(
@@ -50,7 +61,7 @@ const Dashboard = () => {
         currentView={currentView}
         onViewChange={handleViewChange}
         sprints={sprints}
-        months={months} // Pass the updated months array
+        months={currentView === 'ta' ? taMonths : months} // Pass the appropriate months array
         selectedSprintId={sprintSelector.selectedSprintId}
         selectedMonthId={monthSelector.selectedMonthId}
         onSprintChange={sprintSelector.handleSprintChange}
@@ -70,6 +81,7 @@ const Dashboard = () => {
         getMonthCapacityData={dashboardData.getMonthCapacityData}
         getMonthTaskData={dashboardData.getMonthTaskData}
         getMonthStoryPointsData={dashboardData.getMonthStoryPointsData}
+        getTACapacityData={dashboardData.getTACapacityData}
         capacityOverviewData={dashboardData.capacityOverviewData}
         taskOverviewData={dashboardData.taskOverviewData}
         storyPointsOverviewData={dashboardData.storyPointsOverviewData}
