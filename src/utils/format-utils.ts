@@ -21,7 +21,7 @@ export const formatDate = (dateString: string): string => {
 export const getFullMonthName = (monthId: string): string => {
   const monthMap: Record<string, string> = {
     jan: "January",
-    feb: "February", 
+    feb: "February (Delta)", 
     mar: "March",
     apr: "April",
     may: "May",
