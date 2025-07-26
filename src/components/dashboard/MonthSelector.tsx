@@ -41,7 +41,7 @@ const MonthSelector = ({
           {getMonthLabel(selectedMonthId)}
         </SelectValue>
       </SelectTrigger>
-      <SelectContent className="bg-background border shadow-lg z-50">
+      <SelectContent>
         <SelectGroup>
           <SelectLabel>Months</SelectLabel>
           <SelectItem value="grand_total">All Months (Grand Total)</SelectItem>

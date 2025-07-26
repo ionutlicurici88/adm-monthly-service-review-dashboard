@@ -9,14 +9,10 @@ import { useSprintSelector } from "@/hooks/useSprintSelector";
 import { useMonthSelector } from "@/hooks/useMonthSelector";
 
 const months = [
-  { id: "jan_feb_s1", name: "Jan & Feb S1" },
   { id: "feb", name: "February" },
   { id: "mar", name: "March" },
   { id: "apr", name: "April" },
-  { id: "may", name: "May" },
-  { id: "june", name: "June" },
-  { id: "july", name: "July" },
-  { id: "aug", name: "August" },
+  { id: "may", name: "May" }, // Added May
 ];
 
 const Dashboard = () => {
