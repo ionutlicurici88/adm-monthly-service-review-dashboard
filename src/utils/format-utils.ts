@@ -44,7 +44,7 @@ export const getFullMonthName = (monthId: string): string => {
   if (monthId === "feb_24_28") return "February (Contracted)";
   if (monthId === "total") return "All Months";
   if (monthId === "grand_total") return "All Months (Grand Total)";
-  if (monthId === "grand_total_excluding_feb_delta") return "All Months (Grand Total excluding February Delta)";
+  if (monthId === "grand_total_excluding_feb_delta") return "All Months (Excluding February Delta)";
   
   // Direct match first
   if (monthMap[monthId]) {
