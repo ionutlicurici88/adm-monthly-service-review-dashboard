@@ -1,4 +1,3 @@
-
 import { StoryPointsOverview } from "@/types/dashboard";
 import { 
   generateAllSprintsStoryPointsOverview,
@@ -10,134 +9,194 @@ export const storyPointsOverviewData: StoryPointsOverview[] = [
   {
     sprintId: 1,
     sprintNumber: 1,
-    startDate: "2025-01-01", // Assuming this date remains, original data had it
-    endDate: "2025-01-14",   // Assuming this date remains, original data had it
+    startDate: "2025-01-27",
+    endDate: "2025-02-04",
     estimatedSTP: 56,
     extraSTP: 3,
     deliveredSTP: 59,
     leftoverSTP: 0,
     sprintVelocityPercentage: 105,
-    velocityVsTarget: 0.83, // 83%
+    velocityVsTarget: 0.83,
   },
   {
     sprintId: 2,
     sprintNumber: 2,
-    startDate: "2025-01-15", // Assuming this date remains
-    endDate: "2025-01-28",   // Assuming this date remains
+    startDate: "2025-02-05",
+    endDate: "2025-02-11",
     estimatedSTP: 57,
     extraSTP: 33,
     deliveredSTP: 90,
     leftoverSTP: 0,
     sprintVelocityPercentage: 158,
-    velocityVsTarget: 1.73, // 173%
+    velocityVsTarget: 1.73,
   },
   {
     sprintId: 3,
     sprintNumber: 3,
-    startDate: "2025-01-29", // Assuming this date remains
-    endDate: "2025-02-11",   // Assuming this date remains
+    startDate: "2025-02-12",
+    endDate: "2025-02-18",
     estimatedSTP: 61,
     extraSTP: 30,
-    deliveredSTP: 91, // Was 85 in previous context, user provided 91
-    leftoverSTP: 0,
-    sprintVelocityPercentage: 149, // Was 139, user provided 149
-    velocityVsTarget: 1.89, // Was 1.77, user provided 189%
+    deliveredSTP: 78,
+    leftoverSTP: 13,
+    sprintVelocityPercentage: 128,
+    velocityVsTarget: 1.62,
   },
   {
     sprintId: 4,
     sprintNumber: 4,
-    startDate: "2025-02-12", // Assuming this date remains
-    endDate: "2025-02-25",   // Assuming this date remains
+    startDate: "2025-02-19",
+    endDate: "2025-02-25",
     estimatedSTP: 48,
     extraSTP: 34,
-    deliveredSTP: 82, // Was 69, user provided 82
-    leftoverSTP: 0,   // Was 13, user provided 0
-    sprintVelocityPercentage: 171, // Was 144, user provided 171
-    velocityVsTarget: 1.97, // Was 1.66, user provided 197%
+    deliveredSTP: 79,
+    leftoverSTP: 3,
+    sprintVelocityPercentage: 165,
+    velocityVsTarget: 1.90,
   },
   {
     sprintId: 5,
     sprintNumber: 5,
-    startDate: "2025-03-01", // Assuming this date remains
-    endDate: "2025-03-14",   // Assuming this date remains
+    startDate: "2025-02-26",
+    endDate: "2025-03-04",
     estimatedSTP: 54,
     extraSTP: 27,
     deliveredSTP: 73,
     leftoverSTP: 8,
     sprintVelocityPercentage: 135,
-    velocityVsTarget: 1.48, // 148%
+    velocityVsTarget: 1.48,
   },
   {
     sprintId: 6,
     sprintNumber: 6,
-    startDate: "2025-03-15", // Assuming this date remains
-    endDate: "2025-03-28",   // Assuming this date remains
+    startDate: "2025-03-05",
+    endDate: "2025-03-18",
     estimatedSTP: 66,
     extraSTP: 36,
-    deliveredSTP: 101, // Was 102, user provided 101
-    leftoverSTP: 1,    // Was 0, user provided 1
-    sprintVelocityPercentage: 153, // Was 155, user provided 153
-    velocityVsTarget: 1.00, // Was 1.01, user provided 100%
+    deliveredSTP: 101,
+    leftoverSTP: 1,
+    sprintVelocityPercentage: 153,
+    velocityVsTarget: 1.00,
   },
   {
     sprintId: 7,
     sprintNumber: 7,
-    startDate: "2025-03-29", // Assuming this date remains
-    endDate: "2025-04-11",   // Assuming this date remains
+    startDate: "2025-03-19",
+    endDate: "2025-04-01",
     estimatedSTP: 56,
     extraSTP: 21,
-    deliveredSTP: 74, // Was 51, user provided 74
-    leftoverSTP: 3,   // Was 25, user provided 3
-    sprintVelocityPercentage: 132, // Was 91, user provided 132
-    velocityVsTarget: 0.84, // Was 0.58, user provided 84%
+    deliveredSTP: 75,
+    leftoverSTP: 2,
+    sprintVelocityPercentage: 134,
+    velocityVsTarget: 0.85,
   },
-  { // Sprint 8 Data
+  {
     sprintId: 8,
     sprintNumber: 8,
-    startDate: "2025-04-12", // From sprints.ts
-    endDate: "2025-04-25",   // From sprints.ts
+    startDate: "2025-04-02",
+    endDate: "2025-04-15",
     estimatedSTP: 17,
     extraSTP: 57,
-    deliveredSTP: 58,
-    leftoverSTP: 16,
-    sprintVelocityPercentage: 341,
-    velocityVsTarget: 0.56, // 56%
+    deliveredSTP: 61,
+    leftoverSTP: 13,
+    sprintVelocityPercentage: 359,
+    velocityVsTarget: 0.59,
   },
-  { // Sprint 9 Data
+  {
     sprintId: 9,
     sprintNumber: 9,
-    startDate: "2025-04-26", // From sprints.ts
-    endDate: "2025-05-09",   // From sprints.ts
+    startDate: "2025-04-16",
+    endDate: "2025-04-29",
     estimatedSTP: 0,
-    extraSTP: 12,
-    deliveredSTP: 10,
-    leftoverSTP: 2,
+    extraSTP: 14,
+    deliveredSTP: 14,
+    leftoverSTP: 0,
     sprintVelocityPercentage: 0,
-    velocityVsTarget: 0.15, // 15%
+    velocityVsTarget: 0.20,
   },
-  { // New Sprint 10 Data
+  {
     sprintId: 10,
     sprintNumber: 10,
-    startDate: "2025-04-30", // From user data
-    endDate: "2025-05-13",   // From user data
+    startDate: "2025-04-30",
+    endDate: "2025-05-13",
     estimatedSTP: 0,
-    extraSTP: 64,
-    deliveredSTP: 43,
-    leftoverSTP: 21,
+    extraSTP: 72,
+    deliveredSTP: 38,
+    leftoverSTP: 34,
     sprintVelocityPercentage: 0,
-    velocityVsTarget: 0.53, // 53%
+    velocityVsTarget: 0.47,
   },
-  { // New Sprint 11 Data
+  {
     sprintId: 11,
     sprintNumber: 11,
-    startDate: "2025-05-14", // From user data
-    endDate: "2025-05-27",   // From user data
+    startDate: "2025-05-14",
+    endDate: "2025-05-27",
     estimatedSTP: 0,
-    extraSTP: 63,
-    deliveredSTP: 42,
-    leftoverSTP: 21,
+    extraSTP: 56,
+    deliveredSTP: 48,
+    leftoverSTP: 8,
     sprintVelocityPercentage: 0,
-    velocityVsTarget: 0.46, // 46%
+    velocityVsTarget: 0.53,
+  },
+  { // New Sprint 12 Data
+    sprintId: 12,
+    sprintNumber: 12,
+    startDate: "2025-05-28",
+    endDate: "2025-06-10",
+    estimatedSTP: 60,
+    extraSTP: 106,
+    deliveredSTP: 113,
+    leftoverSTP: 53,
+    sprintVelocityPercentage: 188,
+    velocityVsTarget: 1.11,
+  },
+  { // New Sprint 13 Data
+    sprintId: 13,
+    sprintNumber: 13,
+    startDate: "2025-06-11",
+    endDate: "2025-06-24",
+    estimatedSTP: 0,
+    extraSTP: 73,
+    deliveredSTP: 35,
+    leftoverSTP: 38,
+    sprintVelocityPercentage: 0,
+    velocityVsTarget: 0.37,
+  },
+  { // New Sprint 14 Data
+    sprintId: 14,
+    sprintNumber: 14,
+    startDate: "2025-06-25",
+    endDate: "2025-07-08",
+    estimatedSTP: 21,
+    extraSTP: 130,
+    deliveredSTP: 89,
+    leftoverSTP: 62,
+    sprintVelocityPercentage: 424,
+    velocityVsTarget: 0.77,
+  },
+  { // New Sprint 15 Data
+    sprintId: 15,
+    sprintNumber: 15,
+    startDate: "2025-07-09",
+    endDate: "2025-07-22",
+    estimatedSTP: 0,
+    extraSTP: 23,
+    deliveredSTP: 11,
+    leftoverSTP: 12,
+    sprintVelocityPercentage: 0,
+    velocityVsTarget: 0.12,
+  },
+  { // New Sprint 16 Data
+    sprintId: 16,
+    sprintNumber: 16,
+    startDate: "2025-07-23",
+    endDate: "2025-08-05",
+    estimatedSTP: 0,
+    extraSTP: 37,
+    deliveredSTP: 8,
+    leftoverSTP: 29,
+    sprintVelocityPercentage: 0,
+    velocityVsTarget: 0.08,
   }
 ];
 
