@@ -43,7 +43,7 @@ const DashboardHeader = ({
           />
         )}
 
-        {currentView === "month" && (
+        {(currentView === "month" || currentView === "ta") && (
           <MonthSelector
             months={months}
             selectedMonthId={selectedMonthId}
