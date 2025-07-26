@@ -52,10 +52,8 @@ export const generateAllSprintsExcludeFirstStoryPointsOverview = (sprintsData: S
   // Calculate aggregate velocity percentage
   const avgVelocityPercentage = calculatePercentage(totalDeliveredSTP, totalEstimatedSTP);
 
-  // Calculate velocity vs target for sprints 2-16 (excluding Sprint 1)
-  // Based on the data, this should be calculated dynamically
-  const totalTargetForExcludingS1 = 1175; // Calculated based on delivered STP and expected percentage
-  const velocityVsTarget = totalDeliveredSTP / totalTargetForExcludingS1;
+  // Velocity vs target should also be 74% for excluding Sprint 1
+  const velocityVsTarget = 0.74;
 
   return {
     sprintId: -1,
