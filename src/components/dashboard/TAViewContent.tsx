@@ -20,9 +20,14 @@ const TAViewContent = ({
         <MonthCapacityOverviewComponent data={getTACapacityData()} />
       </div>
       
-      {selectedMonthId === "grand_total" && (
+      {(selectedMonthId === "grand_total" || selectedMonthId === "grand_total_excluding_feb_delta") && (
         <div className="p-6 bg-white rounded-lg shadow-sm w-full">
-          <TACapacityTrend data={taCapacityOverviewData} />
+          <TACapacityTrend 
+            data={selectedMonthId === "grand_total_excluding_feb_delta" 
+              ? taCapacityOverviewData.filter(item => item.monthId !== "feb_3_21")
+              : taCapacityOverviewData
+            } 
+          />
         </div>
       )}
     </div>

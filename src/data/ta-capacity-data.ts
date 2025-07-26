@@ -138,6 +138,39 @@ export const getGrandTotalTACapacityOverview = (): MonthCapacityOverview => {
   };
 };
 
+// Calculate grand total excluding February Delta for TA data
+export const getGrandTotalExcludingFebDeltaTACapacityOverview = (): MonthCapacityOverview => {
+  // Calculate excluding "feb_3_21" (February Delta)
+  const dataExcludingFebDelta = taCapacityOverviewData.filter(
+    item => item.monthId !== "feb_3_21"
+  );
+  
+  const totalWorkingDaysAvailable = dataExcludingFebDelta.reduce((sum, item) => sum + item.workingDaysAvailable, 0);
+  const totalAvailableCapacity = dataExcludingFebDelta.reduce((sum, item) => sum + item.availableCapacity, 0);
+  const totalContractedCapacity = dataExcludingFebDelta.reduce((sum, item) => sum + item.contractedCapacity, 0);
+  const totalPlannedHoliday = dataExcludingFebDelta.reduce((sum, item) => sum + item.plannedHoliday, 0);
+  const totalPlannedCapacity = dataExcludingFebDelta.reduce((sum, item) => sum + item.plannedCapacity, 0);
+  const totalUnplannedHoliday = dataExcludingFebDelta.reduce((sum, item) => sum + item.unplannedHoliday, 0);
+  const totalDeliveredCapacity = dataExcludingFebDelta.reduce((sum, item) => sum + item.deliveredCapacity, 0);
+  
+  const capacityPercentage = totalPlannedCapacity > 0 
+    ? Math.round((totalDeliveredCapacity / totalPlannedCapacity) * 100)
+    : 0;
+  
+  return {
+    monthId: "grand_total_excluding_feb_delta",
+    monthName: "Grand Total (Excluding February Delta)",
+    workingDaysAvailable: totalWorkingDaysAvailable,
+    availableCapacity: totalAvailableCapacity,
+    contractedCapacity: totalContractedCapacity,
+    plannedHoliday: totalPlannedHoliday,
+    plannedCapacity: totalPlannedCapacity,
+    unplannedHoliday: totalUnplannedHoliday,
+    deliveredCapacity: totalDeliveredCapacity,
+    capacityPercentage: capacityPercentage,
+  };
+};
+
 // Get specific TA month data
 export const getTACapacityOverview = (monthId: string): MonthCapacityOverview => {
   if (monthId === "total") {
@@ -145,6 +178,9 @@ export const getTACapacityOverview = (monthId: string): MonthCapacityOverview =>
   }
   if (monthId === "grand_total") {
     return getGrandTotalTACapacityOverview();
+  }
+  if (monthId === "grand_total_excluding_feb_delta") {
+    return getGrandTotalExcludingFebDeltaTACapacityOverview();
   }
   
   const monthData = taCapacityOverviewData.find((item) => item.monthId === monthId);
