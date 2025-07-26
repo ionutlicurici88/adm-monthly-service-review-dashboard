@@ -27,9 +27,8 @@ const MonthViewContent = ({
   getMonthTaskData,
   getMonthStoryPointsData,
 }: MonthViewContentProps) => {
-  // Determine if we should show the capacity trend chart
-  // Hide chart for feb, mar, apr, and may selections
-  const shouldShowCapacityTrend = !['feb', 'mar', 'apr', 'may'].includes(selectedMonthId);
+  // Show capacity trend chart for aggregate views only, not individual months
+  const shouldShowCapacityTrend = ['grand_total', 'total'].includes(selectedMonthId);
 
   switch (currentOverview) {
     case "capacity":

@@ -12,11 +12,14 @@ const MonthCapacityTrend = ({ data, excludeS1Data = false }: MonthCapacityTrendP
 
   // Define the desired order for months in the chart
   const baseMonthOrder: Record<string, number> = {
-    [s1MonthId]: 0, // "Jan & Feb S1"
-    "feb": 1,       // February
-    "mar": 2,       // March
-    "apr": 3,       // April
-    "may": 4,       // May
+    [s1MonthId]: 0,   // "Jan & Feb S1"
+    "feb": 1,         // February
+    "mar": 2,         // March
+    "apr": 3,         // April
+    "may": 4,         // May
+    "june": 5,        // June
+    "july": 6,        // July
+    "aug": 7,         // August
   };
 
   // Process data for chart display
