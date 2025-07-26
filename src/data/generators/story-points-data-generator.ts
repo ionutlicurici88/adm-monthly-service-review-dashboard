@@ -73,21 +73,21 @@ export const generateAllSprintsExcludeFirstStoryPointsOverview = (sprintsData: S
  * Generate aggregated monthly story points data
  */
 export const generateAllMonthsStoryPointsOverview = (): StoryPointsOverview => {
-  // Per user request, use specific values for All Months (Excluding S1)
+  // Updated values per user's provided table for "All Months (Excluding S1)"
   return {
     sprintId: 201,
     sprintNumber: 0,
     startDate: "2025-02-05",
-    endDate: "2025-04-01",
-    estimatedSTP: 342,
-    extraSTP: 175,
-    deliveredSTP: 469,
-    leftoverSTP: 46, // Calculated as sum of leftover STP from the included months
-    sprintVelocityPercentage: 137,
-    velocityVsTarget: 1.27,
+    endDate: "2025-08-05",
+    estimatedSTP: 440,
+    extraSTP: 749,
+    deliveredSTP: 913,
+    leftoverSTP: 276,
+    sprintVelocityPercentage: 208, // Updated to match user's table
+    velocityVsTarget: 0.66, // Updated to match user's table (66%)
     monthId: "total",
     monthName: "All Months (Excluding S1)",
-    totalSprints: 6,
+    totalSprints: 15,
   };
 };
 
@@ -104,9 +104,9 @@ export const generateGrandTotalStoryPointsOverview = (monthsData: StoryPointsOve
   const totalLeftoverSTP = sumProperty(monthsData, 'leftoverSTP');
   const totalSprints = sumProperty(monthsData, 'totalSprints');
   
-  // Use the required fixed values
-  const sprintVelocityPercentage = 133;
-  const velocityVsTarget = 1.19;
+  // Updated values per user's provided table for "Grand Total"
+  const sprintVelocityPercentage = 196; // Updated to match user's table  
+  const velocityVsTarget = 0.67; // Updated to match user's table (67%)
 
   return {
     sprintId: 202,
