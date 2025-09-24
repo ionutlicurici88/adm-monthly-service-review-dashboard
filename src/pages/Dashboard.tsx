@@ -17,6 +17,7 @@ const months = [
   { id: "june", name: "June" },
   { id: "july", name: "July" },
   { id: "aug", name: "August" },
+  { id: "sep", name: "September" },
 ];
 
 const taMonths = [
@@ -28,6 +29,7 @@ const taMonths = [
   { id: "june", name: "June" },
   { id: "july", name: "July" },
   { id: "aug", name: "August" },
+  { id: "sep", name: "September" },
 ];
 
 const Dashboard = () => {
