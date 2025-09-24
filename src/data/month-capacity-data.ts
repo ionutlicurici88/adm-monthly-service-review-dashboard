@@ -7,15 +7,27 @@ import {
 // Month Capacity Overview Data
 export const monthCapacityOverviewData: MonthCapacityOverview[] = [
   {
-    monthId: "jan_feb_s1",
-    monthName: "Jan & Feb S1",
-    workingDaysAvailable: 7,
-    availableCapacity: 56,
+    monthId: "jan_s1",
+    monthName: "Jan S1",
+    workingDaysAvailable: 5,
+    availableCapacity: 40,
     contractedCapacity: 0,
     plannedHoliday: 1,
-    plannedCapacity: 55,
+    plannedCapacity: 39,
     unplannedHoliday: 0,
-    deliveredCapacity: 55,
+    deliveredCapacity: 39,
+    capacityPercentage: 100,
+  },
+  {
+    monthId: "feb_s1",
+    monthName: "Feb S1",
+    workingDaysAvailable: 2,
+    availableCapacity: 16,
+    contractedCapacity: 0,
+    plannedHoliday: 0,
+    plannedCapacity: 16,
+    unplannedHoliday: 0,
+    deliveredCapacity: 16,
     capacityPercentage: 100,
   },
   {
@@ -66,7 +78,7 @@ export const monthCapacityOverviewData: MonthCapacityOverview[] = [
     deliveredCapacity: 140,
     capacityPercentage: 100,
   },
-  { // New June Data
+  {
     monthId: "june",
     monthName: "June",
     workingDaysAvailable: 20,
@@ -74,11 +86,11 @@ export const monthCapacityOverviewData: MonthCapacityOverview[] = [
     contractedCapacity: 152,
     plannedHoliday: 9,
     plannedCapacity: 151,
-    unplannedHoliday: 1,
-    deliveredCapacity: 150,
-    capacityPercentage: 99,
+    unplannedHoliday: 0,
+    deliveredCapacity: 151,
+    capacityPercentage: 100,
   },
-  { // New July Data
+  {
     monthId: "july",
     monthName: "July",
     workingDaysAvailable: 23,
@@ -86,21 +98,33 @@ export const monthCapacityOverviewData: MonthCapacityOverview[] = [
     contractedCapacity: 171,
     plannedHoliday: 20,
     plannedCapacity: 187,
-    unplannedHoliday: 2,
-    deliveredCapacity: 185,
-    capacityPercentage: 99,
+    unplannedHoliday: 0,
+    deliveredCapacity: 187,
+    capacityPercentage: 100,
   },
-  { // New August Data
+  {
     monthId: "aug",
     monthName: "August",
     workingDaysAvailable: 20,
     availableCapacity: 180,
     contractedCapacity: 171,
-    plannedHoliday: 9,
-    plannedCapacity: 171,
-    unplannedHoliday: 3,
-    deliveredCapacity: 168,
-    capacityPercentage: 98,
+    plannedHoliday: 34,
+    plannedCapacity: 146,
+    unplannedHoliday: 1,
+    deliveredCapacity: 145,
+    capacityPercentage: 99,
+  },
+  {
+    monthId: "sep",
+    monthName: "September",
+    workingDaysAvailable: 22,
+    availableCapacity: 198,
+    contractedCapacity: 171,
+    plannedHoliday: 1,
+    plannedCapacity: 197,
+    unplannedHoliday: 0,
+    deliveredCapacity: 197,
+    capacityPercentage: 100,
   },
 ];
 
@@ -119,6 +143,6 @@ export const getGrandTotalCapacityOverview = (): MonthCapacityOverview => {
 // Get all months excluding S1 data
 export const getMonthsExcludingS1CapacityOverview = (): MonthCapacityOverview[] => {
   return monthCapacityOverviewData.filter(
-    item => item.monthId !== "jan_feb_s1" 
+    item => item.monthId !== "jan_s1" && item.monthId !== "feb_s1"
   );
 };
