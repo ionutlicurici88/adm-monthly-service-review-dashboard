@@ -102,6 +102,18 @@ export const taCapacityOverviewData: MonthCapacityOverview[] = [
     deliveredCapacity: 20,
     capacityPercentage: 100,
   },
+  {
+    monthId: "sep",
+    monthName: "September",
+    workingDaysAvailable: 22,
+    availableCapacity: 22,
+    contractedCapacity: 19,
+    plannedHoliday: 0,
+    plannedCapacity: 22,
+    unplannedHoliday: 0,
+    deliveredCapacity: 22,
+    capacityPercentage: 100,
+  },
 ];
 
 // Calculate total for TA data (excluding nothing - all months included in "Total")
@@ -110,14 +122,14 @@ export const getAllTACapacityOverview = (): MonthCapacityOverview => {
   return {
     monthId: "total",
     monthName: "Total",
-    workingDaysAvailable: 130,
-    availableCapacity: 130,
-    contractedCapacity: 119,
+    workingDaysAvailable: 152,
+    availableCapacity: 152,
+    contractedCapacity: 138,
     plannedHoliday: 17,
-    plannedCapacity: 113,
+    plannedCapacity: 135,
     unplannedHoliday: 2,
-    deliveredCapacity: 111,
-    capacityPercentage: 98,
+    deliveredCapacity: 133,
+    capacityPercentage: 99,
   };
 };
 
@@ -127,14 +139,14 @@ export const getGrandTotalTACapacityOverview = (): MonthCapacityOverview => {
   return {
     monthId: "grand_total",
     monthName: "Grand Total",
-    workingDaysAvailable: 145,
-    availableCapacity: 145,
-    contractedCapacity: 119,
+    workingDaysAvailable: 167,
+    availableCapacity: 167,
+    contractedCapacity: 138,
     plannedHoliday: 17,
-    plannedCapacity: 128,
+    plannedCapacity: 150,
     unplannedHoliday: 2,
-    deliveredCapacity: 126,
-    capacityPercentage: 98,
+    deliveredCapacity: 148,
+    capacityPercentage: 99,
   };
 };
 
