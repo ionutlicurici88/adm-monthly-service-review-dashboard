@@ -72,22 +72,87 @@ export const generateAllSprintsExcludeFirstStoryPointsOverview = (sprintsData: S
 /**
  * Generate aggregated monthly story points data
  */
-export const generateAllMonthsStoryPointsOverview = (): StoryPointsOverview => {
-  // Updated values per user's provided table for "All Months (Excluding S1)"
+export const generateAllMonthsStoryPointsOverview = (monthsData?: StoryPointsOverview[]): StoryPointsOverview => {
+  // If no data is provided, return fallback values
+  if (!monthsData || monthsData.length === 0) {
+    return {
+      sprintId: 201,
+      sprintNumber: 0,
+      startDate: "2025-02-05",
+      endDate: "2025-09-16",
+      estimatedSTP: 0,
+      extraSTP: 0,
+      deliveredSTP: 0,
+      leftoverSTP: 0,
+      sprintVelocityPercentage: 0,
+      velocityVsTarget: 0,
+      monthId: "total",
+      monthName: "All Months (Excluding Jan & Feb S1)",
+      totalSprints: 0,
+    };
+  }
+  
+  // Filter out S1 data (jan_feb_s1)
+  const regularMonths = monthsData.filter(
+    (month: StoryPointsOverview) => month.monthId !== "jan_feb_s1"
+  );
+  
+  if (regularMonths.length === 0) {
+    // Fallback if no data after filtering
+    return {
+      sprintId: 201,
+      sprintNumber: 0,
+      startDate: "2025-02-05",
+      endDate: "2025-09-16",
+      estimatedSTP: 0,
+      extraSTP: 0,
+      deliveredSTP: 0,
+      leftoverSTP: 0,
+      sprintVelocityPercentage: 0,
+      velocityVsTarget: 0,
+      monthId: "total",
+      monthName: "All Months (Excluding Jan & Feb S1)",
+      totalSprints: 0,
+    };
+  }
+
+  const firstMonth = regularMonths[0];
+  const lastMonth = regularMonths[regularMonths.length - 1];
+  
+  const totalEstimatedSTP = sumProperty(regularMonths, 'estimatedSTP');
+  const totalExtraSTP = sumProperty(regularMonths, 'extraSTP');
+  const totalDeliveredSTP = sumProperty(regularMonths, 'deliveredSTP');
+  const totalLeftoverSTP = sumProperty(regularMonths, 'leftoverSTP');
+  const totalSprints = sumProperty(regularMonths, 'totalSprints');
+  
+  // Calculate sprint velocity percentage (delivered vs estimated)
+  const sprintVelocityPercentage = calculatePercentage(totalDeliveredSTP, totalEstimatedSTP);
+  
+  // Calculate velocity vs target as a weighted average
+  let totalVelocityVsTarget = 0;
+  let totalDeliveredForWeighting = 0;
+  
+  regularMonths.forEach((month: StoryPointsOverview) => {
+    totalVelocityVsTarget += month.velocityVsTarget * month.deliveredSTP;
+    totalDeliveredForWeighting += month.deliveredSTP;
+  });
+  
+  const velocityVsTarget = totalDeliveredForWeighting > 0 ? totalVelocityVsTarget / totalDeliveredForWeighting : 0;
+
   return {
     sprintId: 201,
     sprintNumber: 0,
-    startDate: "2025-02-05",
-    endDate: "2025-08-05",
-    estimatedSTP: 440,
-    extraSTP: 749,
-    deliveredSTP: 913,
-    leftoverSTP: 276,
-    sprintVelocityPercentage: 208, // Updated to match user's table
-    velocityVsTarget: 0.66, // Updated to match user's table (66%)
+    startDate: firstMonth.startDate,
+    endDate: lastMonth.endDate,
+    estimatedSTP: totalEstimatedSTP,
+    extraSTP: totalExtraSTP,
+    deliveredSTP: totalDeliveredSTP,
+    leftoverSTP: totalLeftoverSTP,
+    sprintVelocityPercentage: sprintVelocityPercentage,
+    velocityVsTarget: velocityVsTarget,
     monthId: "total",
-    monthName: "All Months (Excluding S1)",
-    totalSprints: 15,
+    monthName: "All Months (Excluding Jan & Feb S1)",
+    totalSprints: totalSprints,
   };
 };
 
@@ -104,9 +169,19 @@ export const generateGrandTotalStoryPointsOverview = (monthsData: StoryPointsOve
   const totalLeftoverSTP = sumProperty(monthsData, 'leftoverSTP');
   const totalSprints = sumProperty(monthsData, 'totalSprints');
   
-  // Updated values per user's provided table for "Grand Total"
-  const sprintVelocityPercentage = 196; // Updated to match user's table  
-  const velocityVsTarget = 0.67; // Updated to match user's table (67%)
+  // Calculate sprint velocity percentage (delivered vs estimated)
+  const sprintVelocityPercentage = calculatePercentage(totalDeliveredSTP, totalEstimatedSTP);
+  
+  // Calculate velocity vs target as a weighted average
+  let totalVelocityVsTarget = 0;
+  let totalDeliveredForWeighting = 0;
+  
+  monthsData.forEach((month: StoryPointsOverview) => {
+    totalVelocityVsTarget += month.velocityVsTarget * month.deliveredSTP;
+    totalDeliveredForWeighting += month.deliveredSTP;
+  });
+  
+  const velocityVsTarget = totalDeliveredForWeighting > 0 ? totalVelocityVsTarget / totalDeliveredForWeighting : 0;
 
   return {
     sprintId: 202,

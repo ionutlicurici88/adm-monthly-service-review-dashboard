@@ -147,7 +147,7 @@ export const monthStoryPointsOverviewData: StoryPointsOverview[] = [
 // This function in the generator provides hardcoded values.
 // Its behavior regarding exclusion logic is self-contained in the generator.
 export const getAllMonthsStoryPointsOverview = (): StoryPointsOverview => {
-  return generateAllMonthsStoryPointsOverview(); // Generator uses its own logic/data
+  return generateAllMonthsStoryPointsOverview(monthStoryPointsOverviewData);
 };
 
 // Helper function to get grand total including all data
