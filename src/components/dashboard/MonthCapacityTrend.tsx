@@ -20,6 +20,7 @@ const MonthCapacityTrend = ({ data, excludeS1Data = false }: MonthCapacityTrendP
     "june": 5,        // June
     "july": 6,        // July
     "aug": 7,         // August
+    "sep": 8,         // September
   };
 
   // Process data for chart display
